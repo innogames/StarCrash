@@ -13,13 +13,16 @@ var game = {
 		renderer: {},
 		clock: {},
 		tick: 0,
-		animate: null
+		animate: null,
+		particelEngine: null
+
 	},
 	init: null,
 	util: {},
 	player: player,
 	world: world
-};
+},
+scene;
 
 // animation-loop
 game.engine.animate = function animate() {
@@ -47,6 +50,7 @@ game.engine.animate = function animate() {
 
 	// render
 	game.engine.renderer.render(game.engine.scene, game.engine.camera);
+	game.engine.particelEngine.update(tDelta * 0.5);
 
 	// tick
 	this.tick += 1;
@@ -132,9 +136,17 @@ game.init = function init() {
 
 	// load the map
 	game.world.loadMap(function() {
+		scene = game.engine.scene;
+
+		game.engine.particelEngine = new ParticleEngine();
+		Examples.candle.positionBase = new THREE.Vector3(0,-55,350);
+ 		game.engine.particelEngine.setValues( Examples.candle); 
+		game.engine.particelEngine.initialize();
 		game.player.init();
 
 		// start animation loop
 		engine.animate();
 	});
+
+
 };
