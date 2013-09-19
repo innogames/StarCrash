@@ -1,0 +1,52 @@
+body {
+	position: relative;
+	margin: 0;
+	background-color: #000;
+	overflow: hidden;
+	font-family: arial;
+	color: white
+}
+
+#fps {
+	position: absolute;
+	top: 10px;
+	right: 10px
+}
+
+#arrow-wrap {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0
+}
+
+#arrows {
+	width: 420px;
+	margin: 0 auto
+}
+
+.arrow {
+	cursor: pointer;
+	float: left;
+	text-align: center;
+	font-size: 40px;
+	width: 80px;
+	height: 54px;
+	margin: 10px;
+	background: rgba(20, 20, 120, 0.5);
+	border: 2px solid white;
+	border-radius: 5px
+}
+
+.arrow:hover {
+	background: rgba(20, 20, 120, 0.8);
+}
+
+.inactive {
+	background: rgba(10, 10, 10, 0.5);
+	border: 2px solid grey
+}
+
+.inactive:hover {
+	background: rgba(10, 10, 10, 0.8);
+}

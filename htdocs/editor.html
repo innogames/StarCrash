@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="js/tools/editor/editor.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/editor.css">
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:300,400' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<div id="interfaceTop" style="display: none">
+	<div class="interfaceSection">
+		brush:<br>
+		<img src="img/editor/brush_cell_1.png" class="brush" onclick="selectBrush(this)"></img>
+		<img src="img/editor/brush_cell_2.png" class="brush" onclick="selectBrush(this)"></img>
+		<img src="img/editor/brush_cell_3.png" class="brush" onclick="selectBrush(this)"></img>
+	</div>
+	<div class="interfaceSection">
+		position:<br>
+		<div id="cursorInfo" style="float: left"></div>
+	</div>
+
+</div>
+
+<div id="createNew" class="modal">
+	<div class="modalHeadline"><b>Create new map</b></div>
+	<table>
+		<tr>
+			<td>width</td>
+			<td><input id="mapInitWidth" type="text" size="3" value="10"></input></td>
+		</tr>
+		<tr>
+			<td>height</td>
+			<td><input id="mapInitHeight" type="text" size="3" value="10"></input></td>
+		</tr>
+	<div><input type="button" value="create" onclick="initializeMap()"></input></div>
+	</table>
+</div>
+
+<div id="editDiv">
+
+</div>
+
+</body>
+</html>
