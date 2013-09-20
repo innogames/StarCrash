@@ -28,9 +28,8 @@ game.engine.animate = function animate() {
 	var tDelta = game.engine.clock.getDelta();
 
 	// fps
-	if (this.tick % 30 === 0) {
-		console.log(this.fpsDiv, document.getElementById('fps)'), 1 / tDelta);
-		this.fpsDiv.innerHTML = ~~(1 / tDelta);
+	if (game.engine.tick % 30 === 0) {
+		game.engine.fpsDiv.innerHTML = ~~(1 / tDelta);
 	}
 
 	// debug-controls
@@ -54,7 +53,7 @@ game.engine.animate = function animate() {
 	game.engine.renderer.render(game.engine.scene, game.engine.camera);
 
 	// tick
-	this.tick += 1;
+	game.engine.tick += 1;
 };
 
 game.util.loader = function loader(callback) {
@@ -99,21 +98,20 @@ game.util.loader = function loader(callback) {
 
 // initializes the game
 game.init = function init() {
-	var engine = game.engine,
-		container = document.getElementById('container');
+	var container = document.getElementById('container');
 
-	engine.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 4096);
-	engine.fpsDiv =  document.getElementById('fps');
-	engine.scene =  new THREE.Scene();
-	engine.clock = new THREE.Clock();
+	game.engine.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 4096);
+	game.engine.fpsDiv =  document.getElementById('fps');
+	game.engine.scene =  new THREE.Scene();
+	game.engine.clock = new THREE.Clock();
 
 	// add cam
-	engine.scene.add(this.engine.camera);
+	game.engine.scene.add(this.engine.camera);
 
 	// init and append renderer
-	engine.renderer = new THREE.WebGLRenderer({antialias:true});
-	engine.renderer.setSize(window.innerWidth, window.innerHeight);
-	container.appendChild(engine.renderer.domElement);
+	game.engine.renderer = new THREE.WebGLRenderer({antialias:true});
+	game.engine.renderer.setSize(window.innerWidth, window.innerHeight);
+	container.appendChild(game.engine.renderer.domElement);
 
 	// keydown-listener
 	window.addEventListener('keydown', function(event) {
@@ -127,9 +125,9 @@ game.init = function init() {
 
 	// resize-listener
 	window.addEventListener('resize', function() {
-		engine.camera.aspect = window.innerWidth / window.innerHeight;
-		engine.camera.updateProjectionMatrix();
-		engine.renderer.setSize(window.innerWidth, window.innerHeight);
+		game.engine.camera.aspect = window.innerWidth / window.innerHeight;
+		game.engine.camera.updateProjectionMatrix();
+		game.engine.renderer.setSize(window.innerWidth, window.innerHeight);
 	}, false);
 
 	// load models
@@ -145,6 +143,6 @@ game.init = function init() {
 		game.player.init();
 
 		// start animation loop
-		engine.animate();
+		game.engine.animate();
 	});
 };
