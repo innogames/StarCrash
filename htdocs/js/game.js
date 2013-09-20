@@ -14,15 +14,14 @@ var game = {
 		clock: {},
 		tick: 0,
 		animate: null,
-		particelEngine: null
+		particleEngine: null
 
 	},
 	init: null,
 	util: {},
 	player: player,
 	world: world
-},
-scene;
+};
 
 // animation-loop
 game.engine.animate = function animate() {
@@ -30,7 +29,7 @@ game.engine.animate = function animate() {
 
 	// fps
 	if (this.tick % 30 === 0) {
-		//console.log(this.fpsDiv, document.getElementById('fps)'));
+		console.log(this.fpsDiv, document.getElementById('fps)'), 1 / tDelta);
 		this.fpsDiv.innerHTML = ~~(1 / tDelta);
 	}
 
@@ -48,28 +47,29 @@ game.engine.animate = function animate() {
 	// request next frame
 	requestAnimationFrame(animate);
 
+	//update particle-engine
+	game.engine.particleEngine.update(tDelta * 0.5);
+
 	// render
 	game.engine.renderer.render(game.engine.scene, game.engine.camera);
-	game.engine.particelEngine.update(tDelta * 0.5);
 
 	// tick
 	this.tick += 1;
 };
 
-game.util.loader = function loader() {
+game.util.loader = function loader(callback) {
 	var that = this,
 		geometries = {},
 		materials = {},
-		loader = new THREE.JSONLoader(),
+		jsonLoader = new THREE.JSONLoader(),
 		modelList = ['xcube', 'icube', 'aim'],
 		i;
 
-	// load models
-	for (i = 0; i < modelList; i++) {
+	for (i = 0; i < modelList.length; i++) {
 		(function(i) {
-			loader.load("models/" + modelList[i] + ".js", function (geometry, material) {
-				geometries[that.cubes[i]] = geometry;
-				materials[that.cubes[i]] = material;
+			jsonLoader.load("models/" + modelList[i] + ".js", function (geometry, material) {
+				geometries[modelList[i]] = geometry;
+				materials[modelList[i]] = material;
 
 				// is player model
 				if (modelList[i] === 'aim') {
@@ -89,9 +89,7 @@ game.util.loader = function loader() {
 				if (i === modelList.length - 1) {
 					// TODO: yeah, this kinda sucks, but else it will fuck up the last model loaded
 					setTimeout(function() {
-						world.addMeshes();
-
-						callback();
+						callback(geometries, materials);
 					}, 200);
 				}
 			});
@@ -134,19 +132,19 @@ game.init = function init() {
 		engine.renderer.setSize(window.innerWidth, window.innerHeight);
 	}, false);
 
-	// load the map
-	game.world.loadMap(function() {
-		scene = game.engine.scene;
+	// load models
+	game.util.loader(function(geometries, materials) {
+		game.world.initMap(geometries, materials);
 
-		game.engine.particelEngine = new ParticleEngine();
+		// setup particle-engine
+		game.engine.particleEngine = new ParticleEngine();
 		Examples.candle.positionBase = new THREE.Vector3(0,-55,350);
- 		game.engine.particelEngine.setValues( Examples.candle); 
-		game.engine.particelEngine.initialize();
+		game.engine.particleEngine.setValues(Examples.candle);
+		game.engine.particleEngine.initialize();
+
 		game.player.init();
 
 		// start animation loop
 		engine.animate();
 	});
-
-
 };

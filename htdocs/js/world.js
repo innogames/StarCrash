@@ -78,60 +78,18 @@ var world = {
 		game.engine.scene.add(mesh);
 	},
 
-	loadMap: function loadMap(callback) {
-		var x,
-			y,
-			name,
-			geometries = {},
-			materials = {},
-			loader = new THREE.JSONLoader(),
-			that = this,
-			modelList = that.cubes;
 
-		modelList.push('aim');
+	initMap: function initMap(geometries, materials) {
+		// iterate through map
+		for (x = 0; x < this.map.length; x++) {
+			for (y = 0; y < this.map.length; y++) {
 
-		// load models
-		for (i = 0; i < this.cubes.length; i++) {
-			(function(i) {
-				loader.load("models/" + that.cubes[i] + ".js", function (geometry, material) {
-					geometries[that.cubes[i]] = geometry;
-					materials[that.cubes[i]] = material;
-
-					// last model loaded -> add geometries to scene
-					if (i === that.cubes.length - 1) {
-
-						// TODO: i don't know why xcube isn't loaded on time...
-						setTimeout(function() {
-
-
-							// create mesh
-							materials['aim'].shading = THREE.SmoothShading;
-							game.player.model = new THREE.Mesh(geometries['aim'], new THREE.MeshFaceMaterial( materials['aim'] ));
-
-							game.player.model.geometry.computeVertexNormals();
-							game.player.model.geometry.computeFaceNormals();
-
-
-							// add mesh to scene
-							game.engine.scene.add(game.player.model);
-
-							// iterate through map
-							for (x = 0; x < that.map.length; x++) {
-								for (y = 0; y < that.map.length; y++) {
-
-									// coordinate has mesh
-									if (that.map[x][y] !== 0) {
-										// adds meshes and their lights
-										that.addMesh(x, y, geometries, materials);
-									}
-								}
-							}
-
-							callback();
-						}, 200);
-					}
-				});
-			})(i);
+				// coordinate has mesh
+				if (this.map[x][y] !== 0) {
+					// adds meshes and their lights
+					this.addMesh(x, y, geometries, materials);
+				}
+			}
 		}
 	}
 };

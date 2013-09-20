@@ -23,8 +23,8 @@
 	"colorDiffuse" : [0.588, 0.588, 0.588],
 	"colorSpecular" : [0.0, 0.0, 0.0],
 	"illumination" : 2,
-	"mapAmbient" : "cube.jpg",
-	"mapDiffuse" : "cube.jpg",
+	"mapAmbient" : "../../img/textures/cube.jpg",
+	"mapDiffuse" : "../../img/textures/cube.jpg",
 	"opticalDensity" : 1.5,
 	"specularCoef" : 10.0,
 	"transparency" : 0.0

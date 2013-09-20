@@ -6,4 +6,4 @@ var express = require("express"),
 app.use(express.static(__dirname + '/htdocs'));
 
 server.listen(80);
-console.log("Server started");
+console.log("Server started.");
