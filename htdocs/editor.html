@@ -1,45 +1,114 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-	<script src="js/editor.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/editor.css">
-	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:300,400' rel='stylesheet' type='text/css'>
-</head>
-<body>
+	<head>
+		<title></title>
+		<script src="js/tools/require.js"></script>
+		<script src="js/tools/editor/editor.js"></script>
+		<script src="js/tools/editor/tabs.js"></script>
 
-<div id="interfaceTop" style="display: none">
-	<div class="interfaceSection">
-		brush:<br>
-		<img src="img/editor/brush_cell_1.png" class="brush" onclick="selectBrush(this)"></img>
-		<img src="img/editor/brush_cell_2.png" class="brush" onclick="selectBrush(this)"></img>
-		<img src="img/editor/brush_cell_3.png" class="brush" onclick="selectBrush(this)"></img>
-	</div>
-	<div class="interfaceSection">
-		position:<br>
-		<div id="cursorInfo" style="float: left"></div>
-	</div>
+		<link rel="stylesheet" type="text/css" href="css/editor.css">
+		<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:300,400' rel='stylesheet' type='text/css'>
+	</head>
+	<body>
 
-</div>
+		<div id="interfaceLeft" style="display: none">
+			<div class="interfaceSection">
+				<div id="cursorInfo"></div>
+			</div>
+			<br>
 
-<div id="createNew" class="modal">
-	<div class="modalHeadline"><b>Create new map</b></div>
-	<table>
-		<tr>
-			<td>width</td>
-			<td><input id="mapInitWidth" type="text" size="3" value="10"></input></td>
-		</tr>
-		<tr>
-			<td>height</td>
-			<td><input id="mapInitHeight" type="text" size="3" value="10"></input></td>
-		</tr>
-	<div><input type="button" value="create" onclick="initializeMap()"></input></div>
-	</table>
-</div>
+			<div class="interfaceSection">
+				brush:<br>
+				<table>
+					<tr>
+						<td><img src="img/editor/brush_cell_x1.png" class="brush" onclick="selectBrush(this)"></img></td>
+					</tr>
+					<tr>
+						<td><img src="img/editor/brush_cell_i1.png" class="brush" onclick="selectBrush(this)"></img></td>
+						<td><img src="img/editor/brush_cell_i2.png" class="brush" onclick="selectBrush(this)"></img></td>
+					</tr>
+					<tr>
+						<td><img src="img/editor/brush_cell_t1.png" class="brush" onclick="selectBrush(this)"></img></td>
+						<td><img src="img/editor/brush_cell_t2.png" class="brush" onclick="selectBrush(this)"></img></td>
+						<td><img src="img/editor/brush_cell_t3.png" class="brush" onclick="selectBrush(this)"></img></td>
+						<td><img src="img/editor/brush_cell_t4.png" class="brush" onclick="selectBrush(this)"></img></td>
+					</tr>
+					<tr>
+						<td><img src="img/editor/brush_cell_l1.png" class="brush" onclick="selectBrush(this)"></img></td>
+						<td><img src="img/editor/brush_cell_l2.png" class="brush" onclick="selectBrush(this)"></img></td>
+						<td><img src="img/editor/brush_cell_l3.png" class="brush" onclick="selectBrush(this)"></img></td>
+						<td><img src="img/editor/brush_cell_l4.png" class="brush" onclick="selectBrush(this)"></img></td>
+					</tr>
+					<tr>
+						<td><img src="img/editor/brush_delete.png" class="brush" id="brush_delete"
+								 onclick="selectBrush(this)"></img></td>
+						<td><img src="img/editor/select.png" class="brush" id="brush_select"
+								 onclick="selectBrush(this)"></img></td>
+					</tr>
+				</table>
+			</div>
+			<br>
+		</div>
 
-<div id="editDiv">
+		<div id="createNew" class="modal">
+			<div class="modalHeadline"><b>Create new map</b></div>
+			<table>
+				<tr>
+					<td>width</td>
+					<td><input id="mapInitWidth" type="text" size="3" value="10"></input></td>
+				</tr>
+				<tr>
+					<td>height</td>
+					<td><input id="mapInitHeight" type="text" size="3" value="10"></input></td>
+				</tr>
+				<div><input type="button" value="create" onclick="initializeMap()"></input></div>
+			</table>
+		</div>
 
-</div>
 
-</body>
+		<div id="tabs">
+			<div>
+				<div class="tabButton selected" onclick="javascript:onTabButtonClick('page1', this)">grid</div>
+				<div class="tabButton" onclick="javascript:onTabButtonClick('page2', this)">script</div>
+			</div>
+
+			<div class="clear"></div>
+
+			<div id="tabCtrl">
+				<div id="page1" style="display: block;">
+					<div id="grid">
+					</div>
+				</div>
+				<div id="page2" style="display: none;">
+					<div id="editor">
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</body>
+		<script>
+
+			var editor;
+			require.config({
+				paths: {
+					'ace': 'js/tools/ace'
+				}
+			});
+
+			require(['ace/ace'], function (ace) {
+				// Set up the editor
+				console.log(ace);
+				editor = ace.edit('editor');
+				editor.setTheme('ace/theme/twilight');
+				editor.getSession().setMode('ace/mode/javascript');
+
+
+				editor.resize();
+			});
+
+		</script>
+
+	</body>
 </html>

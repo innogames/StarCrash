@@ -16,16 +16,17 @@ body {
 
 }
 
-#interfaceTop {
-	height: 65px;
+#interfaceLeft {
 	background-color: #3c3f41;
-	border-bottom: 1px #666666 solid;
+	float: left;
+	width: 10%;
 }
 
 .interfaceSection {
 	float: left;
 	font-size: 15px;
 	padding: 5px;
+	border-bottom: 1px #666666 solid;
 }
 
 .cell {
@@ -48,5 +49,42 @@ body {
 }
 
 .selectedTool {
-	border-bottom: 2px #519ec6 solid;
+	border: 2px #519ec6 solid;
 }
+
+#editor{
+ height: 300px;
+}
+
+#tabs {
+	float: left;
+	width: 90%;
+}
+
+#tabCtrl {
+	border-left: 1px #27292a solid;
+	padding-top: 2px;
+	background-color: #3c3f41;
+}
+
+.tabButton {
+	background-image: url('../img/editor/ui/tab.png');
+	text-align: center;
+	color: #599695;
+	width: 114px;
+	height: 23px;
+	float: left;
+}
+
+.tabButton.selected {
+	background-image: url('../img/editor/ui/tabSelected.png');
+}
+
+.selectedCell {
+	border: #FFFFFF 1px solid;
+}
+
+.clear{
+	clear:both;
+}
+

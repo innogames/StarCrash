@@ -14,8 +14,13 @@ var game = {
 		clock: {},
 		tick: 0,
 		animate: null,
-		particleEngine: null
-
+		particleEngine: null,
+		cameraOffset: {
+			x: 0,
+			y: 2,
+			z: 0
+		},
+		cameraRot: Math.PI
 	},
 	init: null,
 	util: {},

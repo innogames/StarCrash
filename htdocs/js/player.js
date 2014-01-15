@@ -7,6 +7,11 @@ var player = {
 	walkingAnimationSpeed: 0.2,
 	walkingAnimationAmplitude: 0.1,
 	cameraRoatationFactor: 0.003,
+	oldDirection: "down",
+	position: {
+		x: 0,
+		y: 0
+	},
 
 	init: function init() {
 		// add player-light
@@ -15,8 +20,8 @@ var player = {
 		game.engine.scene.add(light);
 
 		// setup camera
-		game.engine.camera.rotation.y = Math.PI;
-		game.engine.camera.position.y = 2;
+		game.engine.camera.rotation.y = game.engine.cameraRot;
+		game.engine.camera.position.y = game.engine.cameraOffset.y;
 
 		// rotate mesh
 		game.engine.camera.add(this.model);
@@ -37,6 +42,54 @@ var player = {
 		this.curMovement[direction] = true;
 		this.oldRot = game.engine.camera.rotation.y;
 		this.setHUD(false);
+	},
+
+	updateNewPosition: function updateNewPosition(direction) {
+		this.curMovement[direction] = false;
+		this.camAnimDuration = 0;
+		this.setHUD(true);
+
+		switch (direction) {
+			case "up":
+				switch(this.oldDirection) {
+					case "up":
+						this.curPos.y--;
+						break;
+					case "down":
+						this.curPos.y++;
+						break;
+				}
+				break;
+			case "down":
+				switch(this.oldDirection) {
+					case "up":
+						this.curPos.y++;
+						break;
+					case "down":
+						this.curPos.y--;
+						break;
+				}
+				break;
+			case "left":
+				switch(this.oldDirection) {
+					case "up":
+						this.curPos.y++;
+						break;
+					case "down":
+						this.curPos.y--;
+						break;
+				}
+				break;
+			case "right":
+				switch(this.oldDirection) {
+					
+				}
+				break;
+		}
+
+		this.oldDirection = direction;
+
+		console.log(this.position);
 	},
 
 	control: function control(tDelta) {
@@ -105,10 +158,8 @@ var player = {
 				this.addWalkingOffset();
 				camera.translateZ(-walkSpeed);
 			} else {
-				this.curMovement.up = false;
 				camera.translateZ(-(world.cubeLen - this.camAnimDuration));
-				this.camAnimDuration = 0;
-				this.setHUD(true);
+				this.updateNewPosition('up');
 			}
 		}
 
@@ -119,10 +170,8 @@ var player = {
 				this.addWalkingOffset();
 				camera.translateZ(walkSpeed);
 			} else {
-				this.curMovement.down = false;
 				camera.translateZ(world.cubeLen - this.camAnimDuration);
-				this.camAnimDuration = 0;
-				this.setHUD(true);
+				this.updateNewPosition('down');
 			}
 		}
 
@@ -132,10 +181,8 @@ var player = {
 				this.camAnimDuration += rotSpeed;
 				camera.rotation.y = this.oldRot + (this.camAnimDuration * Math.PI / 180);
 			} else {
-				this.curMovement.left = false;
 				camera.rotation.y = this.oldRot + (90 * Math.PI / 180);
-				this.camAnimDuration = 0;
-				this.setHUD(true);
+				this.updateNewPosition('left');
 			}
 		}
 
@@ -145,10 +192,8 @@ var player = {
 				this.camAnimDuration += rotSpeed;
 				camera.rotation.y = this.oldRot + (-this.camAnimDuration * Math.PI / 180);
 			} else {
-				this.curMovement.right = false;
 				camera.rotation.y = this.oldRot + (-90 * Math.PI / 180);
-				this.camAnimDuration = 0;
-				this.setHUD(true);
+				this.updateNewPosition('right');
 			}
 		}
 	},
