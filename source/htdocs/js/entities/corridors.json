@@ -1,0 +1,47 @@
+{
+
+	"corridors" : [
+		{
+			"name" : "001",
+			"model" : "path/to/model/file.json",
+
+			"shape" : [
+				[ 1, 0 ],
+				[ 1, 0 ]
+			],
+
+			"rotation" : {
+				"x" : 0,
+				"y" : 0,
+				"z" : 0
+			},
+
+			"offset" : {
+				"x" : 0,
+				"y" : 0,
+				"z" : 0
+			}
+		},
+
+		{
+			"name" : "002",
+			"model" : "path/to/model/file2.json",
+
+			"shape" : [
+				[ 1 ]
+			],
+
+			"rotation" : {
+				"x" : 0,
+				"y" : 0,
+				"z" : 0
+			},
+
+			"offset" : {
+				"x" : 0,
+				"y" : 0,
+				"z" : 0
+			}
+		}
+	]
+}

@@ -1,0 +1,32 @@
+Loading the level file:
+ 	+ iterate over all entities, load the media files and add them to a list
+ 	+ use the shapes of the loaded corridors to create a 2dim array of corridors (collision)
+
+
+
+Entities definition ?:
+
+	"entities" {
+	 	"corridors" : [
+			{
+				"name" : "corr001",
+				"id" : "entity01",
+				"cell" : { x: 0, y : 1},
+			} ....
+		],
+
+		"lights" : [ ... ]
+		"items" : [ ... ]
+	}
+
+
+
+Events supported by the 'engine' ?:
+
+	onGameTimerTick() {}
+	onInput(actionId) {}
+
+	onPlayerEntersCorridor(playerId, corridorId) {}
+	onPlayerLeavesCorridor(playerId, corridorId) {}
+
+
