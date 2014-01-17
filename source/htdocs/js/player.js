@@ -53,30 +53,30 @@ var player = {
 			case "up":
 				switch(this.oldDirection) {
 					case "up":
-						this.curPos.y--;
+						this.position.y--;
 						break;
 					case "down":
-						this.curPos.y++;
+						this.position.y++;
 						break;
 				}
 				break;
 			case "down":
 				switch(this.oldDirection) {
 					case "up":
-						this.curPos.y++;
+						this.position.y++;
 						break;
 					case "down":
-						this.curPos.y--;
+						this.position.y--;
 						break;
 				}
 				break;
 			case "left":
 				switch(this.oldDirection) {
 					case "up":
-						this.curPos.y++;
+						this.position.y++;
 						break;
 					case "down":
-						this.curPos.y--;
+						this.position.y--;
 						break;
 				}
 				break;
@@ -88,8 +88,6 @@ var player = {
 		}
 
 		this.oldDirection = direction;
-
-		console.log(this.position);
 	},
 
 	control: function control(tDelta) {
