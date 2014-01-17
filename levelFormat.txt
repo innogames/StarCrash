@@ -9,7 +9,7 @@ Entities definition ?:
 	"entities" {
 	 	"corridors" : [
 			{
-				"name" : "corr001",
+				"type" : "corr001",
 				"id" : "entity01",
 				"cell" : { x: 0, y : 1},
 			} ....
