@@ -4,23 +4,17 @@
 		<title>Starcrash</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<script data-main="js/main" src="js/libs/require.js"></script>
 	</head>
-	<body onload="game.init()">
-		<script src="js/libs/three.min.js"></script>
-		<script src="js/libs/ParticleEngine.js"></script>
-		<script src="js/libs/ParticleEngineExamples.js"></script>
-		<script src="js/player.js"></script>
-		<script src="js/world.js"></script>
-		<script src="js/game.js"></script>
-
+	<body>
 		<div id="container"></div>
 		<div id="fps"></div>
 		<div id="arrow-wrap">
 			<div id="arrows">
-				<div class="arrow" id="left" onclick="game.player.walk('left')">&larr;</div>
-				<div class="arrow" id="up" onclick="game.player.walk('up')">&uarr;</div>
-				<div class="arrow" id="down" onclick="game.player.walk('down')">&darr;</div>
-				<div class="arrow" id="right" onclick="game.player.walk('right')">&rarr;</div>
+				<div class="arrow" id="left">&larr;</div>
+				<div class="arrow" id="up">&uarr;</div>
+				<div class="arrow" id="down">&darr;</div>
+				<div class="arrow" id="right">&rarr;</div>
 			</div>
 		</div>
 	</body>
