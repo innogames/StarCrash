@@ -38,17 +38,17 @@ define(["THREE", "engine/engine", "engine/world", "modules/keyboard"], function(
 
 			// init player-events
 			for (i = 0; i < directions.length; i++) {
-				elem = document.getElementById(directions[i]);
+				(function(i) {
+					elem = document.getElementById(directions[i]);
 
-				elem.addEventListener('mousedown', function(event) {
-					that.walk(directions[i]);
-				}, false);
+					elem.addEventListener('click', function(event) {
+						that.walk(directions[i]);
+					}, false);
+				}) (i);
 			}
 		},
 
 		walk: function walk(direction) {
-			var arrows = document.getElementsByClassName('arrow');
-
 			// player is already walking
 			if (this.camAnimDuration !== 0) {
 				return;

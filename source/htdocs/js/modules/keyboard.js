@@ -3,6 +3,8 @@ define([], function() {
 		pressed: [],
 
 		init: function init() {
+			var that = this;
+
 			// keydown-listener
 			window.addEventListener('keydown', function(event) {
 				that.pressed[event.keyCode] = true;
