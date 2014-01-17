@@ -1,0 +1,86 @@
+body{
+	font-family: 'Orbitron', sans-serif;
+	background-color: #DDE5E9;
+	padding: 10px;
+}
+
+.available{
+	color: #50A350;
+}
+.notAvailable{
+	color: #9B9B9B;
+}
+
+li i[class^="icon-"],
+li i[class*=" icon-"]{
+	width: 50px;
+	height: 50px;
+	padding: 5px;
+	border: solid 1px grey;
+	border-radius: 3px;
+	text-align: center;
+	background-color: #D8D8D8;
+	display: block;
+	position: relative;
+	margin-bottom: 18px;
+}
+
+li i[class^="icon-arrow-right"]{
+	border: none;
+	background-color: transparent;
+	padding: 15px 0;
+	height: 40px;
+}
+
+li{
+	list-style: none;
+	float: left;
+	margin: 0 3px;
+}
+
+li .name{
+	position: absolute;
+	font-size: 16px;
+	font-family: 'Orbitron', sans-serif;
+	top: 62px;
+	left: 0;
+	width: 62px;
+}
+
+li i .num{
+	font-size: 14px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+ul, h2{
+	clear: both;
+	padding: 0;
+}
+
+ul{
+	overflow: auto;
+	margin-bottom: 20px;
+}
+
+button{
+	font-family: 'Orbitron', sans-serif;
+	width: 80px;
+	padding: 5px;
+	height: 60px;
+	font-weight: 700;
+}
+
+.box{
+	float: left;
+	margin-right: 20px;
+}
+
+.inner_box{
+	border: solid 2px #808080;
+	border-radius: 5px;
+	padding: 10px 20px;
+	width: 500px;
+	background: #CBD6DB;
+}

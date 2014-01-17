@@ -1,0 +1,73 @@
+{
+    "recipes": [
+        {
+            "name": "Amazing Droid",
+            "needed": [
+                {
+                    "id": "I3",
+                    "num": 1
+                },
+                {
+                    "id": "I5",
+                    "num": 3
+                }
+            ],
+            "result": "I4"
+        },
+
+        {
+            "name": "Mighty mutagen",
+            "needed": [
+                {
+                    "id": "I8",
+                    "num": 2
+                },
+                {
+                    "id": "I9",
+                    "num": 1
+                }
+            ],
+            "result": "I10"
+        },
+        {
+            "name": "Supply Kit",
+            "needed": [
+                {
+                    "id": "I3",
+                    "num": 1
+                },
+                {
+                    "id": "I4",
+                    "num": 1
+                },
+                {
+                    "id": "I5",
+                    "num": 1
+                }
+            ],
+            "result": "I7"
+        },
+		{
+            "name": "Rocket",
+            "needed": [
+                {
+                    "id": "I1",
+                    "num": 1
+                },
+                {
+                    "id": "I2",
+                    "num": 1
+                },
+                {
+                    "id": "I3",
+                    "num": 1
+                },
+				{
+                    "id": "I4",
+                    "num": 1
+                }
+            ],
+            "result": "I6"
+        }
+    ]
+}
