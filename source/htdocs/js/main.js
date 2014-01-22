@@ -14,8 +14,8 @@ require.config({
 	}
 });
 
-require(    ["modules/keyboard",    "engine/engine",    "engine/world", "engine/loader",    "engine/player",    "engine/animate", "engine/level", "ui/UIMap"],
-    function(keyboardModule,        engine,             world,          loader,             player,             animate,          Level			, UIMap) {
+require(    ["modules/keyboard",    "engine/engine",    "engine/world", "engine/loader",    "engine/player",	"engine/level", "ui/UIMap", 	"engine/player2", 	"engine/input", "engine/logic"],
+    function(keyboardModule,        engine,             world,          loader,             player,				Level, 			UIMap,			Player2, 			input,			Logic) {
 	// init keyboard-module
 	keyboardModule.init();
 
@@ -24,10 +24,7 @@ require(    ["modules/keyboard",    "engine/engine",    "engine/world", "engine/
 
 
 
-
-
-
-
+	input.init();
 
 
 	// load models
@@ -40,16 +37,30 @@ require(    ["modules/keyboard",    "engine/engine",    "engine/world", "engine/
 		//game.engine.particleEngine.setValues(Examples.candle);
 		//game.engine.particleEngine.initialize();
 
-		player.init();
+		//player.init();
 
 		// start animation loop
-		animate();
 
+
+		var animationCallback = function() {
+			player2.animate();
+			world.updateLights();
+			engine.renderer.render(engine.scene, engine.camera);
+			engine.tick += 1;
+			requestAnimationFrame(animationCallback);
+		};
+
+		var player2 = new Player2(0, 0, engine.camera);
+		engine.scene.add(player2);
+
+		var gameController = new Logic(player2);
+
+		//animate(player2);
 
 		fetchJSONFile("levels/level01.json", function(levelJSON) {
 			var myLevel = new Level(levelJSON);
-			var myUIMap = new UIMap(myLevel, player);
-
+			var myUIMap = new UIMap(myLevel, player2);
+			animationCallback();
 		});
 	});
 });

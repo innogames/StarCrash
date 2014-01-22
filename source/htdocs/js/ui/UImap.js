@@ -40,7 +40,7 @@ define(["engine/Bus"], function(bus) {
 		this.update();
 
 
-		bus.subscribe(bus.PLAYER_MOVED, function(param) {
+		bus.subscribe(bus.EVENT_PLAYER_MOVED, function(param) {
 			self.update();
 		})
 	};
@@ -68,7 +68,7 @@ define(["engine/Bus"], function(bus) {
 				}
 
 
-				if(x == this.player.position.x && y == this.player.position.y) {
+				if(x == this.player.getGridPosition().x && y == this.player.getGridPosition().z) {
 					domElementGirdCell.className = domElementGirdCell.className + " uimap-player";
 				} else {
 					entitiesGridCell = this.level.getEntitiesAt(x, y);

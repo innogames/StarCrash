@@ -5,7 +5,15 @@ define([], function() {
 
 	return {
 
-		PLAYER_MOVED : "player/moved", // @param { x: 0, y: 0 }
+		// Events ===================
+		EVENT_PLAYER_MOVED : "player/moved", // @param { x: 0, y: 0 }
+
+		EVENT_INPUT_TURN_LEFT : "input/turn_left",
+		EVENT_INPUT_TURN_RIGHT : "input/turn_right",
+		EVENT_INPUT_MOVE_BACKWARDS : "input/move_backwards",
+		EVENT_INPUT_MOVE_FORWARDS : "input/move_forwards",
+
+
 
 		subscribe: function subscribe(eventName, callback) {
 

@@ -14,6 +14,11 @@ define(["THREE", "engine/engine", "engine/world", "modules/keyboard", "engine/bu
 			y: 0
 		},
 
+		fakePosition : {
+			x: 0,
+			y: 0
+		},
+
 		init: function init() {
 			// add player-light
 			var light = new THREE.PointLight(0x404040, 2.5, 450),
@@ -31,6 +36,8 @@ define(["THREE", "engine/engine", "engine/world", "modules/keyboard", "engine/bu
 
 			// rotate mesh
 			engine.camera.add(this.model);
+
+			console.log(this.model);
 
 			// setup player-model
 			this.model.position.set(-1.5, -81.5, 11);
@@ -58,7 +65,7 @@ define(["THREE", "engine/engine", "engine/world", "modules/keyboard", "engine/bu
 			this.oldRot = engine.camera.rotation.y;
 			this.setHUD(false);
 
-			bus.post(bus.PLAYER_MOVED, this.position);
+			bus.post(bus.EVENT_PLAYER_MOVED, this);
 		},
 
 		updateNewPosition: function updateNewPosition(direction) {
@@ -218,6 +225,11 @@ define(["THREE", "engine/engine", "engine/world", "modules/keyboard", "engine/bu
 					arrows[i].className = "arrow";
 				}
 			}
+		},
+
+
+		getPosition : function getPosition() {
+			return this.fakePosition;
 		}
 	};
 });

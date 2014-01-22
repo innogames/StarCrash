@@ -17,12 +17,17 @@ define(["THREE", "config"], function(THREE, config) {
 			var container = document.getElementById('container');
 
 			this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 4096);
+			this.camera.name = "TheCamera";
+			this.camera.position.set(this.cameraOffset.x, this.cameraOffset.y, this.cameraOffset.z);
+			this.camera.rotation.y = this.cameraRot;
+
+
 			this.fpsDiv =  document.getElementById('fps');
 			this.scene =  new THREE.Scene();
 			this.clock = new THREE.Clock();
 
 			// add cam
-			this.scene.add(this.camera);
+			//this.scene.add(this.camera);
 
 			// init and append renderer
 			this.renderer = new THREE.WebGLRenderer({antialias:true});
