@@ -1,0 +1,19 @@
+.uimap-grid-element {
+    width: 20px;
+    height: 20px;
+    float: left;
+    border: solid 1px #FFFFFF;
+}
+
+.clear-floating {
+    clear: left;
+}
+
+
+.uimap-corridor {
+    background: #CCCCCC;
+}
+
+.uimap-player {
+    background: #FF0000;
+}

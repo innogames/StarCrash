@@ -1,4 +1,4 @@
-define(["THREE", "engine/engine", "engine/world", "modules/keyboard"], function(THREE, engine, world, keyboardModule) {
+define(["THREE", "engine/engine", "engine/world", "modules/keyboard", "engine/bus"], function(THREE, engine, world, keyboardModule, bus) {
 	return {
 		curMovement: {},
 		camAnimDuration: 0,
@@ -57,6 +57,8 @@ define(["THREE", "engine/engine", "engine/world", "modules/keyboard"], function(
 			this.curMovement[direction] = true;
 			this.oldRot = engine.camera.rotation.y;
 			this.setHUD(false);
+
+			bus.post(bus.PLAYER_MOVED, this.position);
 		},
 
 		updateNewPosition: function updateNewPosition(direction) {

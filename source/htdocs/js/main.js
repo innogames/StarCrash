@@ -14,12 +14,21 @@ require.config({
 	}
 });
 
-require(["modules/keyboard", "engine/engine", "engine/world", "engine/loader", "engine/player", "engine/animate"], function(keyboardModule, engine, world, loader, player, animate) {
+require(    ["modules/keyboard",    "engine/engine",    "engine/world", "engine/loader",    "engine/player",    "engine/animate", "engine/level", "ui/UIMap"],
+    function(keyboardModule,        engine,             world,          loader,             player,             animate,          Level			, UIMap) {
 	// init keyboard-module
 	keyboardModule.init();
 
 	// init engine
 	engine.init();
+
+
+
+
+
+
+
+
 
 	// load models
 	loader(function(geometries, materials) {
@@ -35,5 +44,12 @@ require(["modules/keyboard", "engine/engine", "engine/world", "engine/loader", "
 
 		// start animation loop
 		animate();
+
+
+		fetchJSONFile("levels/level01.json", function(levelJSON) {
+			var myLevel = new Level(levelJSON);
+			var myUIMap = new UIMap(myLevel, player);
+
+		});
 	});
 });

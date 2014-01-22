@@ -1,6 +1,5 @@
-{
-
-	"corridors" : [
+define([], function() {
+	return  [
 		{
 			"type" : "corridorUp",
 			"model" : "models/icube.json",
@@ -24,7 +23,8 @@
 			}
 		},
 
-		"type" : "corridorLeft",
+		{
+			"type" : "corridorLeft",
 			"model" : "models/icube.json",
 
 			"shape" : [
@@ -34,15 +34,15 @@
 			],
 
 			"rotation" : {
-				"x" : 0,
+			"x" : 0,
 				"y" : 90,
 				"z" : 0
 			},
 
 			"offset" : {
 				"x" : 0,
-				"y" : 0,
-				"z" : 0
+					"y" : 0,
+					"z" : 0
 			}
 		},
 
@@ -68,5 +68,5 @@
 				"z" : 0
 			}
 		}
-	]
-}
+]
+});

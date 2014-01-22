@@ -1,0 +1,15 @@
+{
+	"grid" : {
+		"width" : 10,
+		"height" : 10
+	},
+
+	"entities" : [
+
+		{ "type" : "corridorUp", "id" : "myCorridor", 	"gridPosition" : { "x" : 0, "y" : 0 } },
+		{ "type" : "corridorLeft", "id" : "another", 		"gridPosition" : { "x" : 1, "y" : 2 } }
+
+	]
+
+
+}
