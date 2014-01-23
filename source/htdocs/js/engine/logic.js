@@ -5,19 +5,19 @@ define(["THREE", "engine/bus"], function(THREE, bus) {
 		this.player = pPlayer;
 
 		bus.subscribe(bus.EVENT_INPUT_TURN_LEFT, function() {
-			console.log("turn left");
+			pPlayer.turnLeft();
 		});
 
 		bus.subscribe(bus.EVENT_INPUT_TURN_RIGHT, function() {
-			console.log("turn left");
+			pPlayer.turnRight();
 		});
 
 		bus.subscribe(bus.EVENT_INPUT_MOVE_FORWARDS, function() {
-			pPlayer.walk("up");
+			pPlayer.moveForwards();
 		});
 
 		bus.subscribe(bus.EVENT_INPUT_MOVE_BACKWARDS, function() {
-			pPlayer.walk("down");
+			pPlayer.moveBackwards();
 		});
 
 	};

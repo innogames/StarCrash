@@ -1,17 +1,20 @@
-define(["THREE", "engine/bus", "config"], function(THREE, bus, config) {
+define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bus, config, Animation) {
 
+	/**
+	 * Creates a new player by its start position and the scene camera.
+	 * @param gridStartX The x grid coordinate to start.
+	 * @param gridStartZ The y grid coordinate to start.
+	 * @param pCamera The camera of the scene.
+	 * @constructor Creates a new player.
+	 */
 	var Player = function(gridStartX, gridStartZ, pCamera) {
 		THREE.Object3D.call( this );
 		this.name = "ThePlayer";
 		this.setGridPosition(gridStartX, gridStartZ);
 		this.add(pCamera);
 		this.add(new THREE.PointLight(0x404040, 2.5, 450));
-
-		this.currentWalkStartPosition = null;
-		this.currentWalkDirection = null;
-		this.currentWalkStartTime = null;
-
-
+		this.rotation.y = 0;
+		this.currentMovingAnimation = null;
 	};
 
 	Player.prototype = Object.create( THREE.Object3D.prototype );
@@ -20,72 +23,116 @@ define(["THREE", "engine/bus", "config"], function(THREE, bus, config) {
 	 * Returns true if the player is currently walking.
 	 * @returns {*} True if the player is currently walking.
 	 */
-	Player.prototype.isWalking = function() {
-		return ((this.currentWalkDirection != null));
+	Player.prototype.isMoving = function() {
+		return ((this.currentMovingAnimation != null));
+	};
+
+
+	Player.prototype.startMoveAnimation = function(positionOffset, rotationOffset, callback) {
+		var self = this;
+		if (!this.isMoving()) {
+			this.currentMovingAnimation = new Animation(this, positionOffset, rotationOffset, config.movementDurationMillis, function() {
+				self.currentMovingAnimation = null;
+				if (callback != null) callback();
+			});
+		}
+	};
+
+
+	Player.prototype.turnLeft = function() {
+		this.startMoveAnimation(null, { "x": 0, "y" : Math.PI / 2, "z" : 0}, function() {
+			bus.post(bus.EVENT_PLAYER_TURNED, this);
+		});
+	};
+
+	Player.prototype.turnRight = function() {
+		this.startMoveAnimation(null, { "x": 0, "y" : -Math.PI / 2, "z" : 0}, function() {
+			bus.post(bus.EVENT_PLAYER_TURNED, this);
+		});
+	};
+
+
+	/**
+	 * Starts a forward moving animation. Sets the grid position after animation.
+	 */
+	Player.prototype.moveForwards = function() {
+		var self = this,
+			facingDirection = this.getFacingDirection();
+		// calculate movement by facing direction
+		var movementOffset = {
+			"x" : config.gridCellSize * facingDirection.x,
+			"y" : config.gridCellSize * facingDirection.y,
+			"z" : config.gridCellSize * facingDirection.z
+		};
+		this.startMoveAnimation(movementOffset, null, function() {
+			self.gridPosition.x += facingDirection.x;
+			self.gridPosition.y += facingDirection.y;
+			self.gridPosition.z += facingDirection.z;
+			bus.post(bus.EVENT_PLAYER_MOVED, self);
+		});
 	};
 
 	/**
-	 * Starts walking in the assigned direction. Does not start if the player currently is walking.
-	 * @param direction The direction "left", "right", "up" or "down"
+	 * Starts a backward moving animation. Sets the grid position after animation.
 	 */
-	Player.prototype.walk = function(direction) {
+	Player.prototype.moveBackwards = function() {
+		var self = this,
+			facingDirection = this.getFacingDirection();
 
-		console.log("this.position.z: " + this.position.z);
-		if (this.currentWalkStartPosition) {
-			console.log("this.currentWalkStartPosition.z: " + this.currentWalkStartPosition.z);
-		} else {
-			console.log("this.currentWalkStartPosition is null");
-		}
+		// invert facing direction to move backwards
+		facingDirection.x = facingDirection.x * -1;
+		facingDirection.y = facingDirection.y * -1;
+		facingDirection.z = facingDirection.z * -1;
 
-
-		if (! (direction == "left" ||  direction == "right" || direction == "up" || direction == "down")) {
-			console.error("Player can not walk in this unknown direction: " + direction);
-			return;
-		}
-		if (!this.isWalking()) {
-			this.currentWalkStartPosition = { "x": this.position.x, "y": this.position.y, "z": this.position.z};
-			this.currentWalkDirection = direction;
-			this.currentWalkStartTime = new Date().getTime();
-
-			this.gridPosition.x++;
-
-			bus.post(bus.EVENT_PLAYER_MOVED, this);
-		}
+		// calculate movement by facing direction
+		var movementOffset = {
+			"x" : config.gridCellSize * facingDirection.x,
+			"y" : config.gridCellSize * facingDirection.y,
+			"z" : config.gridCellSize * facingDirection.z
+		};
+		this.startMoveAnimation(movementOffset, null, function() {
+			self.gridPosition.x += facingDirection.x;
+			self.gridPosition.y += facingDirection.y;
+			self.gridPosition.z += facingDirection.z;
+			bus.post(bus.EVENT_PLAYER_MOVED, self);
+		});
 	};
 
+
+	/**
+	 * Call every render loop to animate the player.
+	 */
 	Player.prototype.animate = function() {
-		if (this.isWalking()) {
-
-			var alreadyWalkedTime = new Date().getTime() - this.currentWalkStartTime;
-			if ((alreadyWalkedTime / config.walkDurationMillis) < 1) {
-				// interpolate between start and target
-				this.interpolateWalkAnimation((alreadyWalkedTime / config.walkDurationMillis));
-			} else {
-				// make sure the target has been reached exactly.
-				this.interpolateWalkAnimation(1);
-				this.currentWalkStartPosition = null;
-				this.currentWalkDirection = null;
-				this.currentWalkStartTime = null;
-			}
-
-		}
+		if (this.currentMovingAnimation) this.currentMovingAnimation.animate();
 	};
 
-	/**
-	 * Interpolates the position of the player between the start and target position.
-	 * @param interpolationFactor The progress of the animation between 0 (start) and 1 (end)
-	 */
-	Player.prototype.interpolateWalkAnimation = function(interpolationFactor) {
-		var alreadyWalkedDistance =  interpolationFactor * config.gridCellSize;
 
-		if (this.currentWalkDirection == "left") {
-			this.position.x = this.currentWalkStartPosition.x - alreadyWalkedDistance;
-		} else if (this.currentWalkDirection == "right") {
-			this.position.x = this.currentWalkStartPosition.x + alreadyWalkedDistance;
-		} else if (this.currentWalkDirection == "up") {
-			this.position.z = this.currentWalkStartPosition.z + alreadyWalkedDistance;
-		} else if (this.currentWalkDirection == "down") {
-			this.position.z = this.currentWalkStartPosition.z - alreadyWalkedDistance;
+	/**
+	 * Gets a normal vector of the direction the player is facing.
+	 * @returns { x: 1, y: 0, t: 0} A normal vector of the direction the player is facing.
+	 */
+	Player.prototype.getFacingDirection = function() {
+
+		// calculate rotation to fit to the values 0, 1.57, 3.14 or 4.71
+		var modulatedRotation = this.rotation.y % (Math.PI * 2);
+		if (modulatedRotation < 0) modulatedRotation = Math.PI * 2 + modulatedRotation;
+		var roundedRotation = Math.round((modulatedRotation) * 100) / 100;
+
+		if (roundedRotation == 0) {
+			// positive z
+			return { "x": 0, "y" : 0, "z" : 1};
+		} else if (roundedRotation == 1.57) { // Math.PI / 2
+			// positive x
+			return { "x": 1, "y" : 0, "z" : 0};
+		} else if (roundedRotation == 3.14) { // Math.PI
+			// negative z
+			return { "x": 0, "y" : 0, "z" : -1};
+		} else if (roundedRotation == 4.71) { // Math.PI + (Math.PI / 2)
+			// negative x
+			return { "x": -1, "y" : 0, "z" : 0};
+		} else {
+			console.error("Player got undefined facing direction: " + roundedRotation);
+			return null;
 		}
 	};
 
@@ -100,6 +147,9 @@ define(["THREE", "engine/bus", "config"], function(THREE, bus, config) {
 		this.position.z = this.gridPosition.z * config.gridCellSize;
 	};
 
+	/**
+	 * Gets the players position in the grid.
+	 */
 	Player.prototype.getGridPosition = function() {
 		return this.gridPosition;
 	};

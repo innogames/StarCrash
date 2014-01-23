@@ -53,14 +53,23 @@ require(    ["modules/keyboard",    "engine/engine",    "engine/world", "engine/
 		var player2 = new Player2(0, 0, engine.camera);
 		engine.scene.add(player2);
 
+
 		var gameController = new Logic(player2);
 
-		//animate(player2);
+
+		var debugInfoElement = document.getElementById("debugInfo");
+
+		setInterval(function() {
+			debugInfoElement.innerHTML = "player absolute x: " + player2.position.x + " y: " + player2.position.y + " z: " + player2.position.z;
+		}, 300);
 
 		fetchJSONFile("levels/level01.json", function(levelJSON) {
 			var myLevel = new Level(levelJSON);
 			var myUIMap = new UIMap(myLevel, player2);
 			animationCallback();
+
+
+
 		});
 	});
 });

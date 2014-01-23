@@ -7,6 +7,7 @@ define([], function() {
 
 		// Events ===================
 		EVENT_PLAYER_MOVED : "player/moved", // @param { x: 0, y: 0 }
+		EVENT_PLAYER_TURNED : "player/turned", // @param { x: 0, y: 0 }
 
 		EVENT_INPUT_TURN_LEFT : "input/turn_left",
 		EVENT_INPUT_TURN_RIGHT : "input/turn_right",
@@ -40,7 +41,7 @@ define([], function() {
 					console.log("[BUS] " + eventName + " posted to " + listeners.length + " listeners.");
 				}
 			} else {
-				console.log("[BUS] Nobody Subscribed to: " + eventName, this.eventToListenersMap[eventName]);
+				console.log("[BUS] Nobody Subscribed to: " + eventName);
 			}
 		}
 	}
