@@ -14,8 +14,30 @@ require.config({
 	}
 });
 
-require(    ["modules/keyboard",    "engine/engine",    "engine/world", "engine/loader",    "engine/player",	"engine/level", "ui/UIMap", 	"engine/player2", 	"engine/input", "engine/logic"],
-    function(keyboardModule,        engine,             world,          loader,             player,				Level, 			UIMap,			Player2, 			input,			Logic) {
+require(    [	"modules/keyboard",
+				"engine/engine",
+				"engine/world",
+				"engine/loader",
+				"engine/level",
+				"ui/UIMap",
+				"engine/player",
+				"engine/input",
+				"engine/logic",
+				"engine/modelStore"
+			],
+
+    function(	keyboardModule,
+				engine,
+				world,
+				loader,
+				Level,
+				UIMap,
+				Player,
+				input,
+				Logic,
+				modelStore
+			) {
+
 	// init keyboard-module
 	keyboardModule.init();
 
@@ -41,34 +63,35 @@ require(    ["modules/keyboard",    "engine/engine",    "engine/world", "engine/
 
 		// start animation loop
 
+		var player;
 
 		var animationCallback = function() {
-			player2.animate();
+			player.animate();
 			world.updateLights();
 			engine.renderer.render(engine.scene, engine.camera);
 			engine.tick += 1;
 			requestAnimationFrame(animationCallback);
 		};
 
-		var player2 = new Player2(0, 0, engine.camera);
-		engine.scene.add(player2);
-
-
-		var gameController = new Logic(player2);
-
-
-		var debugInfoElement = document.getElementById("debugInfo");
-
-		setInterval(function() {
-			debugInfoElement.innerHTML = "player absolute x: " + player2.position.x + " y: " + player2.position.y + " z: " + player2.position.z;
-		}, 300);
 
 		fetchJSONFile("levels/level01.json", function(levelJSON) {
-			var myLevel = new Level(levelJSON);
-			var myUIMap = new UIMap(myLevel, player2);
-			animationCallback();
 
+			modelStore.load(['xcube', 'icube', 'aim'], function(geometries, materials) {
 
+				player = new Player(0, 0, engine.camera, geometries["aim"], materials["aim"]);
+
+				engine.scene.add(player);
+				var gameController = new Logic(player);
+				var debugInfoElement = document.getElementById("debugInfo");
+				setInterval(function() {
+					debugInfoElement.innerHTML = "player absolute x: " + player.position.x + " y: " + player.position.y + " z: " + player.position.z;
+				}, 300);
+
+				var myLevel = new Level(levelJSON);
+				var myUIMap = new UIMap(myLevel, player);
+				animationCallback();
+
+			});
 
 		});
 	});

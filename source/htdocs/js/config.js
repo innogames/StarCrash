@@ -1,6 +1,6 @@
 define([], function() {
 	return {
-		gridCellSize : 50,
+		gridCellSize : 100,
 		movementDurationMillis : 300,
 		debug: true
 	};
