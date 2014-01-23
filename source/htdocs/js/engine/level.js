@@ -7,23 +7,23 @@ define(["THREE", "entities/entityDefinition"], function(THREE, entityDefinition)
 	 */
 	var Level = function(pLevelJSON) {
 		var tmpRawEntity,
-			i = 0,
-			defIndex;
+			defIndex,
+			i;
 
 		this.rawLevelJSON = pLevelJSON;
 		this.entities = [];
 
-		if (! this.rawLevelJSON) console.error("Error loading level. Level json is null.");
-		if (! this.rawLevelJSON.entities) console.error("Error loading level. The level data got no entities: ", this.rawLevelJSON);
-		if (! this.rawLevelJSON.grid) console.error("Error loading level. Grid is not defined: ", this.rawLevelJSON);
+		if (!this.rawLevelJSON) 			console.error("Error loading level. Level json is null.");
+		if (!this.rawLevelJSON.entities) 	console.error("Error loading level. The level data got no entities: ", this.rawLevelJSON);
+		if (!this.rawLevelJSON.grid) 		console.error("Error loading level. Grid is not defined: ", this.rawLevelJSON);
 
 
 		// Loading all entities of the level
 		for (i = 0; i < this.rawLevelJSON.entities.length; i++) {
 			tmpRawEntity = this.rawLevelJSON.entities[i];
 
-			if (! tmpRawEntity.type) console.error("Error loading level. Entity 'type' is not defined in level data. ", tmpRawEntity);
-			if (! tmpRawEntity.id) console.error("Error loading level. Entity 'id' is not defined in level data. ", tmpRawEntity);
+			if (! tmpRawEntity.type) 	console.error("Error loading level. Entity 'type' is not defined in level data. ", tmpRawEntity);
+			if (! tmpRawEntity.id) 		console.error("Error loading level. Entity 'id' is not defined in level data. ", tmpRawEntity);
 
 			// Add the entity definition.
 			for (defIndex = 0; defIndex < entityDefinition.length; defIndex++) {
@@ -40,6 +40,15 @@ define(["THREE", "entities/entityDefinition"], function(THREE, entityDefinition)
 		}
 
 		console.log("Level initialized. Entities: ", this.entities);
+	};
+
+
+	/**
+	 * Returns an array of model names that are in this level.
+	 * // TODO : implementation
+	 */
+	Level.prototype.getContainingModelNames = function() {
+		return ['xcube', 'icube'];
 	};
 
 	/**

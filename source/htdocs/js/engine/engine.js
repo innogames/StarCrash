@@ -20,7 +20,7 @@ define(["THREE", "config"], function(THREE, config) {
 			//var renderSize = { "width" : window.innerWidth, "height" : window.innerHeight};
 
 			this.camera = new THREE.PerspectiveCamera(60, renderSize.width / renderSize.height, 1, 4096);
-			this.camera.name = "TheCamera";
+			this.camera.name = "The Camera";
 			this.camera.position.set(this.cameraOffset.x, this.cameraOffset.y, this.cameraOffset.z);
 			this.camera.rotation.y = this.cameraRot;
 

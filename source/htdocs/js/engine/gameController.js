@@ -1,7 +1,7 @@
 define(["THREE", "engine/bus"], function(THREE, bus) {
 
 
-	var Logic = function(pPlayer) {
+	var GameController = function(pPlayer) {
 		this.player = pPlayer;
 
 		bus.subscribe(bus.EVENT_INPUT_TURN_LEFT, function() {
@@ -22,7 +22,7 @@ define(["THREE", "engine/bus"], function(THREE, bus) {
 
 	};
 
-	return Logic;
+	return GameController;
 
 
 });

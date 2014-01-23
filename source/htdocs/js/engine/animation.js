@@ -19,8 +19,6 @@ define(["THREE"], function(THREE) {
 		this._startTime = new Date().getTime();
 		this._durration = pDurationMillis;
 
-		console.log("Start animation from: x " + this._object3D.position.x + " y " + this._object3D.position.y + " z " + this._object3D.position.z);
-
 		this._startPosition = { "x" : this._object3D.position.x , "y" : this._object3D.position.y, "z" : this._object3D.position.z };
 		this._startRotation = { "x" : this._object3D.rotation.x , "y" : this._object3D.rotation.y, "z" : this._object3D.rotation.z };
 
@@ -43,9 +41,6 @@ define(["THREE"], function(THREE) {
 			this.applyAnimationProgress(animationProgress);
 		} else {
 			this.applyAnimationProgress(1);
-
-			console.log("End animation at: x " + this._object3D.position.x + " y " + this._object3D.position.y + " z " + this._object3D.position.z);
-
 			this._callback();
 		}
 	};

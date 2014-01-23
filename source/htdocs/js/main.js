@@ -14,85 +14,72 @@ require.config({
 	}
 });
 
-require(    [	"modules/keyboard",
+require(    [
 				"engine/engine",
 				"engine/world",
-				"engine/loader",
 				"engine/level",
 				"ui/UIMap",
 				"engine/player",
-				"engine/input",
-				"engine/logic",
+				"engine/inputController",
+				"engine/gameController",
 				"engine/modelStore"
 			],
 
-    function(	keyboardModule,
+    function(
 				engine,
 				world,
-				loader,
 				Level,
 				UIMap,
 				Player,
-				input,
-				Logic,
+				inputController,
+				GameController,
 				modelStore
 			) {
 
-	// init keyboard-module
-	keyboardModule.init();
+	// setup particle-engine
+	//engine.particleEngine = new ParticleEngine();
+	//Examples.candle.positionBase = new THREE.Vector3(0,-55,350);
+	//game.engine.particleEngine.setValues(Examples.candle);
+	//game.engine.particleEngine.initialize();
 
-	// init engine
 	engine.init();
+	inputController.init();
+
+	var modelsToLoad = [],
+		player,
+		level;
+
+	var animationCallback = function() {
+		player.animate();
+		world.updateLights();
+		engine.renderer.render(engine.scene, engine.camera);
+		engine.tick += 1;
+		requestAnimationFrame(animationCallback);
+	};
 
 
+	fetchJSONFile("levels/level01.json", function(levelJSON) {
 
-	input.init();
+		level = new Level(levelJSON);
+		modelsToLoad = level.getContainingModelNames();
+		modelsToLoad.push("aim"); // add the player model
 
+		modelStore.load(modelsToLoad, function(geometries, materials) {
 
-	// load models
-	loader(function(geometries, materials) {
-		world.initMap(geometries, materials);
+			world.initMap(geometries, materials);
+			player = new Player(0, 0, engine.camera, geometries["aim"], materials["aim"]);
+			engine.scene.add(player);
+			new GameController(player);
+			new UIMap(level, player);
 
-		// setup particle-engine
-		//engine.particleEngine = new ParticleEngine();
-		//Examples.candle.positionBase = new THREE.Vector3(0,-55,350);
-		//game.engine.particleEngine.setValues(Examples.candle);
-		//game.engine.particleEngine.initialize();
+			var debugInfoElement = document.getElementById("debugInfo");
+			setInterval(function() {
+				debugInfoElement.innerHTML = "player absolute x: " + player.position.x + " y: " + player.position.y + " z: " + player.position.z;
+			}, 300);
 
-		//player.init();
-
-		// start animation loop
-
-		var player;
-
-		var animationCallback = function() {
-			player.animate();
-			world.updateLights();
-			engine.renderer.render(engine.scene, engine.camera);
-			engine.tick += 1;
-			requestAnimationFrame(animationCallback);
-		};
-
-
-		fetchJSONFile("levels/level01.json", function(levelJSON) {
-
-			modelStore.load(['xcube', 'icube', 'aim'], function(geometries, materials) {
-
-				player = new Player(0, 0, engine.camera, geometries["aim"], materials["aim"]);
-
-				engine.scene.add(player);
-				var gameController = new Logic(player);
-				var debugInfoElement = document.getElementById("debugInfo");
-				setInterval(function() {
-					debugInfoElement.innerHTML = "player absolute x: " + player.position.x + " y: " + player.position.y + " z: " + player.position.z;
-				}, 300);
-
-				var myLevel = new Level(levelJSON);
-				var myUIMap = new UIMap(myLevel, player);
-				animationCallback();
-
-			});
-
+			animationCallback();
 		});
+
 	});
+
 });
