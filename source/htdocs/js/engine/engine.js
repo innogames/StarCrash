@@ -16,8 +16,8 @@ define(["THREE", "config"], function(THREE, config) {
 		init: function() {
 			var container = document.getElementById('container');
 
-			//var renderSize = { "width" : 400, "height" : 300};
-			var renderSize = { "width" : window.innerWidth, "height" : window.innerHeight};
+			var renderSize = { "width" : 400, "height" : 300};
+			//var renderSize = { "width" : window.innerWidth, "height" : window.innerHeight};
 
 			this.camera = new THREE.PerspectiveCamera(60, renderSize.width / renderSize.height, 1, 4096);
 			this.camera.name = "TheCamera";
