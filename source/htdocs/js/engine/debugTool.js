@@ -6,17 +6,21 @@ define(["THREE", "engine/engine", "libs/FlyControls"], function(THREE, engine, F
 		flyControlsEnabled : false,
 		debugCamera : null,
 		player : null,
+		level : null,
 
 		domPlayerPosition : document.getElementById("debugPlayerPosition"),
 		domPlayerDirection : document.getElementById("debugPlayerDirection"),
 		domPlayerGrid : document.getElementById("debugPlayerGrid"),
+		domLevelModelCount : document.getElementById("debugLevelModelCount"),
+		domLevelSize : document.getElementById("debugLevelSize"),
 
 
 
-		init : function(pPlayer) {
+		init : function(pPlayer, pLevel) {
 			var self = this;
 
 			this.player = pPlayer;
+			this.level = pLevel;
 			this.debugCamera = new THREE.PerspectiveCamera(60, engine.renderSize.width / engine.renderSize.height, 1, 4096);
 			this.debugCamera.rotation.y = Math.PI;
 
@@ -67,6 +71,12 @@ define(["THREE", "engine/engine", "libs/FlyControls"], function(THREE, engine, F
 
 			var grid = this.player.getGridPosition();
 			this.domPlayerGrid.innerHTML = "grid x:" + grid.x + " z:" + grid.z;
+
+
+			var modelCount = this.level.getContainingModelNames().length;
+			this.domLevelModelCount.innerHTML = "models: " + modelCount;
+			this.domLevelSize.innerHTML = "width(x):" + this.level.getWidth() + " height(z):" + + this.level.getHeight();
+
 		}
 
 

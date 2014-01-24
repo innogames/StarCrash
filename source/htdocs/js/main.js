@@ -86,7 +86,7 @@ require(    [
 			new GameController(player);
 			new UIMap(level, player);
 
-			debugTool.init(player);
+			debugTool.init(player, level);
 			animationCallback();
 		});
 

@@ -65,7 +65,7 @@ define(["THREE", "entities/entityDefinition"], function(THREE, entityDefinition)
 	 */
 	Level.prototype.getHeight = function() {
 		return this.rawLevelJSON.grid.height;
-	}
+	};
 
 	/**
 	 * Gets an array of entity that are collisions at this grid position.
