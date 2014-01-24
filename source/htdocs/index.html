@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 	<head>
 		<title>Starcrash</title>
 		<meta charset="utf-8">
@@ -24,7 +24,6 @@
 			}
 		</script>
 
-
 		<script data-main="js/main" src="js/libs/require.js"></script>
 	</head>
 	<body>
@@ -42,6 +41,30 @@
 		<div id="UIMap" style="position: absolute; right: 10px; top: 10px "></div>
 
 
-		<div id="debugInfo" style="position: absolute; left: 10px; bottom: 10px "></div>
+		<!-- ============ DEBUG INFORMATION ============ -->
+
+		<div id="debugShow" class="debugButton" style="position: absolute; left: 10px; bottom: 10px; visibility: hidden" >i</div>
+
+		<div id="debugInfo" class="debugInfo" style="position: absolute; left: 10px; bottom: 10px ">
+
+			<div id="debugHide" class="debugButton">X</div>
+
+			<div style="margin: 5px">
+				PLAYER
+				<div class="debugLeftPadding" id="debugPlayerGrid"></div>
+				<div class="debugLeftPadding" id="debugPlayerDirection"></div>
+				<div class="debugLeftPadding" id="debugPlayerPosition"></div>
+			</div>
+
+
+			<div style="margin: 5px">
+				CAMERA
+				<form action="">
+					<div class="debugLeftPadding"><input id="debugUsePlayerCam" type="radio" name="camera" value="player" checked="true" >player</div>
+					<div class="debugLeftPadding" title="(W|A|S|D: move, R|F: up/down, Q|E: roll, DRAG MOUSE: look)"><input id="debugUseFreeCam" type="radio" name="camera" value="free">free</div>
+				</form>
+			</div>
+
+		</div>
 	</body>
 </html>

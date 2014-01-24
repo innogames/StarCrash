@@ -26,9 +26,15 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 		this.currentMovingAnimation = null;
 		this.playerModelAnimationCounter = 0;
 
+
+
+
 		this.add(this.playerModel);
 		this.add(pCamera);
 		this.add(new THREE.PointLight(0x404040, 2.5, 450));
+
+		// (debug) add a sphere to find the player easy
+		this.add(new THREE.Mesh(new THREE.SphereGeometry(10, 10, 10),new THREE.MeshBasicMaterial({	color: 0xCC0000	})));
 
 	};
 
@@ -132,13 +138,12 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 	 * Gets a normal vector of the direction the player is facing.
 	 * @returns { x: 1, y: 0, t: 0} A normal vector of the direction the player is facing.
 	 */
-	Player.prototype.getFacingDirection = function() {
+	Player.prototype.getFacingDirection = function(showErrorMessage) {
 
 		// calculate rotation to fit to the values 0, 1.57, 3.14 or 4.71
 		var modulatedRotation = this.rotation.y % (Math.PI * 2);
 		modulatedRotation = Math.round((modulatedRotation) * 100) / 100;
 		if (modulatedRotation < 0) {
-			console.log(modulatedRotation);
 			modulatedRotation =  Math.round((6.28 + modulatedRotation) * 100) / 100;
 		}
 
@@ -155,7 +160,8 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 			// negative x
 			return { "x": -1, "y" : 0, "z" : 0};
 		} else {
-			console.error("Player got undefined facing direction: " + modulatedRotation);
+
+			if (showErrorMessage) console.error("Player got undefined facing direction: " + modulatedRotation);
 			return null;
 		}
 	};

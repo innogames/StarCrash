@@ -22,7 +22,8 @@ require(    [
 				"engine/player",
 				"engine/inputController",
 				"engine/gameController",
-				"engine/modelStore"
+				"engine/modelStore",
+				"engine/debugTool"
 			],
 
     function(
@@ -33,7 +34,8 @@ require(    [
 				Player,
 				inputController,
 				GameController,
-				modelStore
+				modelStore,
+				debugTool
 			) {
 
 	// setup particle-engine
@@ -49,12 +51,24 @@ require(    [
 		player,
 		level;
 
+
+
+
 	var animationCallback = function() {
 		player.animate();
 		world.updateLights();
-		engine.renderer.render(engine.scene, engine.camera);
+
+		if (debugTool.flyControlsEnabled) {
+			engine.renderer.render(engine.scene, debugTool.debugCamera);
+		} else {
+			engine.renderer.render(engine.scene, engine.camera);
+		}
+
+
 		engine.tick += 1;
 		requestAnimationFrame(animationCallback);
+
+		debugTool.update();
 	};
 
 
@@ -72,11 +86,7 @@ require(    [
 			new GameController(player);
 			new UIMap(level, player);
 
-			var debugInfoElement = document.getElementById("debugInfo");
-			setInterval(function() {
-				debugInfoElement.innerHTML = "player absolute x: " + player.position.x + " y: " + player.position.y + " z: " + player.position.z;
-			}, 300);
-
+			debugTool.init(player);
 			animationCallback();
 		});
 
