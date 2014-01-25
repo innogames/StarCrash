@@ -49,7 +49,12 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 		return ((this.currentMovingAnimation != null));
 	};
 
-
+	/**
+	 * Starts a new moving animation.
+	 * @param positionOffset THREE.Vector3 The target translation offset to move. (or null)
+	 * @param rotationOffset THREE.Vector3 the target rotation offset to turn. (or null)
+	 * @param callback The callback that should be triggered after animation.
+	 */
 	Player.prototype.startMoveAnimation = function(positionOffset, rotationOffset, callback) {
 		var self = this;
 		if (!this.isMoving()) {
@@ -60,7 +65,10 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 		}
 	};
 
-
+	/**
+	 * Starts a turning left animation.
+	 * Posts the EVENT_PLAYER_TURNED
+	 */
 	Player.prototype.turnLeft = function() {
 		var rotationOffset = new THREE.Vector3(0, Math.PI / 2, 0);
 		this.startMoveAnimation(null, rotationOffset, function() {
@@ -68,6 +76,10 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 		});
 	};
 
+	/**
+	 * Starts a turning right animation.
+	 * Posts the EVENT_PLAYER_TURNED
+	 */
 	Player.prototype.turnRight = function() {
 		var rotationOffset = new THREE.Vector3(0, - Math.PI / 2, 0);
 		this.startMoveAnimation(null, rotationOffset, function() {
@@ -77,7 +89,9 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 
 
 	/**
-	 * Starts a forward moving animation. Sets the grid position after animation.
+	 * Starts a forward moving animation.
+	 * Sets the grid position after animation.
+	 * Posts the EVENT_PLAYER_MOVED
 	 */
 	Player.prototype.moveForwards = function() {
 		var facingDirection = this.getFacingDirection(),
@@ -95,7 +109,9 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 	};
 
 	/**
-	 * Starts a backward moving animation. Sets the grid position after animation.
+	 * Starts a backward moving animation.
+	 * Sets the grid position after animation.
+	 * Posts the EVENT_PLAYER_MOVED
 	 */
 	Player.prototype.moveBackwards = function() {
 		var facingDirection = this.getFacingDirection(),
@@ -114,8 +130,6 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 		});
 	};
 
-
-
 	/**
 	 * Call every render loop to animate the player.
 	 */
@@ -129,7 +143,7 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 
 	/**
 	 * Gets a normal vector of the direction the player is facing.
-	 * @returns { x: 1, y: 0, t: 0} A normal vector of the direction the player is facing.
+	 * @returns THREE.Vector3 A normal vector of the direction the player is facing.
 	 */
 	Player.prototype.getFacingDirection = function(showErrorMessage) {
 
