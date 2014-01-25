@@ -7,7 +7,8 @@ define(["THREE", "config"], function(THREE, config) {
 		renderer: null,
 		tick: 0,
 		viewPortContainer: null,
-		renderSize : { "width" : 800, "height" : 600},
+		//renderSize : { "width" : 800, "height" : 600},
+		renderSize : { "width" : window.innerWidth, "height" : window.innerHeight},
 		dpr: window.devicePixelRatio || 1,
 
 

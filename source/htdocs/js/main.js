@@ -93,7 +93,7 @@ require(    [
 			player = new Player(0, 0, engine.getMainCamera(), geometries["aim"], materials["aim"]);
 			engine.scene.add(player);
 			new GameController(player);
-			new UIMap(level, player);
+			//new UIMap(level, player);
 
 			debugTool.init(player, level);
 			animationCallback();
