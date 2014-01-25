@@ -82,9 +82,6 @@ define(["THREE", "entities/entityDefinition"], function(THREE, entityDefinition)
 		return returnValue;
 	};
 
-
-
-
 	return Level;
 
 });

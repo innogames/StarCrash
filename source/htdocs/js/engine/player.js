@@ -1,7 +1,7 @@
 define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bus, config, Animation) {
 
 	/**
-	 * Creates a new player by its start position and the scene camera.
+	 * Creates a new player by its start position and the scene camera. Inherits from THREE.Object3D
 	 * @param gridStartX The x grid coordinate to start.
 	 * @param gridStartZ The y grid coordinate to start.
 	 * @param pCamera The camera of the scene.
@@ -16,18 +16,15 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 		this.setGridPosition(gridStartX, gridStartZ);
 
 		// Initialize the player model.
-		this.playerModelStandardPosition = { "x" : 0, "y" : -81.5, "z" : -5 };
+		this.playerModelStandardOffset = new THREE.Vector3(0, -81.5, -5);
 		this.playerModel = new THREE.Mesh(pPlayerModelGeometry, new THREE.MeshFaceMaterial( pPlayerModelMaterial ));
 		this.playerModel.name = "The Player-Model";
-		this.playerModel.position.set(this.playerModelStandardPosition.x, this.playerModelStandardPosition.y, this.playerModelStandardPosition.z);
+		this.playerModel.position = this.playerModelStandardOffset.clone();
 		this.playerModel.rotation.y = 0;
 
 		// Initialize animation
 		this.currentMovingAnimation = null;
 		this.playerModelAnimationCounter = 0;
-
-
-
 
 		this.add(this.playerModel);
 		this.add(pCamera);
@@ -38,6 +35,10 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 
 	};
 
+	/**
+	 * Inherits from THREE.Object3D
+	 * @type {*}
+	 */
 	Player.prototype = Object.create( THREE.Object3D.prototype );
 
 	/**
@@ -61,13 +62,15 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 
 
 	Player.prototype.turnLeft = function() {
-		this.startMoveAnimation(null, { "x": 0, "y" : Math.PI / 2, "z" : 0}, function() {
+		var rotationOffset = new THREE.Vector3(0, Math.PI / 2, 0);
+		this.startMoveAnimation(null, rotationOffset, function() {
 			bus.post(bus.EVENT_PLAYER_TURNED, this);
 		});
 	};
 
 	Player.prototype.turnRight = function() {
-		this.startMoveAnimation(null, { "x": 0, "y" : -Math.PI / 2, "z" : 0}, function() {
+		var rotationOffset = new THREE.Vector3(0, - Math.PI / 2, 0);
+		this.startMoveAnimation(null, rotationOffset, function() {
 			bus.post(bus.EVENT_PLAYER_TURNED, this);
 		});
 	};
@@ -77,19 +80,16 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 	 * Starts a forward moving animation. Sets the grid position after animation.
 	 */
 	Player.prototype.moveForwards = function() {
-		var self = this,
-			facingDirection = this.getFacingDirection();
-		// calculate movement by facing direction
-		var movementOffset = {
-			"x" : config.gridCellSize * facingDirection.x,
-			"y" : config.gridCellSize * facingDirection.y,
-			"z" : config.gridCellSize * facingDirection.z
-		};
+		var facingDirection = this.getFacingDirection(),
+			movementOffset,
+			self = this;
+
+		movementOffset = facingDirection.clone();
+		movementOffset.setLength(config.gridCellSize);
+
 		this.startMoveAnimation(movementOffset, null, function() {
-			self.gridPosition.x += facingDirection.x;
-			self.gridPosition.y += facingDirection.y;
-			self.gridPosition.z += facingDirection.z;
-			self.playerModel.position.set(self.playerModelStandardPosition.x, self.playerModelStandardPosition.y, self.playerModelStandardPosition.z);
+			self.gridPosition.add(facingDirection);
+			self.playerModel.position.set(self.playerModelStandardOffset.x, self.playerModelStandardOffset.y, self.playerModelStandardOffset.z);
 			bus.post(bus.EVENT_PLAYER_MOVED, self);
 		});
 	};
@@ -98,25 +98,18 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 	 * Starts a backward moving animation. Sets the grid position after animation.
 	 */
 	Player.prototype.moveBackwards = function() {
-		var self = this,
-			facingDirection = this.getFacingDirection();
+		var facingDirection = this.getFacingDirection(),
+			movementOffset,
+			self = this;
 
 		// invert facing direction to move backwards
-		facingDirection.x = facingDirection.x * -1;
-		facingDirection.y = facingDirection.y * -1;
-		facingDirection.z = facingDirection.z * -1;
+		facingDirection.negate();
+		movementOffset = facingDirection.clone();
+		movementOffset.setLength(config.gridCellSize);
 
-		// calculate movement by facing direction
-		var movementOffset = {
-			"x" : config.gridCellSize * facingDirection.x,
-			"y" : config.gridCellSize * facingDirection.y,
-			"z" : config.gridCellSize * facingDirection.z
-		};
 		this.startMoveAnimation(movementOffset, null, function() {
-			self.gridPosition.x += facingDirection.x;
-			self.gridPosition.y += facingDirection.y;
-			self.gridPosition.z += facingDirection.z;
-			self.playerModel.position.set(self.playerModelStandardPosition.x, self.playerModelStandardPosition.y, self.playerModelStandardPosition.z);
+			self.gridPosition.add(facingDirection);
+			self.playerModel.position.set(self.playerModelStandardOffset.x, self.playerModelStandardOffset.y, self.playerModelStandardOffset.z);
 			bus.post(bus.EVENT_PLAYER_MOVED, self);
 		});
 	};
@@ -148,17 +141,13 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 		}
 
 		if (modulatedRotation == 0) {
-			// positive z
-			return { "x": 0, "y" : 0, "z" : 1};
+			return new THREE.Vector3(0, 0, 1);
 		} else if (modulatedRotation == 1.57) { // Math.PI / 2
-			// positive x
-			return { "x": 1, "y" : 0, "z" : 0};
+			return new THREE.Vector3(1, 0, 0);
 		} else if (modulatedRotation == 3.14) { // Math.PI
-			// negative z
-			return { "x": 0, "y" : 0, "z" : -1};
+			return new THREE.Vector3(0, 0, -1);
 		} else if (modulatedRotation == 4.71) { // Math.PI + (Math.PI / 2)
-			// negative x
-			return { "x": -1, "y" : 0, "z" : 0};
+			return new THREE.Vector3(-1, 0, 0);
 		} else {
 
 			if (showErrorMessage) console.error("Player got undefined facing direction: " + modulatedRotation);
@@ -172,7 +161,7 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 	 * @param gridZ The grid z coordinate.
 	 */
 	Player.prototype.setGridPosition = function(gridX, gridZ) {
-		this.gridPosition = { "x": gridX, "z": gridZ };
+		this.gridPosition = new THREE.Vector3(gridX, 0, gridZ);
 		this.position.x = this.gridPosition.x * config.gridCellSize;
 		this.position.z = this.gridPosition.z * config.gridCellSize;
 	};
