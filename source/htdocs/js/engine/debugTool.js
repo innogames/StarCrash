@@ -22,6 +22,7 @@ define(["THREE", "engine/engine", "libs/FlyControls"], function(THREE, engine, F
 			this.player = pPlayer;
 			this.level = pLevel;
 			this.debugCamera = new THREE.PerspectiveCamera(60, engine.renderSize.width / engine.renderSize.height, 1, 4096);
+			this.debugCamera.viewportSettings = engine.getMainCamera().viewportSettings;
 			this.debugCamera.rotation.y = Math.PI;
 
 			this.flyControls = new FlyControls(this.debugCamera);

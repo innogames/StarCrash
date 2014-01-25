@@ -1,10 +1,10 @@
 define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bus, config, Animation) {
 
 	/**
-	 * Creates a new player by its start position and the scene camera. Inherits from THREE.Object3D
+	 * Creates a new player by its start position and the scene mainCamera. Inherits from THREE.Object3D
 	 * @param gridStartX The x grid coordinate to start.
 	 * @param gridStartZ The y grid coordinate to start.
-	 * @param pCamera The camera of the scene.
+	 * @param pCamera The mainCamera of the scene.
 	 * @param pPlayerModelGeometry THREE.Geometry of the player model.
 	 * @param pPlayerModelMaterial THREE.Material of the player model.
 	 *
@@ -30,8 +30,8 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 		this.add(pCamera);
 		this.add(new THREE.PointLight(0x404040, 2.5, 450));
 
-		// (debug) add a sphere to find the player easy
-		this.add(new THREE.Mesh(new THREE.SphereGeometry(10, 10, 10),new THREE.MeshBasicMaterial({	color: 0xCC0000	})));
+		// (debug) add a cylinder to find the player easy
+		this.add(new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 100, 10, 10, false),new THREE.MeshBasicMaterial({	color: 0xCC0000	})));
 
 	};
 

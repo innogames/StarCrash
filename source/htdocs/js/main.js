@@ -58,17 +58,26 @@ require(    [
 		player.animate();
 		world.updateLights();
 
+		var camera;
+		// == render main view-port ==========
 		if (debugTool.flyControlsEnabled) {
-			engine.renderer.render(engine.scene, debugTool.debugCamera);
+			// use debug camera
+			camera = debugTool.debugCamera;
 		} else {
-			engine.renderer.render(engine.scene, engine.camera);
+			// use main camera
+			camera = engine.getMainCamera();
 		}
+		engine.applyViewportSettings(engine.renderer, camera);
+		engine.renderer.render(engine.scene, camera);
 
+
+		// == render map view-port ===========
+		engine.applyViewportSettings(engine.renderer, engine.getMapCamera());
+		engine.renderer.render(engine.scene, engine.getMapCamera());
 
 		engine.tick += 1;
-		requestAnimationFrame(animationCallback);
-
 		debugTool.update();
+		requestAnimationFrame(animationCallback);
 	};
 
 
@@ -81,7 +90,7 @@ require(    [
 		modelStore.load(modelsToLoad, function(geometries, materials) {
 
 			world.initMap(geometries, materials);
-			player = new Player(0, 0, engine.camera, geometries["aim"], materials["aim"]);
+			player = new Player(0, 0, engine.getMainCamera(), geometries["aim"], materials["aim"]);
 			engine.scene.add(player);
 			new GameController(player);
 			new UIMap(level, player);
