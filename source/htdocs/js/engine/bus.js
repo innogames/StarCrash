@@ -14,6 +14,9 @@ define([], function() {
 		EVENT_INPUT_MOVE_BACKWARDS : "input/move_backwards",
 		EVENT_INPUT_MOVE_FORWARDS : "input/move_forwards",
 
+		EVENT_INPUT_ZOOM_IN_MAP : "input/zoom_in_map",
+		EVENT_INPUT_ZOOM_OUT_MAP : "input/zoom_out_map",
+
 
 
 		subscribe: function subscribe(eventName, callback) {

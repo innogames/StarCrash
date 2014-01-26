@@ -7,8 +7,8 @@ define(["THREE", "config"], function(THREE, config) {
 		renderer: null,
 		tick: 0,
 		viewPortContainer: null,
-		//renderSize : { "width" : 800, "height" : 600},
-		renderSize : { "width" : window.innerWidth, "height" : window.innerHeight},
+		renderSize : { "width" : 800, "height" : 600},
+		//renderSize : { "width" : window.innerWidth, "height" : window.innerHeight},
 		dpr: window.devicePixelRatio || 1,
 
 
@@ -29,7 +29,7 @@ define(["THREE", "config"], function(THREE, config) {
 		renderer.setViewport(left, bottom, width, height );
 		renderer.setScissor( left, bottom, width, height );
 		renderer.enableScissorTest(true);
-		renderer.setClearColor(camera.viewportSettings.backgroundColor);
+		renderer.setClearColor(camera.viewportSettings.backgroundColor, 0.1);
 
 		camera.aspect = width / height;
 	},
@@ -51,9 +51,11 @@ define(["THREE", "config"], function(THREE, config) {
 
 			this.mapCamera = new THREE.OrthographicCamera( this.renderSize.width / - 2, this.renderSize.width / 2, this.renderSize.height / 2, this.renderSize.height / - 2, 0, 10000 );
 			//this.mapCamera = new THREE.PerspectiveCamera(60, this.renderSize.width / this.renderSize.height, 1, 10000);
-			this.mapCamera.position.set(0, 100, 0);
+			this.mapCamera.position.set(0, 1000, 0);
 			this.mapCamera.up.set(0, 1 , 0);
 			this.mapCamera.rotation.set(-Math.PI / 2, 0, - Math.PI);
+
+
 			this.mapCamera.viewportSettings = {
 				left: 0.7,
 				bottom: 0.7,

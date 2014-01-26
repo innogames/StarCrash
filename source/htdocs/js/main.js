@@ -23,7 +23,8 @@ require(    [
 				"engine/inputController",
 				"engine/gameController",
 				"engine/modelStore",
-				"engine/debugTool"
+				"engine/debugTool",
+				"engine/mapView"
 			],
 
     function(
@@ -35,7 +36,8 @@ require(    [
 				inputController,
 				GameController,
 				modelStore,
-				debugTool
+				debugTool,
+				MapView
 			) {
 
 	// setup particle-engine
@@ -49,7 +51,8 @@ require(    [
 
 	var modelsToLoad = [],
 		player,
-		level;
+		level,
+		mapView;
 
 
 
@@ -72,8 +75,8 @@ require(    [
 
 
 		// == render map view-port ===========
-		engine.applyViewportSettings(engine.renderer, engine.getMapCamera());
-		engine.renderer.render(engine.scene, engine.getMapCamera());
+		mapView.render();
+
 
 		engine.tick += 1;
 		debugTool.update();
@@ -91,6 +94,7 @@ require(    [
 
 			world.initMap(geometries, materials);
 			player = new Player(0, 0, engine.getMainCamera(), geometries["aim"], materials["aim"]);
+			mapView = new MapView(player);
 			engine.scene.add(player);
 			new GameController(player);
 			//new UIMap(level, player);

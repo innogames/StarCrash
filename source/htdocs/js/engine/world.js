@@ -1,7 +1,7 @@
-define(["THREE", "engine/engine"], function(THREE, engine) {
+define(["THREE", "engine/engine", "config"], function(THREE, engine, config) {
 	return {
 		cubes: ['xcube', 'icube'],
-		cubeLen: 157.4,
+		cubeLen: config.gridCellSize * 2,
 		lights: [],
 		map: [
 			['x_0', 'i_90', 'x_0', 'i_90', 'x_0'],
