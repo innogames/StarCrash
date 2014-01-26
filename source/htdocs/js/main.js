@@ -24,7 +24,7 @@ require(    [
 				"engine/gameController",
 				"engine/modelStore",
 				"engine/debugTool",
-				"engine/mapView"
+				"mapView/mapView"
 			],
 
     function(
@@ -93,8 +93,8 @@ require(    [
 		modelStore.load(modelsToLoad, function(geometries, materials) {
 
 			world.initMap(geometries, materials);
-			player = new Player(0, 0, engine.getMainCamera(), geometries["aim"], materials["aim"]);
-			mapView = new MapView(player);
+			player = new Player(1, 1, engine.getMainCamera(), geometries["aim"], materials["aim"]);
+			mapView = new MapView(player, level);
 			engine.scene.add(player);
 			new GameController(player);
 			//new UIMap(level, player);

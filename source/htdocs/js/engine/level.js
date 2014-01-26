@@ -21,10 +21,8 @@ define(["THREE", "entities/entityDefinition"], function(THREE, entityDefinition)
 		// Loading all entities of the level
 		for (i = 0; i < this.rawLevelJSON.entities.length; i++) {
 			tmpRawEntity = this.rawLevelJSON.entities[i];
-
 			if (! tmpRawEntity.type) 	console.error("Error loading level. Entity 'type' is not defined in level data. ", tmpRawEntity);
 			if (! tmpRawEntity.id) 		console.error("Error loading level. Entity 'id' is not defined in level data. ", tmpRawEntity);
-
 			// Add the entity definition.
 			for (defIndex = 0; defIndex < entityDefinition.length; defIndex++) {
 				if (entityDefinition[defIndex].type == tmpRawEntity.type) {
@@ -32,13 +30,9 @@ define(["THREE", "entities/entityDefinition"], function(THREE, entityDefinition)
 					tmpRawEntity.definition = entityDefinition[defIndex];
 				}
 			}
-
 			if (! tmpRawEntity.definition) console.error("Error loading level. The Entity of type '" + tmpRawEntity.type + "' has no definition: ", entityDefinition);
-
 			this.entities.push(tmpRawEntity);
-
 		}
-
 		console.log("Level initialized. Entities: ", this.entities);
 	};
 
@@ -49,6 +43,11 @@ define(["THREE", "entities/entityDefinition"], function(THREE, entityDefinition)
 	 */
 	Level.prototype.getContainingModelNames = function() {
 		return ['xcube', 'icube'];
+	};
+
+
+	Level.prototype.isWallBetween = function(gridPosition1, gridPosition2) {
+		return true;
 	};
 
 	/**

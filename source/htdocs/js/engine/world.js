@@ -47,8 +47,8 @@ define(["THREE", "engine/engine", "config"], function(THREE, engine, config) {
 			var rot,
 				name,
 				mesh,
-				xPos = x * this.cubeLen,
-				zPos = y * this.cubeLen;
+				xPos = x * this.cubeLen + (this.cubeLen * 0.75),
+				zPos = y * this.cubeLen + (this.cubeLen * 0.75);
 
 			// get name of the mesh
 			switch(this.map[x][y].substring(0, this.map[x][y].indexOf('_'))) {

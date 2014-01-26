@@ -70,8 +70,10 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 	 * Posts the EVENT_PLAYER_TURNED
 	 */
 	Player.prototype.turnLeft = function() {
+		var self = this;
 		var rotationOffset = new THREE.Vector3(0, Math.PI / 2, 0);
 		this.startMoveAnimation(null, rotationOffset, function() {
+			self.justifyPlayerModel();
 			bus.post(bus.EVENT_PLAYER_TURNED, this);
 		});
 	};
@@ -81,8 +83,10 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 	 * Posts the EVENT_PLAYER_TURNED
 	 */
 	Player.prototype.turnRight = function() {
+		var self = this;
 		var rotationOffset = new THREE.Vector3(0, - Math.PI / 2, 0);
 		this.startMoveAnimation(null, rotationOffset, function() {
+			self.justifyPlayerModel();
 			bus.post(bus.EVENT_PLAYER_TURNED, this);
 		});
 	};
@@ -103,7 +107,7 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 
 		this.startMoveAnimation(movementOffset, null, function() {
 			self.gridPosition.add(facingDirection);
-			self.playerModel.position.set(self.playerModelStandardOffset.x, self.playerModelStandardOffset.y, self.playerModelStandardOffset.z);
+			self.justifyPlayerModel();
 			bus.post(bus.EVENT_PLAYER_MOVED, self);
 		});
 	};
@@ -125,7 +129,7 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 
 		this.startMoveAnimation(movementOffset, null, function() {
 			self.gridPosition.add(facingDirection);
-			self.playerModel.position.set(self.playerModelStandardOffset.x, self.playerModelStandardOffset.y, self.playerModelStandardOffset.z);
+			self.justifyPlayerModel();
 			bus.post(bus.EVENT_PLAYER_MOVED, self);
 		});
 	};
@@ -176,8 +180,8 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 	 */
 	Player.prototype.setGridPosition = function(gridX, gridZ) {
 		this.gridPosition = new THREE.Vector3(gridX, 0, gridZ);
-		this.position.x = this.gridPosition.x * config.gridCellSize;
-		this.position.z = this.gridPosition.z * config.gridCellSize;
+		this.position.x = this.gridPosition.x * config.gridCellSize + (config.gridCellSize / 2);
+		this.position.z = this.gridPosition.z * config.gridCellSize + (config.gridCellSize / 2);
 	};
 
 	/**
@@ -185,6 +189,10 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 	 */
 	Player.prototype.getGridPosition = function() {
 		return this.gridPosition;
+	};
+
+	Player.prototype.justifyPlayerModel = function() {
+		this.playerModel.position.set(this.playerModelStandardOffset.x, this.playerModelStandardOffset.y, this.playerModelStandardOffset.z);
 	};
 
 	return Player;
