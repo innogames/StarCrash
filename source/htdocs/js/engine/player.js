@@ -20,7 +20,7 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 		this.playerModel = new THREE.Mesh(pPlayerModelGeometry, new THREE.MeshFaceMaterial( pPlayerModelMaterial ));
 		this.playerModel.name = "The Player-Model";
 		this.playerModel.position = this.playerModelStandardOffset.clone();
-		this.playerModel.rotation.y = 0;
+		this.playerModel.rotation.y = - Math.PI;
 
 		// Initialize animation
 		this.currentMovingAnimation = null;
@@ -159,13 +159,13 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 		}
 
 		if (modulatedRotation == 0) {
-			return new THREE.Vector3(0, 0, 1);
-		} else if (modulatedRotation == 1.57) { // Math.PI / 2
-			return new THREE.Vector3(1, 0, 0);
-		} else if (modulatedRotation == 3.14) { // Math.PI
 			return new THREE.Vector3(0, 0, -1);
-		} else if (modulatedRotation == 4.71) { // Math.PI + (Math.PI / 2)
+		} else if (modulatedRotation == 1.57) { // Math.PI / 2
 			return new THREE.Vector3(-1, 0, 0);
+		} else if (modulatedRotation == 3.14) { // Math.PI
+			return new THREE.Vector3(0, 0, 1);
+		} else if (modulatedRotation == 4.71) { // Math.PI + (Math.PI / 2)
+			return new THREE.Vector3(1, 0, 0);
 		} else {
 
 			if (showErrorMessage) console.error("Player got undefined facing direction: " + modulatedRotation);

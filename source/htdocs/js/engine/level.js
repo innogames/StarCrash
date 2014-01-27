@@ -1,4 +1,4 @@
-define(["THREE", "entities/entityDefinition"], function(THREE, entityDefinition) {
+define(["THREE", "entities/entityDefinition", "constants"], function(THREE, entityDefinition, constants) {
 
 	/**
 	 * Constructor of a level.
@@ -45,9 +45,17 @@ define(["THREE", "entities/entityDefinition"], function(THREE, entityDefinition)
 		return ['xcube', 'icube'];
 	};
 
-
-	Level.prototype.isWallBetween = function(gridPosition1, gridPosition2) {
-		return true;
+	/**
+	 * Returns true if there is a wall between the assigned grid coordinates.
+	 * // TODO : implementation
+	 * @param grid1X The x coordinate of the first grid cell.
+	 * @param grid1Z The z coordinate of the first grid cell.
+	 * @param grid2X The x coordinate of the second grid cell.
+	 * @param grid2Z The z coordinate of the second grid cell.
+	 * @returns {boolean} True if there is a wall between the grid cells.
+	 */
+	Level.prototype.isWallBetween = function(grid1X, grid1Z, grid2X, grid2Z) {
+		return Math.random() > 0.7;
 	};
 
 	/**

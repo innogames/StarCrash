@@ -7,8 +7,8 @@ define(["THREE", "config"], function(THREE, config) {
 		renderer: null,
 		tick: 0,
 		viewPortContainer: null,
-		renderSize : { "width" : 800, "height" : 600},
-		//renderSize : { "width" : window.innerWidth, "height" : window.innerHeight},
+		//renderSize : { "width" : 400, "height" : 300},
+		renderSize : { "width" : window.innerWidth, "height" : window.innerHeight},
 		dpr: window.devicePixelRatio || 1,
 
 
@@ -40,7 +40,7 @@ define(["THREE", "config"], function(THREE, config) {
 			this.mainCamera = new THREE.PerspectiveCamera(60, this.renderSize.width / this.renderSize.height, 1, 10000);
 			this.mainCamera.position.set(0, 2, 0);
 			this.mainCamera.up.set(0, 1 ,0);
-			this.mainCamera.rotation.set(0, Math.PI, 0);
+			this.mainCamera.rotation.set(0, 0, 0);
 			this.mainCamera.viewportSettings = {
 				left: 0,
 				bottom: 0,
@@ -51,7 +51,7 @@ define(["THREE", "config"], function(THREE, config) {
 
 			this.mapCamera = new THREE.OrthographicCamera( this.renderSize.width / - 2, this.renderSize.width / 2, this.renderSize.height / 2, this.renderSize.height / - 2, 0, 10000 );
 			//this.mapCamera = new THREE.PerspectiveCamera(60, this.renderSize.width / this.renderSize.height, 1, 10000);
-			this.mapCamera.position.set(0, 1000, 0);
+			this.mapCamera.position.set(0, config.mapViewElementsY + 1, 0);
 			this.mapCamera.up.set(0, 1 , 0);
 			this.mapCamera.rotation.set(-Math.PI / 2, 0, - Math.PI);
 
