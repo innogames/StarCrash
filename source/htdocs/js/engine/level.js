@@ -1,4 +1,4 @@
-define(["THREE", "entities/entityDefinition", "constants"], function(THREE, entityDefinition, constants) {
+define(["THREE", "entities/Entity", "config"], function(THREE, Entity, config) {
 
 	/**
 	 * Constructor of a level.
@@ -6,43 +6,63 @@ define(["THREE", "entities/entityDefinition", "constants"], function(THREE, enti
 	 * @constructor
 	 */
 	var Level = function(pLevelJSON) {
-		var tmpRawEntity,
-			defIndex,
-			i;
+
+		THREE.Object3D.call(this);
 
 		this.rawLevelJSON = pLevelJSON;
-		this.entities = [];
 
 		if (!this.rawLevelJSON) 			console.error("Error loading level. Level json is null.");
 		if (!this.rawLevelJSON.entities) 	console.error("Error loading level. The level data got no entities: ", this.rawLevelJSON);
 		if (!this.rawLevelJSON.grid) 		console.error("Error loading level. Grid is not defined: ", this.rawLevelJSON);
 
+	};
 
+	/**
+	 * Inherits from THREE.Object3D
+	 * @type {*}
+	 */
+	Level.prototype = Object.create( THREE.Object3D.prototype );
+
+
+	Level.prototype.initEntities = function() {
+		var tmpEntityInstance,
+			tmpRawEntity,
+			i;
 		// Loading all entities of the level
 		for (i = 0; i < this.rawLevelJSON.entities.length; i++) {
 			tmpRawEntity = this.rawLevelJSON.entities[i];
 			if (! tmpRawEntity.type) 	console.error("Error loading level. Entity 'type' is not defined in level data. ", tmpRawEntity);
 			if (! tmpRawEntity.id) 		console.error("Error loading level. Entity 'id' is not defined in level data. ", tmpRawEntity);
-			// Add the entity definition.
-			for (defIndex = 0; defIndex < entityDefinition.length; defIndex++) {
-				if (entityDefinition[defIndex].type == tmpRawEntity.type) {
-					tmpRawEntity.definition = {};
-					tmpRawEntity.definition = entityDefinition[defIndex];
-				}
-			}
-			if (! tmpRawEntity.definition) console.error("Error loading level. The Entity of type '" + tmpRawEntity.type + "' has no definition: ", entityDefinition);
-			this.entities.push(tmpRawEntity);
-		}
-		console.log("Level initialized. Entities: ", this.entities);
-	};
 
+			tmpEntityInstance = new Entity(tmpRawEntity.id, tmpRawEntity.type);
+
+			if (tmpRawEntity.gridPosition.x == null || tmpRawEntity.gridPosition.z == null) console.error("Error loading level. Grid position of entity "+ tmpEntityInstance.id +" is not defined: ", tmpRawEntity);
+
+			tmpEntityInstance.position.x = tmpRawEntity.gridPosition.x * config.gridCellSize + (config.gridCellSize / 2);
+			tmpEntityInstance.position.z = tmpRawEntity.gridPosition.z * config.gridCellSize + (config.gridCellSize / 2);
+
+			this.add(tmpEntityInstance);
+		}
+	};
 
 	/**
 	 * Returns an array of model names that are in this level.
 	 * // TODO : implementation
 	 */
-	Level.prototype.getContainingModelNames = function() {
-		return ['xcube', 'icube'];
+	Level.prototype.getContainingEntityTypes = function() {
+		var entityTypes = [],
+			tmpType,
+			i;
+
+		for (i = 0; i < this.rawLevelJSON.entities.length; i++) {
+			tmpType = this.rawLevelJSON.entities[i].type;
+			if (!tmpType) console.error("Error loading level. Entity 'type' is not defined for entity with index: " + i);
+			if (entityTypes.indexOf(tmpType) == -1) {
+				// push types only once.
+				entityTypes.push(tmpType);
+			}
+		}
+		return entityTypes;
 	};
 
 	/**
@@ -81,13 +101,21 @@ define(["THREE", "entities/entityDefinition", "constants"], function(THREE, enti
 	 */
 	Level.prototype.getEntitiesAt = function(x, y) {
 		var returnValue = [];
-		for (var i = 0; i < this.entities.length; i++) {
-			if (this.entities[i].gridPosition.x == x && this.entities[i].gridPosition.y == y) {
-				returnValue.push(this.entities[i]);
+		for (var i = 0; i < this.rawLevelJSON.entities.length; i++) {
+			if (this.rawLevelJSON.entities[i].gridPosition.x == x && this.rawLevelJSON.entities[i].gridPosition.y == y) {
+				returnValue.push(this.rawLevelJSON.entities[i]);
 			}
 		}
 		return returnValue;
 	};
+
+
+	Level.prototype.clone = function ( object ) {
+		if ( object === undefined ) object = new Level(this._level);
+		THREE.Object3D.prototype.clone.call( this, object );
+		return object;
+	};
+
 
 	return Level;
 

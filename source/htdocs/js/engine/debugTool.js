@@ -74,7 +74,7 @@ define(["THREE", "engine/engine", "libs/FlyControls"], function(THREE, engine, F
 			this.domPlayerGrid.innerHTML = "grid x:" + grid.x + " z:" + grid.z;
 
 
-			var modelCount = this.level.getContainingModelNames().length;
+			var modelCount = this.level.getContainingEntityTypes().length;
 			this.domLevelModelCount.innerHTML = "models: " + modelCount;
 			this.domLevelSize.innerHTML = "width(x):" + this.level.getWidth() + " height(z):" + + this.level.getHeight();
 

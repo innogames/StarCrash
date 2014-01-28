@@ -87,13 +87,16 @@ require(    [
 	fetchJSONFile("levels/level01.json", function(levelJSON) {
 
 		level = new Level(levelJSON);
-		modelsToLoad = level.getContainingModelNames();
-		modelsToLoad.push("aim"); // add the player model
+		modelsToLoad = modelStore.getModelFileList(level.getContainingEntityTypes());
+		modelsToLoad.push("models/aim.js"); // add the player model
 
 		modelStore.load(modelsToLoad, function(geometries, materials) {
 
-			world.initMap(geometries, materials);
-			player = new Player(1, 1, engine.getMainCamera(), geometries["aim"], materials["aim"]);
+			level.initEntities();
+			engine.scene.add(level);
+
+			//world.initMap(geometries, materials);
+			player = new Player(1, 6, engine.getMainCamera(), geometries["models/aim.js"], materials["models/aim.js"]);
 			mapView = new MapView(player, level);
 			engine.scene.add(player);
 			new GameController(player);
