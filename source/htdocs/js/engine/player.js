@@ -16,7 +16,7 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 		this.setGridPosition(gridStartX, gridStartZ);
 
 		// Initialize the player model.
-		this.playerModelStandardOffset = new THREE.Vector3(0, -81.5, -5);
+		this.playerModelStandardOffset = new THREE.Vector3(0, -81.5, 5);
 		this.playerModel = new THREE.Mesh(pPlayerModelGeometry, new THREE.MeshFaceMaterial( pPlayerModelMaterial ));
 		this.playerModel.name = "The Player-Model";
 		this.playerModel.position = this.playerModelStandardOffset.clone();

@@ -1,72 +1,45 @@
 define([], function() {
 	return  [
 		{
-			"type" : "corridorUp",
-			"model" : "models/icube.json",
-
-			"shape" : [
-				[ 1, 0, 1 ],
-				[ 1, 0, 1 ],
-				[ 1, 0, 1 ]
+			"class" : "corridor",
+			"type" : "zdirection",
+			"models" : [ {
+					"file": "models/icube.json",
+					"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0 },
+					"positionOffset" : { "x" : 0, "y" : 0, "z" : 0 }
+				}
 			],
-
-			"rotation" : {
-				"x" : 0,
-				"y" : 0,
-				"z" : 0
-			},
-
-			"offset" : {
-				"x" : 0,
-				"y" : 0,
-				"z" : 0
-			}
+			"walls" : [
+				[ 5 ]
+			]
 		},
 
 		{
-			"type" : "corridorLeft",
-			"model" : "models/icube.json",
-
-			"shape" : [
-				[ 1, 1, 1 ],
-				[ 0, 0, 0 ],
-				[ 1, 1, 1 ]
-			],
-
-			"rotation" : {
-			"x" : 0,
-				"y" : 90,
-				"z" : 0
-			},
-
-			"offset" : {
-				"x" : 0,
-					"y" : 0,
-					"z" : 0
+			"class" : "corridor",
+			"type" : "xdirection",
+			"models" : [ {
+				"file": "models/icube.json",
+				"rotationOffset" : { "x" : 0, "y" : 90, "z" : 0 },
+				"positionOffset" : { "x" : 0, "y" : 0,  "z" : 0 }
 			}
+			],
+			"walls" : [
+				[ 10 ]
+			]
 		},
 
 		{
+			"class" : "corridor",
 			"type" : "junction",
-			"model" : "models/xcube.json",
-
-			"shape" : [
-				[ 1, 0, 1 ],
-				[ 0, 0, 0 ],
-				[ 1, 0, 1 ]
+			"models" : [ {
+					"file": "models/xcube.json",
+					"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0 },
+					"positionOffset" : { "x" : 0, "y" : 0, "z" : 0 }
+				}
 			],
-
-			"rotation" : {
-				"x" : 0,
-				"y" : 0,
-				"z" : 0
-			},
-
-			"offset" : {
-				"x" : 0,
-				"y" : 0,
-				"z" : 0
-			}
+			"walls" : [
+				[ 0 ]
+			]
 		}
 ]
 });
