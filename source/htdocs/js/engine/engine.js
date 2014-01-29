@@ -53,7 +53,7 @@ define(["THREE", "config"], function(THREE, config) {
 			//this.mapCamera = new THREE.PerspectiveCamera(60, this.renderSize.width / this.renderSize.height, 1, 10000);
 			this.mapCamera.position.set(0, config.mapViewElementsY + 1, 0);
 			this.mapCamera.up.set(0, 1 , 0);
-			this.mapCamera.rotation.set(-Math.PI / 2, 0, - Math.PI);
+			this.mapCamera.rotation.set(-Math.PI / 2, 0, 0);
 
 
 			this.mapCamera.viewportSettings = {

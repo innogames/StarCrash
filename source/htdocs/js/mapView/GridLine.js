@@ -26,9 +26,9 @@ define(["THREE"], function(THREE) {
 		// create the geometry
 		for (var x = 0; x <= this._lineCountX; x++) {
 			this.geometry.vertices.push(new THREE.Vector3(x * this._gridCellSize, 100, 0));
-			this.geometry.vertices.push(new THREE.Vector3(x * this._gridCellSize, 100, this._lineCountZ * this._gridCellSize));
+			this.geometry.vertices.push(new THREE.Vector3(x * this._gridCellSize, 100, -this._lineCountZ * this._gridCellSize));
 		}
-		for (var z = 0; z <= this._lineCountZ; z++) {
+		for (var z = 0; z >= -this._lineCountZ; z--) {
 			this.geometry.vertices.push(new THREE.Vector3(0									, 100, z * this._gridCellSize));
 			this.geometry.vertices.push(new THREE.Vector3(this._lineCountX * this._gridCellSize, 100, z * this._gridCellSize));
 		}

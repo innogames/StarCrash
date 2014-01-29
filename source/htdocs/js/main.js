@@ -94,12 +94,13 @@ require(    [
 
 			level.initEntities();
 			engine.scene.add(level);
+			window.level = level;
 
 			//world.initMap(geometries, materials);
-			player = new Player(1, 6, engine.getMainCamera(), geometries["models/aim.js"], materials["models/aim.js"]);
+			player = new Player(1, 0, engine.getMainCamera(), geometries["models/aim.js"], materials["models/aim.js"]);
 			mapView = new MapView(player, level);
 			engine.scene.add(player);
-			new GameController(player);
+			new GameController(player, level);
 			//new UIMap(level, player);
 
 			debugTool.init(player, level);

@@ -28,8 +28,8 @@ define(["THREE", "constants", "config"], function(THREE, constants, config) {
 	 */
 	GridWalls.prototype.update = function() {
 		this.clear();
-		for (var x = 0; x < this._level.getWidth(); x++) {
-			for (var z = 0; z < this._level.getHeight(); z++) {
+		for (var x = -1; x <= this._level.getWidth(); x++) {
+			for (var z = 1; z >= -this._level.getHeight(); z--) {
 				if(this._level.isWallBetween(x, z, x -1, z)) {
 					this.add(this.createWallPlane(x, z, constants.NEGATIVE_X));
 				}
@@ -65,16 +65,12 @@ define(["THREE", "constants", "config"], function(THREE, constants, config) {
 		plane.position.z = (gridZ * config.gridCellSize);
 		plane.position.y = config.mapViewElementsY;
 
-		if (direction == constants.POSITIVE_Z) {
-			plane.position.z += config.gridCellSize;
-		} else if (direction == constants.POSITIVE_X) {
-			plane.rotation.z = Math.PI / 2;
-			plane.position.x += config.gridCellSize / 2;
-			plane.position.z += config.gridCellSize / 2;
+		if (direction == constants.NEGATIVE_Z) {
+			plane.position.z -= config.gridCellSize;
 		} else if (direction == constants.NEGATIVE_X) {
 			plane.rotation.z = Math.PI / 2;
 			plane.position.x -= config.gridCellSize / 2;
-			plane.position.z += config.gridCellSize / 2;
+			plane.position.z -= config.gridCellSize / 2;
 		}
 		return plane;
 	};

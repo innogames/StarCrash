@@ -1,4 +1,4 @@
-define([], function() {
+define(["config"], function(config) {
 	return  [
 		{
 			"class" : "corridor",
@@ -6,7 +6,11 @@ define([], function() {
 			"models" : [ {
 					"file": "models/icube.js",
 					"rotationOffset" : { "x" : 0, "y" : -Math.PI / 2, "z" : 0},
-					"positionOffset" : { "x" : 0, "y" : 0, "z" : 0 }
+					"positionOffset" : {
+						"x" : config.gridCellSize / 2,
+						"y" : 0,
+						"z" : -config.gridCellSize / 2
+					}
 				}
 			],
 			"walls" : [
@@ -20,7 +24,11 @@ define([], function() {
 			"models" : [ {
 				"file": "models/icube.js",
 				"rotationOffset" : { "x" : 0, "y" : 0,    "z" : 0 },
-				"positionOffset" : { "x" : 0, "y" : 0,          "z" : 0 }
+				"positionOffset" : {
+					"x" : config.gridCellSize / 2,
+					"y" : 0,
+					"z" : -config.gridCellSize / 2
+				}
 			}
 			],
 			"walls" : [
@@ -34,11 +42,17 @@ define([], function() {
 			"models" : [ {
 					"file": "models/xcube.js",
 					"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0 },
-					"positionOffset" : { "x" : 0, "y" : 0, "z" : 0 }
+					"positionOffset" : {
+						"x" : config.gridCellSize * 1.5,
+						"y" : 0,
+						"z" : -config.gridCellSize * 1.5
+					}
 				}
 			],
 			"walls" : [
-				[ 0 ]
+				[ 0, 5, 0 ],
+				[ 10, 0, 10 ],
+				[ 0, 5, 0 ]
 			]
 		}
 ]

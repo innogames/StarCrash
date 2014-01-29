@@ -13,6 +13,7 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 	var Player = function(gridStartX, gridStartZ, pCamera, pPlayerModelGeometry, pPlayerModelMaterial) {
 		THREE.Object3D.call( this );
 		this.name = "The Player";
+		this.gridPosition = new THREE.Vector3(0, 0, 0);
 		this.setGridPosition(gridStartX, gridStartZ);
 
 		// Initialize the player model.
@@ -179,9 +180,10 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 	 * @param gridZ The grid z coordinate.
 	 */
 	Player.prototype.setGridPosition = function(gridX, gridZ) {
-		this.gridPosition = new THREE.Vector3(gridX, 0, gridZ);
+		this.gridPosition.x = gridX;
+		this.gridPosition.z = gridZ;
 		this.position.x = this.gridPosition.x * config.gridCellSize + (config.gridCellSize / 2);
-		this.position.z = this.gridPosition.z * config.gridCellSize + (config.gridCellSize / 2);
+		this.position.z = this.gridPosition.z * config.gridCellSize - (config.gridCellSize / 2);
 	};
 
 	/**
