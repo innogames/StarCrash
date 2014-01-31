@@ -1,22 +1,30 @@
-define(["THREE", "config"], function(THREE, config) {
+define(["THREE", "config", "engine/debugTool"], function(THREE, config, debugTool) {
 
 	var singletonInstance;
 
 	var GraphicController = function() {
+
+		this._animatables = [];
+
+		this._debugAxisHelper = new THREE.AxisHelper(100);
+		this._debugAxisHelper.visible = false;
+		this._debugGridHelper = new THREE.GridHelper(100 *  config.gridCellSize,  config.gridCellSize);
+		this._debugGridHelper.visible = false;
+
+
 		this.mainCamera = null;
-		this.fpsDiv = null;
 		this.scene = null;
 		this.clock = null;
 		this.renderer = null;
 		this.viewPortContainer = null;
-		this.renderSize = { "width" : window.innerWidth, "height" : window.innerHeight};
+
 		this.dpr = window.devicePixelRatio || 1;
 
 
 
 		this.viewPortContainer = document.getElementById(config.viewPortContainerId);
 
-		this.mainCamera = new THREE.PerspectiveCamera(45, this.renderSize.width / this.renderSize.height, 1, 10000);
+		this.mainCamera = new THREE.PerspectiveCamera(45, config.renderSize.width / config.renderSize.height, 1, 10000);
 		this.mainCamera.position.set(0, 0, 0);
 		this.mainCamera.up.set(0, 1 ,0);
 		this.mainCamera.rotation.set(0, 0, 0);
@@ -30,7 +38,7 @@ define(["THREE", "config"], function(THREE, config) {
 		this.mainCamera.receiveShadow = true;
 
 
-		this.mapCamera = new THREE.OrthographicCamera( this.renderSize.width / - 2, this.renderSize.width / 2, this.renderSize.height / 2, this.renderSize.height / - 2, 0, 10000 );
+		this.mapCamera = new THREE.OrthographicCamera( config.renderSize.width / - 2, config.renderSize.width / 2, config.renderSize.height / 2, config.renderSize.height / - 2, 0, 10000 );
 		//this.mapCamera = new THREE.PerspectiveCamera(60, this.renderSize.width / this.renderSize.height, 1, 10000);
 		this.mapCamera.position.set(0, config.mapViewElementsY + 1, 0);
 		this.mapCamera.up.set(0, 1 , 0);
@@ -54,18 +62,21 @@ define(["THREE", "config"], function(THREE, config) {
 		this.scene.receiveShadow = true;
 		this.scene.castShadow = true;
 
+		this.scene.add(this._debugAxisHelper);
+		this.scene.add(this._debugGridHelper);
+
 		// init and append renderer
 		this.renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
-		this.renderer.setSize(this.renderSize.width, this.renderSize.height);
+		this.renderer.setSize(config.renderSize.width, config.renderSize.height);
 		this.renderer.shadowMapEnabled = true;
 
 		this.viewPortContainer.appendChild(this.renderer.domElement);
 
 		// resize-listener
 		window.addEventListener('resize', function() {
-			this.mainCamera.aspect = this.renderSize.width / this.renderSize.height;
+			this.mainCamera.aspect = config.renderSize.width / config.renderSize.height;
 			this.mainCamera.updateProjectionMatrix();
-			this.renderer.setSize(this.renderSize.width, this.renderSize.height);
+			this.renderer.setSize(config.renderSize.width, config.renderSize.height);
 		}, false);
 
 		// add scene to window in debug-mode
@@ -75,6 +86,38 @@ define(["THREE", "config"], function(THREE, config) {
 		}
 
 	};
+
+	GraphicController.prototype.animationCallback = function() {
+
+		var camera;
+		// == render main view-port ==========
+		if (debugTool.flyControlsEnabled) {
+			// use debug camera
+			camera = debugTool.debugCamera;
+			singletonInstance._debugAxisHelper.visible = true;
+			singletonInstance._debugGridHelper.visible = true;
+			singletonInstance.scene.fog.density = 0;
+
+		} else {
+			// use main camera
+			camera = singletonInstance.mainCamera;
+			singletonInstance._debugAxisHelper.visible = false;
+			singletonInstance._debugGridHelper.visible = false;
+			singletonInstance.scene.fog.density = config.fogDensity;
+		}
+
+		singletonInstance.applyViewportSettings(singletonInstance.renderer, camera);
+		singletonInstance.renderer.render(singletonInstance.scene, camera);
+
+		debugTool.animate(singletonInstance.clock.getDelta());
+
+		for (var i = 0; i < singletonInstance._animatables.length; i++) {
+			singletonInstance._animatables[i].animate(singletonInstance.clock.getDelta());
+		}
+
+		requestAnimationFrame(singletonInstance.animationCallback);
+	};
+
 
 	GraphicController.prototype.getMainCamera = function() {
 		return this.mainCamera;
@@ -87,10 +130,10 @@ define(["THREE", "config"], function(THREE, config) {
 
 
 	GraphicController.prototype.applyViewportSettings = function(renderer, camera) {
-		var left = 		Math.floor(this.renderSize.width  * camera.viewportSettings.left) * this.dpr,
-			bottom = 	Math.floor(this.renderSize.height * camera.viewportSettings.bottom) * this.dpr,
-			width = 	Math.floor(this.renderSize.width  * camera.viewportSettings.width) * this.dpr,
-			height = 	Math.floor(this.renderSize.height * camera.viewportSettings.height) * this.dpr;
+		var left = 		Math.floor(config.renderSize.width  * camera.viewportSettings.left) * this.dpr,
+			bottom = 	Math.floor(config.renderSize.height * camera.viewportSettings.bottom) * this.dpr,
+			width = 	Math.floor(config.renderSize.width  * camera.viewportSettings.width) * this.dpr,
+			height = 	Math.floor(config.renderSize.height * camera.viewportSettings.height) * this.dpr;
 
 		renderer.setViewport(left, bottom, width, height );
 		renderer.setScissor( left, bottom, width, height );
@@ -98,6 +141,11 @@ define(["THREE", "config"], function(THREE, config) {
 		renderer.setClearColor(camera.viewportSettings.backgroundColor, 0.1);
 
 		camera.aspect = width / height;
+	};
+
+
+	GraphicController.prototype.addAnimatable = function(animatable) {
+		this._animatables.push(animatable);
 	};
 
 	singletonInstance = new GraphicController();

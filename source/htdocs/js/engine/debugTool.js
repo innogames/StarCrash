@@ -1,4 +1,4 @@
-define(["THREE", "engine/graphicController", "libs/FlyControls"], function(THREE, graphics, FlyControls) {
+define(["THREE", "libs/FlyControls", "config"], function(THREE, FlyControls, config) {
 
 	return {
 
@@ -16,18 +16,20 @@ define(["THREE", "engine/graphicController", "libs/FlyControls"], function(THREE
 
 
 
-		init : function(pPlayer, pLevel) {
+		init : function(pPlayer, pLevel, pCamera, rendererDomElement) {
 			var self = this;
 
 			this.player = pPlayer;
 			this.level = pLevel;
-			this.debugCamera = new THREE.PerspectiveCamera(60, graphics.renderSize.width / graphics.renderSize.height, 1, 4096);
-			this.debugCamera.viewportSettings = graphics.getMainCamera().viewportSettings;
-			this.debugCamera.rotation.y = Math.PI;
+			this.debugCamera = new THREE.PerspectiveCamera(60, config.renderSize.width / config.renderSize.height, 1, 4096);
+			this.debugCamera.viewportSettings = pCamera.viewportSettings;
+			this.debugCamera.position = pCamera.position.clone();
+			this.debugCamera.up.set(0, 1 ,0);
+			this.debugCamera.rotation = pCamera.rotation.clone();
 
 			this.flyControls = new FlyControls(this.debugCamera);
 			this.flyControls.movementSpeed = 200;
-			this.flyControls.domElement = graphics.renderer.domElement;
+			this.flyControls.domElement = rendererDomElement;
 			this.flyControls.rollSpeed = Math.PI / 3;
 			this.flyControls.autoForward = false;
 			this.flyControls.dragToLook = true;
@@ -59,8 +61,8 @@ define(["THREE", "engine/graphicController", "libs/FlyControls"], function(THREE
 
 		},
 
-		update : function() {
-			this.flyControls.update(graphics.clock.getDelta());
+		animate : function(delta) {
+			this.flyControls.update(delta);
 			this.domPlayerPosition.innerHTML = "position x:" + this.player.position.x + " y:" + this.player.position.y + " z:" + this.player.position.z;
 
 			var direction = this.player.getFacingDirection(false);

@@ -5,7 +5,10 @@ define([], function() {
 		debug: true,
 		mapViewElementsY: 100,
 
+		renderSize : { "width" : window.innerWidth, "height" : window.innerHeight},
+		viewPortContainerId : "container",
 
-		viewPortContainerId : "container"
+		fogDensity : 0.003
+
 	};
 });

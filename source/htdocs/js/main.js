@@ -23,7 +23,8 @@ require(    [
 				"engine/gameController",
 				"engine/modelStore",
 				"engine/debugTool",
-				"mapView/mapView"
+				"mapView/mapView",
+				"config"
 			],
 
     function(
@@ -35,14 +36,10 @@ require(    [
 				GameController,
 				modelStore,
 				debugTool,
-				MapView
+				MapView,
+                config
 			) {
 
-	// setup particle-engine
-	//engine.particleEngine = new ParticleEngine();
-	//Examples.candle.positionBase = new THREE.Vector3(0,-55,350);
-	//game.engine.particleEngine.setValues(Examples.candle);
-	//game.engine.particleEngine.initialize();
 
 	inputController.init();
 
@@ -54,28 +51,7 @@ require(    [
 
 
 
-	var animationCallback = function() {
-		player.animate();
 
-		var camera;
-		// == render main view-port ==========
-		if (debugTool.flyControlsEnabled) {
-			// use debug camera
-			camera = debugTool.debugCamera;
-		} else {
-			// use main camera
-			camera = graphics.getMainCamera();
-		}
-		graphics.applyViewportSettings(graphics.renderer, camera);
-		graphics.renderer.render(graphics.scene, camera);
-
-
-		// == render map view-port ===========
-		mapView.render();
-
-		debugTool.update();
-		requestAnimationFrame(animationCallback);
-	};
 
 
 	fetchJSONFile("levels/level02.json", function(levelJSON) {
@@ -88,20 +64,24 @@ require(    [
 
 			level.initEntities();
 			graphics.scene.add(level);
+
+
 			window.level = level;
 
 			//world.initMap(geometries, materials);
 			player = new Player(0, 0, graphics.getMainCamera(), geometries["models/aim.js"], materials["models/aim.js"]);
+			graphics.addAnimatable(player);
 			mapView = new MapView(player, level);
+			graphics.addAnimatable(mapView);
 			graphics.scene.add(player);
 
-			graphics.scene.fog = new THREE.FogExp2( 0x333333, 0.003 );
+			graphics.scene.fog = new THREE.FogExp2( 0x333333, config.fogDensity );
 
 			new GameController(player, level);
 			//new UIMap(level, player);
 
-			debugTool.init(player, level);
-			animationCallback();
+			debugTool.init(player, level, graphics.getMainCamera(), graphics.renderer.domElement);
+			graphics.animationCallback();
 		});
 
 	});

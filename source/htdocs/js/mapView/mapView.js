@@ -19,7 +19,7 @@ define(["THREE", "engine/graphicController", "config", "engine/Bus", "mapView/Gr
 		graphics.scene.add(this._objectContainer);
 	};
 
-	MapView.prototype.render = function() {
+	MapView.prototype.animate = function() {
 		if (this._visible == true) {
 
 			this.showMapViewObjects();
