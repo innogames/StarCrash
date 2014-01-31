@@ -1,4 +1,4 @@
-define(["THREE", "engine/engine", "libs/FlyControls"], function(THREE, engine, FlyControls) {
+define(["THREE", "engine/graphicController", "libs/FlyControls"], function(THREE, graphics, FlyControls) {
 
 	return {
 
@@ -21,13 +21,13 @@ define(["THREE", "engine/engine", "libs/FlyControls"], function(THREE, engine, F
 
 			this.player = pPlayer;
 			this.level = pLevel;
-			this.debugCamera = new THREE.PerspectiveCamera(60, engine.renderSize.width / engine.renderSize.height, 1, 4096);
-			this.debugCamera.viewportSettings = engine.getMainCamera().viewportSettings;
+			this.debugCamera = new THREE.PerspectiveCamera(60, graphics.renderSize.width / graphics.renderSize.height, 1, 4096);
+			this.debugCamera.viewportSettings = graphics.getMainCamera().viewportSettings;
 			this.debugCamera.rotation.y = Math.PI;
 
 			this.flyControls = new FlyControls(this.debugCamera);
 			this.flyControls.movementSpeed = 200;
-			this.flyControls.domElement = engine.renderer.domElement;
+			this.flyControls.domElement = graphics.renderer.domElement;
 			this.flyControls.rollSpeed = Math.PI / 3;
 			this.flyControls.autoForward = false;
 			this.flyControls.dragToLook = true;
@@ -60,7 +60,7 @@ define(["THREE", "engine/engine", "libs/FlyControls"], function(THREE, engine, F
 		},
 
 		update : function() {
-			this.flyControls.update(engine.clock.getDelta());
+			this.flyControls.update(graphics.clock.getDelta());
 			this.domPlayerPosition.innerHTML = "position x:" + this.player.position.x + " y:" + this.player.position.y + " z:" + this.player.position.z;
 
 			var direction = this.player.getFacingDirection(false);

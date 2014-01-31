@@ -1,4 +1,4 @@
-define(["THREE", "entities/entityDefinition"], function(THREE, entityDefinition) {
+define(["THREE", "entities/entityTypes"], function(THREE, entityDefinition) {
 
 	var singletonInstance;
 
@@ -20,9 +20,6 @@ define(["THREE", "entities/entityDefinition"], function(THREE, entityDefinition)
 
 				(function(i) {
 					self.jsonLoader.load(modelNameList[i], function (geometry, material) {
-
-
-						//geometry.computeFaceNormals();
 
 						material.shading = THREE.SmoothShading; // TODO : ..
 

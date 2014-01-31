@@ -1,4 +1,7 @@
-define(["engine/Bus"], function(bus) {
+define(["engine/Bus", "config"], function(bus, config) {
+
+	var mouseX = 0,
+		mouseY = 0;
 
 	return {
 		init : function() {
@@ -25,6 +28,14 @@ define(["engine/Bus"], function(bus) {
 			});
 			document.getElementById("input_move_backward").addEventListener("click", function() {
 				bus.post(bus.EVENT_INPUT_MOVE_BACKWARDS);
+			});
+
+
+			document.getElementById(config.viewPortContainerId).addEventListener("mousemove", function(evt) {
+				evt = (evt) ? evt : ((window.event) ? window.event : "");
+				var elem = (evt.target) ? evt.target : evt.srcElement;
+				mouseX = evt.clientX;
+				mouseY = evt.clientY;
 			});
 
 

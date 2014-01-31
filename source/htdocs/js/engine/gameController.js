@@ -30,6 +30,7 @@ define(["THREE", "engine/Bus"], function(THREE, bus) {
 			if(!backWall) self.player.moveBackwards();
 		});
 
+
 	};
 
 	return GameController;

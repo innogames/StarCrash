@@ -1,4 +1,4 @@
-define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bus, config, Animation) {
+define(["THREE", "engine/bus", "config", "engine/Animation"], function(THREE, bus, config, Animation) {
 
 	/**
 	 * Creates a new player by its start position and the scene mainCamera. Inherits from THREE.Object3D
@@ -37,6 +37,7 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 
 		// Initialize animation
 		this.currentMovingAnimation = null;
+		this.currentLookAtAnimation = null; // do not mix that up with a turning-animation.. it is not.
 		this.playerModelAnimationCounter = 0;
 
 		this.add(this.playerModel);
@@ -168,6 +169,20 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 		});
 	};
 
+	Player.prototype.lookLeft = function() {
+		var self = this;
+		this.currentLookAtAnimation = new Animation(this._camera, null, new THREE.Vector3(0,0.3,0), 200, function() {
+			self.currentLookAtAnimation = null;
+		});
+	};
+
+	Player.prototype.lookRight = function() {
+		var self = this;
+		this.currentLookAtAnimation = new Animation(this._camera, null, new THREE.Vector3(0,-0.3,0), 200, function() {
+			self.currentLookAtAnimation = null;
+		});
+	};
+
 	/**
 	 * Call every render loop to animate the player.
 	 */
@@ -176,6 +191,10 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 			this.playerModelAnimationCounter = (this.playerModelAnimationCounter + 1) % (Math.PI * 2);
 			this.currentMovingAnimation.animate();
 			this.playerModel.position.y += Math.sin(this.playerModelAnimationCounter / 2) * 0.1;
+		}
+
+		if (this.currentLookAtAnimation != null) {
+			this.currentLookAtAnimation.animate();
 		}
 	};
 

@@ -1,4 +1,4 @@
-define(["THREE", "engine/engine", "config", "engine/Bus", "mapView/GridLine", "mapView/GridWalls"], function(THREE, engine, config, bus, GridLine, GridWalls) {
+define(["THREE", "engine/graphicController", "config", "engine/Bus", "mapView/GridLine", "mapView/GridWalls"], function(THREE, graphics, config, bus, GridLine, GridWalls) {
 
 
 	var MapView = function(pPlayer, pLevel) {
@@ -16,7 +16,7 @@ define(["THREE", "engine/engine", "config", "engine/Bus", "mapView/GridLine", "m
 		this._objectContainer.add(new GridLine(this._level.getWidth(), this._level.getHeight(), config.gridCellSize));
 		this._objectContainer.add(new GridWalls(this._level));
 
-		engine.scene.add(this._objectContainer);
+		graphics.scene.add(this._objectContainer);
 	};
 
 	MapView.prototype.render = function() {
@@ -24,11 +24,11 @@ define(["THREE", "engine/engine", "config", "engine/Bus", "mapView/GridLine", "m
 
 			this.showMapViewObjects();
 
-			engine.getMapCamera().position.x = this._player.position.x;
-			engine.getMapCamera().position.z = this._player.position.z;
+			graphics.getMapCamera().position.x = this._player.position.x;
+			graphics.getMapCamera().position.z = this._player.position.z;
 
-			engine.applyViewportSettings(engine.renderer, engine.getMapCamera());
-			engine.renderer.render(engine.scene, engine.getMapCamera());
+			graphics.applyViewportSettings(graphics.renderer, graphics.getMapCamera());
+			graphics.renderer.render(graphics.scene, graphics.getMapCamera());
 
 			this.hideMapViewObjects();
 		}
@@ -67,16 +67,16 @@ define(["THREE", "engine/engine", "config", "engine/Bus", "mapView/GridLine", "m
 	};
 
 	MapView.prototype.zoomIn = function() {
-		var length = engine.getMapCamera().scale.length();
+		var length = graphics.getMapCamera().scale.length();
 		if (length > 0.3) {
-			engine.getMapCamera().scale.setLength(length - 0.1);
+			graphics.getMapCamera().scale.setLength(length - 0.1);
 		}
 	};
 
 	MapView.prototype.zoomOut = function() {
-		var length = engine.getMapCamera().scale.length();
+		var length = graphics.getMapCamera().scale.length();
 		if (length < 10) {
-			engine.getMapCamera().scale.setLength(length + 0.1);
+			graphics.getMapCamera().scale.setLength(length + 0.1);
 		}
 	};
 

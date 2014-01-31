@@ -1,7 +1,7 @@
 /**
  * @author James Baicoianu / http://www.baicoianu.com/
  */
-define(["THREE", "engine/engine"], function(THREE, engine) {
+define(["THREE"], function(THREE) {
 
 	var FlyControls = function ( object, domElement ) {
 

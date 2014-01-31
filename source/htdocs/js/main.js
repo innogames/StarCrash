@@ -15,11 +15,10 @@ require.config({
 });
 
 require(    [
-				"engine/engine",
-				"engine/world",
-				"engine/level",
+				"engine/graphicController",
+				"engine/LevelController",
 				"ui/UIMap",
-				"engine/player",
+				"engine/Player",
 				"engine/inputController",
 				"engine/gameController",
 				"engine/modelStore",
@@ -28,8 +27,7 @@ require(    [
 			],
 
     function(
-				engine,
-				world,
+				graphics,
 				Level,
 				UIMap,
 				Player,
@@ -46,7 +44,6 @@ require(    [
 	//game.engine.particleEngine.setValues(Examples.candle);
 	//game.engine.particleEngine.initialize();
 
-	engine.init();
 	inputController.init();
 
 	var modelsToLoad = [],
@@ -59,7 +56,6 @@ require(    [
 
 	var animationCallback = function() {
 		player.animate();
-		world.updateLights();
 
 		var camera;
 		// == render main view-port ==========
@@ -68,17 +64,15 @@ require(    [
 			camera = debugTool.debugCamera;
 		} else {
 			// use main camera
-			camera = engine.getMainCamera();
+			camera = graphics.getMainCamera();
 		}
-		engine.applyViewportSettings(engine.renderer, camera);
-		engine.renderer.render(engine.scene, camera);
+		graphics.applyViewportSettings(graphics.renderer, camera);
+		graphics.renderer.render(graphics.scene, camera);
 
 
 		// == render map view-port ===========
 		mapView.render();
 
-
-		engine.tick += 1;
 		debugTool.update();
 		requestAnimationFrame(animationCallback);
 	};
@@ -93,15 +87,15 @@ require(    [
 		modelStore.load(modelsToLoad, function(geometries, materials) {
 
 			level.initEntities();
-			engine.scene.add(level);
+			graphics.scene.add(level);
 			window.level = level;
 
 			//world.initMap(geometries, materials);
-			player = new Player(0, 0, engine.getMainCamera(), geometries["models/aim.js"], materials["models/aim.js"]);
+			player = new Player(0, 0, graphics.getMainCamera(), geometries["models/aim.js"], materials["models/aim.js"]);
 			mapView = new MapView(player, level);
-			engine.scene.add(player);
+			graphics.scene.add(player);
 
-			engine.scene.fog = new THREE.FogExp2( 0x333333, 0.003 );
+			graphics.scene.fog = new THREE.FogExp2( 0x333333, 0.003 );
 
 			new GameController(player, level);
 			//new UIMap(level, player);
