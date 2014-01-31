@@ -11,7 +11,7 @@ Entities definition ?:
 			{
 				"type" : "corr001",
 				"id" : "entity01",
-				"cell" : { x: 0, y : 1},
+				"position" : { "gridX": 0, "gridY" : 1},
 			} ....
 		],
 

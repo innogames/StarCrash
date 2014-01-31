@@ -1,4 +1,4 @@
-define(["THREE", "engine/bus"], function(THREE, bus) {
+define(["THREE", "engine/Bus"], function(THREE, bus) {
 
 
 	var GameController = function(pPlayer, pLevel) {

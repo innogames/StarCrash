@@ -1,4 +1,4 @@
-define(["engine/bus"], function(bus) {
+define(["engine/Bus"], function(bus) {
 
 	return {
 		init : function() {

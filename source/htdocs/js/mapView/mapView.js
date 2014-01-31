@@ -1,4 +1,4 @@
-define(["THREE", "engine/engine", "config", "engine/bus", "mapView/GridLine", "mapView/GridWalls"], function(THREE, engine, config, bus, GridLine, GridWalls) {
+define(["THREE", "engine/engine", "config", "engine/Bus", "mapView/GridLine", "mapView/GridWalls"], function(THREE, engine, config, bus, GridLine, GridWalls) {
 
 
 	var MapView = function(pPlayer, pLevel) {
