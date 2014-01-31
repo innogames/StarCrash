@@ -17,6 +17,13 @@ define(["THREE", "entities/Entity"], function(THREE, Entity) {
 
 		this._entityLookupList = {}; // a list that maps a grid coordinate key (e.g. 'x9y2') to all entities at this position.
 
+
+		var testCube = new THREE.Mesh(new THREE.CubeGeometry(10,10,10), new THREE.MeshLambertMaterial({	color: 0x000055	}));
+		testCube.position.z = -785;
+		testCube.position.y = 5;
+		testCube.position.x = 300;
+
+
 		this.receiveShadow = true;
 		this.castShadow = true;
 	};

@@ -29,8 +29,8 @@ define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bu
 		pPlayerModelGeometry.computeFaceNormals();
 
 		this.playerModel = new THREE.Mesh(pPlayerModelGeometry, new THREE.MeshFaceMaterial( pPlayerModelMaterial ));
-		this.playerModel.castShadow = false;
-		this.playerModel.receiveShadow = false;
+
+		this.playerModel.receiveShadow = true;
 		this.playerModel.name = "The Player-Model";
 		this.playerModel.position = this.playerModelStandardOffset.clone();
 		this.playerModel.rotation.y = - Math.PI;
