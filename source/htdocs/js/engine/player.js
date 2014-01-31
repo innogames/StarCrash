@@ -169,20 +169,6 @@ define(["THREE", "engine/bus", "config", "engine/Animation"], function(THREE, bu
 		});
 	};
 
-	Player.prototype.lookLeft = function() {
-		var self = this;
-		this.currentLookAtAnimation = new Animation(this._camera, null, new THREE.Vector3(0,0.3,0), 200, function() {
-			self.currentLookAtAnimation = null;
-		});
-	};
-
-	Player.prototype.lookRight = function() {
-		var self = this;
-		this.currentLookAtAnimation = new Animation(this._camera, null, new THREE.Vector3(0,-0.3,0), 200, function() {
-			self.currentLookAtAnimation = null;
-		});
-	};
-
 	/**
 	 * Call every render loop to animate the player.
 	 */
