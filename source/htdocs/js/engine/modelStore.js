@@ -21,7 +21,7 @@ define(["THREE", "entities/entityDefinition"], function(THREE, entityDefinition)
 				(function(i) {
 					self.jsonLoader.load(modelNameList[i], function (geometry, material) {
 
-						//geometry.computeVertexNormals();
+
 						//geometry.computeFaceNormals();
 
 						material.shading = THREE.SmoothShading; // TODO : ..

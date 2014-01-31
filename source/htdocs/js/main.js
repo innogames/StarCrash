@@ -100,6 +100,9 @@ require(    [
 			player = new Player(0, 0, engine.getMainCamera(), geometries["models/aim.js"], materials["models/aim.js"]);
 			mapView = new MapView(player, level);
 			engine.scene.add(player);
+
+			engine.scene.fog = new THREE.FogExp2( 0x333333, 0.003 );
+
 			new GameController(player, level);
 			//new UIMap(level, player);
 

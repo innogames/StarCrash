@@ -37,8 +37,8 @@ define(["THREE", "config"], function(THREE, config) {
 	init: function() {
 			this.viewPortContainer = document.getElementById('container');
 
-			this.mainCamera = new THREE.PerspectiveCamera(60, this.renderSize.width / this.renderSize.height, 1, 10000);
-			this.mainCamera.position.set(0, 2, 0);
+			this.mainCamera = new THREE.PerspectiveCamera(45, this.renderSize.width / this.renderSize.height, 1, 10000);
+			this.mainCamera.position.set(0, 0, 0);
 			this.mainCamera.up.set(0, 1 ,0);
 			this.mainCamera.rotation.set(0, 0, 0);
 			this.mainCamera.viewportSettings = {
@@ -48,12 +48,15 @@ define(["THREE", "config"], function(THREE, config) {
 				height: 1.0,
 				backgroundColor: new THREE.Color( 0x000000 )
 			};
+			this.mainCamera.receiveShadow = true;
+
 
 			this.mapCamera = new THREE.OrthographicCamera( this.renderSize.width / - 2, this.renderSize.width / 2, this.renderSize.height / 2, this.renderSize.height / - 2, 0, 10000 );
 			//this.mapCamera = new THREE.PerspectiveCamera(60, this.renderSize.width / this.renderSize.height, 1, 10000);
 			this.mapCamera.position.set(0, config.mapViewElementsY + 1, 0);
 			this.mapCamera.up.set(0, 1 , 0);
 			this.mapCamera.rotation.set(-Math.PI / 2, 0, 0);
+
 
 
 			this.mapCamera.viewportSettings = {
@@ -69,9 +72,13 @@ define(["THREE", "config"], function(THREE, config) {
 			this.scene =  new THREE.Scene();
 			this.clock = new THREE.Clock();
 
+			this.scene.receiveShadow = true;
+			this.scene.castShadow = true;
+
 			// init and append renderer
-			this.renderer = new THREE.WebGLRenderer({antialias:false});
+			this.renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
 			this.renderer.setSize(this.renderSize.width, this.renderSize.height);
+			this.renderer.shadowMapEnabled = true;
 
 			this.viewPortContainer.appendChild(this.renderer.domElement);
 

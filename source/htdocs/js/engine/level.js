@@ -16,6 +16,9 @@ define(["THREE", "entities/Entity"], function(THREE, Entity) {
 		if (!this._rawLevelJSON.grid) 		console.error("Error loading level. Grid is not defined: ", this._rawLevelJSON);
 
 		this._entityLookupList = {}; // a list that maps a grid coordinate key (e.g. 'x9y2') to all entities at this position.
+
+		this.receiveShadow = true;
+		this.castShadow = true;
 	};
 
 	/**

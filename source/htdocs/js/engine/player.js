@@ -1,4 +1,4 @@
-define(["THREE", "engine/Bus", "config", "engine/animation"], function(THREE, bus, config, Animation) {
+define(["THREE", "engine/bus", "config", "engine/animation"], function(THREE, bus, config, Animation) {
 
 	/**
 	 * Creates a new player by its start position and the scene mainCamera. Inherits from THREE.Object3D
@@ -12,18 +12,25 @@ define(["THREE", "engine/Bus", "config", "engine/animation"], function(THREE, bu
 	 */
 	var Player = function(gridStartX, gridStartZ, pCamera, pPlayerModelGeometry, pPlayerModelMaterial) {
 		THREE.Object3D.call( this );
+
+		var headPositionY = 50;
+
 		this.name = "The Player";
-		this.position.y = 50;
 		this.gridPosition = new THREE.Vector3(0, 0, 0);
+		this._camera = pCamera;
+		this._camera.position.y = headPositionY;
+		this.receiveShadow = true;
 		this.setGridPosition(gridStartX, gridStartZ);
 
 		// Initialize the player model.
-		this.playerModelStandardOffset = new THREE.Vector3(0, -81.5, 5);
+		this.playerModelStandardOffset = new THREE.Vector3(0, -81.5 + headPositionY, -5);
 
 		pPlayerModelGeometry.computeVertexNormals();
 		pPlayerModelGeometry.computeFaceNormals();
 
 		this.playerModel = new THREE.Mesh(pPlayerModelGeometry, new THREE.MeshFaceMaterial( pPlayerModelMaterial ));
+		this.playerModel.castShadow = false;
+		this.playerModel.receiveShadow = false;
 		this.playerModel.name = "The Player-Model";
 		this.playerModel.position = this.playerModelStandardOffset.clone();
 		this.playerModel.rotation.y = - Math.PI;
@@ -33,11 +40,32 @@ define(["THREE", "engine/Bus", "config", "engine/animation"], function(THREE, bu
 		this.playerModelAnimationCounter = 0;
 
 		this.add(this.playerModel);
-		this.add(pCamera);
-		this.add(new THREE.PointLight(0x404040, 20.5, 450));
+		this.add(this._camera);
+
+		var spotLight = new THREE.SpotLight(0xFFFFFF, 2);
+		spotLight.position.set(0, headPositionY + 20, -60);
+		spotLight.castShadow = true;
+		spotLight.receiveShadow = true;
+		spotLight.exponent = 10;
+		spotLight.angle = 1;
+		var target = new THREE.Object3D();
+		target.position.y = headPositionY - 10;
+		target.position.z = -100;
+		this.add(target);
+		spotLight.target = target;
+
+		//window.spotL = spotLight;
+		//window.targ = target;
+
+		var pointLight = new THREE.PointLight(0xFFFFFF, 0.5);
+		pointLight.position.y = headPositionY;
+		window.pl = pointLight;
+
+		this.add(spotLight);
+		this.add(pointLight);
 
 		// (debug) add a cylinder to find the player easy
-		this.add(new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 100, 10, 10, false),new THREE.MeshBasicMaterial({	color: 0xCC0000	})));
+		//this.add(new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 10, 10, 10, false),new THREE.MeshBasicMaterial({	color: 0xCC0000	})));
 
 	};
 

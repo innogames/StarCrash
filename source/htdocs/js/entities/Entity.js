@@ -48,8 +48,14 @@ define(["THREE", "engine/modelStore", "config"], function(THREE, modelStore, con
 			this.position.x = this._rawEntityInfo.gridPosition.x * config.gridCellSize;
 			this.position.z = this._rawEntityInfo.gridPosition.z * config.gridCellSize;
 
+			tmpMesh.castShadow = true;
+			tmpMesh.receiveShadow = true;
+
 			this.add(tmpMesh);
 		}
+
+		this.castShadow = true;
+		this.receiveShadow = true;
 	};
 
 	/**
