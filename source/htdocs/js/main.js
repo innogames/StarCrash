@@ -84,7 +84,7 @@ require(    [
 	};
 
 
-	fetchJSONFile("levels/level01.json", function(levelJSON) {
+	fetchJSONFile("levels/level02.json", function(levelJSON) {
 
 		level = new Level(levelJSON);
 		modelsToLoad = modelStore.getModelFileList(level.getContainingEntityTypes());
@@ -97,7 +97,7 @@ require(    [
 			window.level = level;
 
 			//world.initMap(geometries, materials);
-			player = new Player(1, 0, engine.getMainCamera(), geometries["models/aim.js"], materials["models/aim.js"]);
+			player = new Player(0, 0, engine.getMainCamera(), geometries["models/aim.js"], materials["models/aim.js"]);
 			mapView = new MapView(player, level);
 			engine.scene.add(player);
 			new GameController(player, level);

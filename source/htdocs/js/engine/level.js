@@ -79,7 +79,7 @@ define(["THREE", "entities/Entity"], function(THREE, Entity) {
 			tmpEntity;
 
 		// create directions for both grid cells
-		directionToCheck1 = new THREE.Vector3(grid1X - grid2X, 0, grid1Z - grid2Z);
+		directionToCheck1 = new THREE.Vector3(grid2X - grid1X, 0, grid1Z - grid2Z);
 		directionToCheck2 =  directionToCheck1.clone().negate();
 		if (directionToCheck1.length() != 1 || directionToCheck2.length() != 1) {
 			//console.log("Error checking for walls. The grid positions to check are no neighbours. x1:" + grid1X + " z1:" + grid1Z + " x2:" + grid2X + " z2:" + grid2Z);
@@ -94,7 +94,7 @@ define(["THREE", "entities/Entity"], function(THREE, Entity) {
 		if (entitiesToCheck1 != null) {
 			for (entityIndex = 0; entityIndex < entitiesToCheck1.length; entityIndex++) {
 				tmpEntity = entitiesToCheck1[entityIndex];
-				if (tmpEntity.isWallAt(grid1X, grid1Z, directionToCheck2)) {
+				if (tmpEntity.isWallAt(grid1X, grid1Z, directionToCheck1)) {
 					return true;
 				}
 			}
@@ -104,7 +104,7 @@ define(["THREE", "entities/Entity"], function(THREE, Entity) {
 		if (entitiesToCheck2 != null) {
 			for (entityIndex = 0; entityIndex < entitiesToCheck2.length; entityIndex++) {
 				tmpEntity = entitiesToCheck2[entityIndex];
-				if (tmpEntity.isWallAt(grid2X, grid2Z, directionToCheck1)) {
+				if (tmpEntity.isWallAt(grid2X, grid2Z, directionToCheck2)) {
 					return true;
 				}
 			}

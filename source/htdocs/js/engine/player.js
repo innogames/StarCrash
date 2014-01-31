@@ -13,11 +13,16 @@ define(["THREE", "engine/Bus", "config", "engine/animation"], function(THREE, bu
 	var Player = function(gridStartX, gridStartZ, pCamera, pPlayerModelGeometry, pPlayerModelMaterial) {
 		THREE.Object3D.call( this );
 		this.name = "The Player";
+		this.position.y = 50;
 		this.gridPosition = new THREE.Vector3(0, 0, 0);
 		this.setGridPosition(gridStartX, gridStartZ);
 
 		// Initialize the player model.
 		this.playerModelStandardOffset = new THREE.Vector3(0, -81.5, 5);
+
+		pPlayerModelGeometry.computeVertexNormals();
+		pPlayerModelGeometry.computeFaceNormals();
+
 		this.playerModel = new THREE.Mesh(pPlayerModelGeometry, new THREE.MeshFaceMaterial( pPlayerModelMaterial ));
 		this.playerModel.name = "The Player-Model";
 		this.playerModel.position = this.playerModelStandardOffset.clone();
@@ -29,7 +34,7 @@ define(["THREE", "engine/Bus", "config", "engine/animation"], function(THREE, bu
 
 		this.add(this.playerModel);
 		this.add(pCamera);
-		this.add(new THREE.PointLight(0x404040, 2.5, 450));
+		this.add(new THREE.PointLight(0x404040, 20.5, 450));
 
 		// (debug) add a cylinder to find the player easy
 		this.add(new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 100, 10, 10, false),new THREE.MeshBasicMaterial({	color: 0xCC0000	})));
