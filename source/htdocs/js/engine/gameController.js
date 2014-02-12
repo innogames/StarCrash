@@ -33,9 +33,13 @@ define(["THREE", "engine/Bus", "animations/LaserAnimation"], function(THREE, bus
 
 
 		bus.subscribe(bus.EVENT_INPUT_SHOOT, function() {
-			//var weapon = self.player.getEquipedWeapon();
+			//var weapon = self._player.getEquipedWeapon();
 
-			self._graphics.addAnimation(new LaserAnimation());
+
+			self._graphics.addAnimation(new LaserAnimation(self._player.position, self._player.rotation, null, self._graphics), true);
+
+
+
 		});
 
 

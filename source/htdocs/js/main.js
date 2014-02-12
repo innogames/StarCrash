@@ -71,6 +71,8 @@ require(    [
 			//world.initMap(geometries, materials);
 			player = new Player(0, 0, graphics.getMainCamera(), geometries["models/aim.js"], materials["models/aim.js"]);
 
+			window.player = player;
+
 			graphics.addAnimation(player);
 			mapView = new MapView(player, level);
 			graphics.addAnimation(mapView);
@@ -80,7 +82,10 @@ require(    [
 			//new UIMap(level, player);
 
 			debugTool.init(player, level, graphics.getMainCamera(), graphics.renderer.domElement);
+
 			graphics.animationCallback();
+
+
 		});
 
 	});
