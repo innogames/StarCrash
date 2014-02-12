@@ -1,4 +1,4 @@
-define(["THREE", "engine/bus", "config", "engine/Animation"], function(THREE, bus, config, Animation) {
+define(["THREE", "engine/bus", "config", "animations/TransformationAnimation"], function(THREE, bus, config, TransformationAnimation) {
 
 	/**
 	 * Creates a new player by its start position and the scene mainCamera. Inherits from THREE.Object3D
@@ -93,7 +93,7 @@ define(["THREE", "engine/bus", "config", "engine/Animation"], function(THREE, bu
 	Player.prototype.startMoveAnimation = function(positionOffset, rotationOffset, callback) {
 		var self = this;
 		if (!this.isMoving()) {
-			this.currentMovingAnimation = new Animation(this, positionOffset, rotationOffset, config.movementDurationMillis, function() {
+			this.currentMovingAnimation = new TransformationAnimation(this, positionOffset, rotationOffset, config.movementDurationMillis, function() {
 				self.currentMovingAnimation = null;
 				if (callback != null) callback();
 			});

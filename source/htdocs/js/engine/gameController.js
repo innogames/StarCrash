@@ -1,33 +1,41 @@
-define(["THREE", "engine/Bus"], function(THREE, bus) {
+define(["THREE", "engine/Bus", "animations/LaserAnimation"], function(THREE, bus, LaserAnimation) {
 
 
-	var GameController = function(pPlayer, pLevel) {
+	var GameController = function(pPlayer, pLevel, pGraphics) {
 		var self = this;
-		this.player = pPlayer;
-		this.level = pLevel;
+		this._player = pPlayer;
+		this._level = pLevel;
+		this._graphics = pGraphics;
 
 		bus.subscribe(bus.EVENT_INPUT_TURN_LEFT, function() {
-			self.player.turnLeft();
+			self._player.turnLeft();
 		});
 
 		bus.subscribe(bus.EVENT_INPUT_TURN_RIGHT, function() {
-			self.player.turnRight();
+			self._player.turnRight();
 		});
 
 		bus.subscribe(bus.EVENT_INPUT_MOVE_FORWARDS, function() {
-			var facingDirection = self.player.getFacingDirection(false);
-			var nextX = self.player.getGridPosition().x + facingDirection.x;
-			var nextZ = self.player.getGridPosition().z + facingDirection.z;
-			var facingWall = self.level.isWallBetween(self.player.getGridPosition().x, self.player.getGridPosition().z, nextX, nextZ);
-			if(!facingWall) self.player.moveForwards();
+			var facingDirection = self._player.getFacingDirection(false);
+			var nextX = self._player.getGridPosition().x + facingDirection.x;
+			var nextZ = self._player.getGridPosition().z + facingDirection.z;
+			var facingWall = self._level.isWallBetween(self._player.getGridPosition().x, self._player.getGridPosition().z, nextX, nextZ);
+			if(!facingWall) self._player.moveForwards();
 		});
 
 		bus.subscribe(bus.EVENT_INPUT_MOVE_BACKWARDS, function() {
-			var backDirection = self.player.getFacingDirection(false).negate();
-			var nextX = self.player.getGridPosition().x + backDirection.x;
-			var nextZ = self.player.getGridPosition().z + backDirection.z;
-			var backWall = self.level.isWallBetween(self.player.getGridPosition().x, self.player.getGridPosition().z, nextX, nextZ);
-			if(!backWall) self.player.moveBackwards();
+			var backDirection = self._player.getFacingDirection(false).negate();
+			var nextX = self._player.getGridPosition().x + backDirection.x;
+			var nextZ = self._player.getGridPosition().z + backDirection.z;
+			var backWall = self._level.isWallBetween(self._player.getGridPosition().x, self._player.getGridPosition().z, nextX, nextZ);
+			if(!backWall) self._player.moveBackwards();
+		});
+
+
+		bus.subscribe(bus.EVENT_INPUT_SHOOT, function() {
+			//var weapon = self.player.getEquipedWeapon();
+
+			self._graphics.addAnimation(new LaserAnimation());
 		});
 
 

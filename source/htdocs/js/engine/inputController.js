@@ -13,7 +13,10 @@ define(["engine/Bus", "config"], function(bus, config) {
 				if (e.keyCode == 40) bus.post(bus.EVENT_INPUT_MOVE_BACKWARDS);
 
 				if (e.keyCode == 107) bus.post(bus.EVENT_INPUT_ZOOM_IN_MAP);
-				if (e.keyCode == 109) bus.post(bus.EVENT_INPUT_ZOOM_OUT_MAP)
+				if (e.keyCode == 109) bus.post(bus.EVENT_INPUT_ZOOM_OUT_MAP);
+
+				if (e.keyCode == 32) bus.post(bus.EVENT_INPUT_SHOOT);
+
 			});
 
 			// MOUSE-Controls ======================================================================

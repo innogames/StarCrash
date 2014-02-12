@@ -70,14 +70,13 @@ require(    [
 
 			//world.initMap(geometries, materials);
 			player = new Player(0, 0, graphics.getMainCamera(), geometries["models/aim.js"], materials["models/aim.js"]);
-			graphics.addAnimatable(player);
+
+			graphics.addAnimation(player);
 			mapView = new MapView(player, level);
-			graphics.addAnimatable(mapView);
+			graphics.addAnimation(mapView);
 			graphics.scene.add(player);
 
-			graphics.scene.fog = new THREE.FogExp2( 0x333333, config.fogDensity );
-
-			new GameController(player, level);
+			new GameController(player, level, graphics);
 			//new UIMap(level, player);
 
 			debugTool.init(player, level, graphics.getMainCamera(), graphics.renderer.domElement);

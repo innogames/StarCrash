@@ -4,7 +4,7 @@ define(["THREE", "config", "engine/debugTool"], function(THREE, config, debugToo
 
 	var GraphicController = function() {
 
-		this._animatables = [];
+
 
 		this._debugAxisHelper = new THREE.AxisHelper(100);
 		this._debugAxisHelper.visible = false;
@@ -44,7 +44,9 @@ define(["THREE", "config", "engine/debugTool"], function(THREE, config, debugToo
 		this.mapCamera.up.set(0, 1 , 0);
 		this.mapCamera.rotation.set(-Math.PI / 2, 0, 0);
 
-
+		this._animationList = [];
+		this._animationGroup = new THREE.Object3D();
+		this._animationGroup.name = "Animations";
 
 		this.mapCamera.viewportSettings = {
 			left: 0.7,
@@ -64,6 +66,8 @@ define(["THREE", "config", "engine/debugTool"], function(THREE, config, debugToo
 
 		this.scene.add(this._debugAxisHelper);
 		this.scene.add(this._debugGridHelper);
+		this.scene.add(this._animationGroup);
+
 
 		// init and append renderer
 		this.renderer = new THREE.WebGLRenderer({antialias:true, alpha:true});
@@ -85,11 +89,16 @@ define(["THREE", "config", "engine/debugTool"], function(THREE, config, debugToo
 			window.engine = this;
 		}
 
+		this.scene.fog = new THREE.FogExp2( 0x333333, config.fogDensity );
+
 	};
 
 	GraphicController.prototype.animationCallback = function() {
 
-		var camera;
+		var animationsToRemoveList = [],
+			tmpAnimation,
+			camera;
+
 		// == render main view-port ==========
 		if (debugTool.flyControlsEnabled) {
 			// use debug camera
@@ -111,9 +120,19 @@ define(["THREE", "config", "engine/debugTool"], function(THREE, config, debugToo
 
 		debugTool.animate(singletonInstance.clock.getDelta());
 
-		for (var i = 0; i < singletonInstance._animatables.length; i++) {
-			singletonInstance._animatables[i].animate(singletonInstance.clock.getDelta());
+		// animate animatables
+		for (var i = 0; i < singletonInstance._animationList.length; i++) {
+			var animationStillRunning = singletonInstance._animationList[i].animate(singletonInstance.clock.getDelta());
+			if (animationStillRunning == false) {
+				animationsToRemoveList.push(singletonInstance._animationList[i]);
+			}
 		}
+
+		// removed expired animations
+		for (var i = 0; i < animationsToRemoveList.length; i++) {
+			singletonInstance.removeAnimation(animationsToRemoveList[i]);
+		}
+
 
 		requestAnimationFrame(singletonInstance.animationCallback);
 	};
@@ -144,8 +163,24 @@ define(["THREE", "config", "engine/debugTool"], function(THREE, config, debugToo
 	};
 
 
-	GraphicController.prototype.addAnimatable = function(animatable) {
-		this._animatables.push(animatable);
+	GraphicController.prototype.addAnimation = function(animatable, addToScene) {
+		if (!animatable instanceof THREE.Object3D) {
+			console.error("[GraphicController] You can only add instances of THREE.Object3D to the animations: " + animatable);
+			return;
+		}
+
+		this._animationList.push(animatable);
+		if (addToScene) {
+			this._animationGroup.add(animatable);
+		}
+		if (config.debug) console.log("[GraphicController] Added animation: ",  animatable);
+	};
+
+	GraphicController.prototype.removeAnimation = function(animatable) {
+		var index = this._animationList.indexOf(animatable);
+		if (index > -1) { this._animationList.splice(index, 1); }
+		this._animationGroup.remove(animatable);
+		if (config.debug) console.log("[GraphicController] Removed animation: ", animatable);
 	};
 
 	singletonInstance = new GraphicController();

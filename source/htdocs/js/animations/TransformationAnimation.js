@@ -12,7 +12,8 @@ define(["THREE"], function(THREE) {
 	 * @param pCallback Will be called if the animation is over. Delete the animation object.
 	 * @constructor Creates a new instance.
 	 */
-	var Animation = function(pObject3D, pPositionOffset, pRotationOffset, pDurationMillis, pCallback) {
+	var TransformationAnimation = function(pObject3D, pPositionOffset, pRotationOffset, pDurationMillis, pCallback) {
+		THREE.Object3D.call(this);
 
 		this._object3D = pObject3D;
 		this._callback = pCallback;
@@ -30,11 +31,17 @@ define(["THREE"], function(THREE) {
 		}
 	};
 
+	/**
+	 * Inherits from THREE.Object3D
+	 * @type {*}
+	 */
+	TransformationAnimation.prototype = Object.create( THREE.Object3D.prototype );
+
 
 	/**
 	 * Call this for every render loop.
 	 */
-	Animation.prototype.animate = function() {
+	TransformationAnimation.prototype.animate = function() {
 		var currentAnimationTime = new Date().getTime() - this._startTime;
 		var animationProgress = (currentAnimationTime / this._durration);
 		if (animationProgress < 1) {
@@ -42,10 +49,11 @@ define(["THREE"], function(THREE) {
 		} else {
 			this.applyAnimationProgress(1);
 			this._callback();
+			return false;
 		}
 	};
 
-	Animation.prototype.applyAnimationProgress = function(animationProgress) {
+	TransformationAnimation.prototype.applyAnimationProgress = function(animationProgress) {
 		if (this._positionOffset != null) {
 			this._object3D.position.set(
 				this._startPosition.x + (this._positionOffset.x * animationProgress),
@@ -60,6 +68,13 @@ define(["THREE"], function(THREE) {
 		}
 	};
 
-	return Animation;
+	TransformationAnimation.prototype.clone = function ( object ) {
+		if ( object === undefined ) object = new TransformationAnimation(this._object3D, this._positionOffset, this._rotationOffset, this._durration, this._callback);
+		THREE.Object3D.prototype.clone.call( this, object );
+		return object;
+	};
+
+
+	return TransformationAnimation;
 
 });
