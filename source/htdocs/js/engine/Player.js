@@ -1,4 +1,4 @@
-define(["THREE", "engine/bus", "config", "animations/TransformationAnimation"], function(THREE, bus, config, TransformationAnimation) {
+define(["THREE", "engine/Bus", "config", "animations/TransformationAnimation"], function(THREE, bus, config, TransformationAnimation) {
 
 	/**
 	 * Creates a new player by its start position and the scene mainCamera. Inherits from THREE.Object3D

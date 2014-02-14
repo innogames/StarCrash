@@ -78,6 +78,10 @@ require(    [
 			graphics.addAnimation(mapView);
 			graphics.scene.add(player);
 
+			var aLight = new THREE.AmbientLight( 0x404040 );
+			aLight.intensity = 100;
+			graphics.scene.add(aLight);
+
 			new GameController(player, level, graphics);
 			//new UIMap(level, player);
 
