@@ -65,6 +65,7 @@ define(["THREE", "config", "engine/debugTool"], function(THREE, config, debugToo
 		this.scene.castShadow = true;
 
 		this.laserBeamLight = new THREE.PointLight(0xffFF00, 0, 10000);
+		this.scene.add(this.laserBeamLight);
 
 
 		this.scene.add(this._debugAxisHelper);
