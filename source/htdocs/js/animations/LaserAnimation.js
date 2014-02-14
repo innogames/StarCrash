@@ -22,8 +22,10 @@ define(["THREE", "config"], function(THREE, config) {
 		cylinderGeometry.applyMatrix( new THREE.Matrix4().makeTranslation(0, 0, -(this._beamLength / 2)));
 		cylinderGeometry.verticesNeedUpdate = true;
 
+		var sphereGeometry = new THREE.SphereGeometry(1);
 
 		this._laserBeam = new THREE.Mesh(cylinderGeometry, new THREE.MeshBasicMaterial({color: 0xFFAA22	}));
+		this._laserShock = new THREE.Mesh(sphereGeometry, new THREE.MeshBasicMaterial({color: 0xFFAA00}));
 
 		this.position.set(
 			this._beamStartPosition.x,
@@ -31,7 +33,8 @@ define(["THREE", "config"], function(THREE, config) {
 			this._beamStartPosition.z
 		);
 
-		console.log(pDirection);
+		this.add(this._laserBeam);
+		this.add(this._laserShock);
 
 		this.rotation.y = pDirection.y;
 
@@ -49,7 +52,8 @@ define(["THREE", "config"], function(THREE, config) {
 		};
 
 
-		this.add(this._laserBeam);
+
+
 
 		//this.rotateOnAxis(new THREE.Vector3(0, 1 ,0), pDirection.y);
 		//this.rotateOnAxis(new THREE.Vector3(0, 0 ,1), Math.PI / 2);
@@ -67,7 +71,6 @@ define(["THREE", "config"], function(THREE, config) {
 	 * Call this for every render loop.
 	 */
 	LaserAnimation.prototype.animate = function() {
-		console.log("animate");
 
 		var currentAnimationTime = new Date().getTime() - this._startTime;
 		var animationProgress = (currentAnimationTime / this._durration);
@@ -87,9 +90,13 @@ define(["THREE", "config"], function(THREE, config) {
 	};
 
 	LaserAnimation.prototype.applyAnimationProgress = function(animationProgress) {
-		this.position.z = this._beamStartPosition.z +  animationProgress * -1000;
+		this._laserBeam.position.z = this._beamStartPosition.z +  animationProgress * -1000;
 		this.light.position.z = this._beamStartPosition.z + animationProgress * -1000;
-		this.light.intensity = animationProgress * 3;
+		this.light.intensity = animationProgress * 4;
+
+		var shockProgress = 1 - animationProgress * 2;
+		if (shockProgress < 0)  shockProgress = 0;
+		this._laserShock.scale.set(shockProgress, shockProgress, shockProgress);
 
 	};
 

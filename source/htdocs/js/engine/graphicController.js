@@ -109,14 +109,19 @@ define(["THREE", "config", "engine/debugTool"], function(THREE, config, debugToo
 			camera = debugTool.debugCamera;
 			singletonInstance._debugAxisHelper.visible = true;
 			singletonInstance._debugGridHelper.visible = true;
-			singletonInstance.scene.fog.density = 0;
+			if (singletonInstance.scene.fog != null) {
+				singletonInstance.scene.fog.density = 0;
+			}
 
 		} else {
 			// use main camera
 			camera = singletonInstance.mainCamera;
 			singletonInstance._debugAxisHelper.visible = false;
 			singletonInstance._debugGridHelper.visible = false;
-			singletonInstance.scene.fog.density = config.fogDensity;
+
+			if (singletonInstance.scene.fog != null) {
+				singletonInstance.scene.fog.density = config.fogDensity;
+			}
 		}
 
 		singletonInstance.applyViewportSettings(singletonInstance.renderer, camera);

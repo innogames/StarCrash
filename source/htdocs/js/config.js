@@ -8,7 +8,7 @@ define([], function() {
 		renderSize : { "width" : window.innerWidth, "height" : window.innerHeight},
 		viewPortContainerId : "container",
 
-		fogDensity : 0.003,
+		fogDensity : 0.002,
 
 		player : {
 
