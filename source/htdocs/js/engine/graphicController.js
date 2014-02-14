@@ -24,7 +24,7 @@ define(["THREE", "config", "engine/debugTool"], function(THREE, config, debugToo
 
 		this.viewPortContainer = document.getElementById(config.viewPortContainerId);
 
-		this.mainCamera = new THREE.PerspectiveCamera(45, config.renderSize.width / config.renderSize.height, 1, 10000);
+		this.mainCamera = new THREE.PerspectiveCamera(60, config.renderSize.width / config.renderSize.height, 1, 10000);
 		this.mainCamera.position.set(0, 0, 0);
 		this.mainCamera.up.set(0, 1 ,0);
 		this.mainCamera.rotation.set(0, 0, 0);
@@ -64,12 +64,7 @@ define(["THREE", "config", "engine/debugTool"], function(THREE, config, debugToo
 		this.scene.receiveShadow = true;
 		this.scene.castShadow = true;
 
-		this.laserBeamLights = [];
-		for (var i = 0; i < 10; i++) {
-			var tmpLight = new THREE.PointLight(0xffFF00, 0, 10000);
-			this.laserBeamLights.push(tmpLight);
-			this.scene.add(tmpLight);
-		}
+		this.laserBeamLight = new THREE.PointLight(0xffFF00, 0, 10000);
 
 
 		this.scene.add(this._debugAxisHelper);

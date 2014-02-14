@@ -13,17 +13,24 @@ define(["THREE", "engine/Bus", "config", "animations/TransformationAnimation"], 
 	var Player = function(gridStartX, gridStartZ, pCamera, pPlayerModelGeometry, pPlayerModelMaterial) {
 		THREE.Object3D.call( this );
 
-		var headPositionY = 50;
+
 
 		this.name = "The Player";
 		this.gridPosition = new THREE.Vector3(0, 0, 0);
 		this._camera = pCamera;
-		this._camera.position.y = headPositionY;
+		this._camera.position.set(
+			config.player.graphics.headOffset.x,
+			config.player.graphics.headOffset.y,
+			config.player.graphics.headOffset.z);
+
 		this.receiveShadow = true;
 		this.setGridPosition(gridStartX, gridStartZ);
 
 		// Initialize the player model.
-		this.playerModelStandardOffset = new THREE.Vector3(0, -81.5 + headPositionY, -5);
+		this.playerModelStandardOffset = new THREE.Vector3(
+			config.player.graphics.modelOffset.x,
+			config.player.graphics.modelOffset.y,
+			config.player.graphics.modelOffset.z);
 
 		pPlayerModelGeometry.computeVertexNormals();
 		pPlayerModelGeometry.computeFaceNormals();
@@ -44,23 +51,35 @@ define(["THREE", "engine/Bus", "config", "animations/TransformationAnimation"], 
 		this.add(this._camera);
 
 		var spotLight = new THREE.SpotLight(0xFFFFFF, 2);
-		spotLight.position.set(0, headPositionY + 20, -60);
+
+		spotLight.position.set(
+			config.player.graphics.spotLightOffset.x,
+			config.player.graphics.spotLightOffset.y,
+			config.player.graphics.spotLightOffset.z);
+
 		spotLight.castShadow = true;
 		spotLight.receiveShadow = true;
 		spotLight.exponent = 10;
 		spotLight.angle = 1;
+
+
 		var target = new THREE.Object3D();
-		target.position.y = headPositionY - 10;
-		target.position.z = -100;
+		target.position.set(
+			config.player.graphics.spotLightTarget.x,
+			config.player.graphics.spotLightTarget.y,
+			config.player.graphics.spotLightTarget.z
+		);
+
 		this.add(target);
 		spotLight.target = target;
 
-		//window.spotL = spotLight;
-		//window.targ = target;
-
 		var pointLight = new THREE.PointLight(0xFFFFFF, 0.5);
-		pointLight.position.y = headPositionY;
-		window.pl = pointLight;
+
+		pointLight.position.set(
+			config.player.graphics.headOffset.x,
+			config.player.graphics.headOffset.y,
+			config.player.graphics.headOffset.z
+		);
 
 		this.add(spotLight);
 		this.add(pointLight);

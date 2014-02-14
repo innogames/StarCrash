@@ -1,4 +1,4 @@
-define(["THREE"], function(THREE) {
+define(["THREE", "config"], function(THREE, config) {
 
 
 	var LaserAnimation = function(pStartPosition, pDirection, pCallback, graphics) {
@@ -6,18 +6,18 @@ define(["THREE"], function(THREE) {
 		this._direction = pDirection;
 		this._callback = pCallback;
 
-		this._beamLength = 10000;
+		this._beamLength = 100;
 
 		this._startTime = new Date().getTime();
-		this._durration = 100;
-
-		var yOffset = 43;
-		var xOffset = 1.5;
-		var zOffset = -30;
+		this._durration = 300;
 
 		var cylinderGeometry = new THREE.CylinderGeometry(0.2, 0.2, this._beamLength, 20, 2, false);
 		cylinderGeometry.applyMatrix( new THREE.Matrix4().makeRotationX( Math.PI / 2 ) );
-		cylinderGeometry.applyMatrix( new THREE.Matrix4().makeTranslation( xOffset, yOffset, -(this._beamLength / 2) + zOffset) );
+		cylinderGeometry.applyMatrix( new THREE.Matrix4().makeTranslation(
+			config.player.graphics.weaponOffset.x,
+			config.player.graphics.weaponOffset.y,
+				-(this._beamLength / 2) + config.player.graphics.weaponOffset.z)
+			);
 		cylinderGeometry.verticesNeedUpdate = true;
 
 		this._laserBeam = new THREE.Mesh(cylinderGeometry, new THREE.MeshBasicMaterial({color: 0xFFAA22	}));
@@ -30,21 +30,17 @@ define(["THREE"], function(THREE) {
 
 		this.rotation.y = pDirection.y;
 
-		for (var i = 0; i < graphics.laserBeamLights.length; i++) {
-			graphics.laserBeamLights[i].position.x = 50;
-			graphics.laserBeamLights[i].position.z = i * -50;
-			graphics.laserBeamLights[i].intensity = 0.07;
-		}
+		this.light = graphics.laserBeamLight;
+		this.light.intensity = 100;
 
 
 		this._callback = function() {
-			for (var i = 0; i < graphics.laserBeamLights.length; i++) {
-				graphics.laserBeamLights[i].intensity = 0;
-			}
+			this.light.intensity = 0;
 		};
 
 
 		this.add(this._laserBeam);
+
 		//this.rotateOnAxis(new THREE.Vector3(0, 1 ,0), pDirection.y);
 		//this.rotateOnAxis(new THREE.Vector3(0, 0 ,1), Math.PI / 2);
 
@@ -68,6 +64,8 @@ define(["THREE"], function(THREE) {
 		if (animationProgress < 1) {
 			this.applyAnimationProgress(animationProgress);
 		} else {
+
+
 			this.applyAnimationProgress(1);
 
 			if (this._callback) {
@@ -79,6 +77,7 @@ define(["THREE"], function(THREE) {
 	};
 
 	LaserAnimation.prototype.applyAnimationProgress = function(animationProgress) {
+		this.position.z = animationProgress * -1000;
 
 	};
 
