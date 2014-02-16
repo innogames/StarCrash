@@ -37,9 +37,18 @@ define(["THREE", "animations/Animation"], function(THREE,  Animation) {
 			this.add(torusMesh);
 		}
 
+		this._impactLight = graphics.laserImpactLight;
+		this._impactLight.position.set(
+			pLaserBeamImpactPosition.x +  (pShootDirection.x * -1) * 2,
+			pLaserBeamImpactPosition.y +  (pShootDirection.y * -1) * 2,
+			pLaserBeamImpactPosition.z +  (pShootDirection.z * -1) * 2
+		);
+
+		this._impactLight.distance = 50;
+		this._impactLight.intensity = 100;
+
 
 		this.add(this._particleSystem);
-
 		this.add(this._glowImpact);
 
 	};
@@ -58,6 +67,7 @@ define(["THREE", "animations/Animation"], function(THREE,  Animation) {
 	LaserImpactAnimation.prototype.applyAnimationProgress = function(animationProgress) {
 		var invertedProgress = 1 - animationProgress;
 		this._impactMaterial.opacity = invertedProgress;
+		this._impactLight.intensity = invertedProgress * 10;
 
 		this._glowImpact.scale.set(invertedProgress + 0.5, invertedProgress  + 0.5, invertedProgress + 0.5);
 

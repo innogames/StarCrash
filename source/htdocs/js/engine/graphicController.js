@@ -64,8 +64,11 @@ define(["THREE", "config", "engine/debugTool"], function(THREE, config, debugToo
 		this.scene.receiveShadow = true;
 		this.scene.castShadow = true;
 
+		// TODO : maybe use a 'light pool' object to get lights from?
 		this.laserBeamLight = new THREE.PointLight(0xffFF00, 0, 10000);
+		this.laserImpactLight = new THREE.PointLight(0xFF0000, 0, 50);
 		this.scene.add(this.laserBeamLight);
+		this.scene.add(this.laserImpactLight);
 
 
 		this.scene.add(this._debugAxisHelper);
