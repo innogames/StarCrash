@@ -1,4 +1,4 @@
-define(["THREE", "engine/Bus", "animations/LaserAnimation", "config"], function(THREE, bus, LaserAnimation, config) {
+define(["THREE", "engine/Bus", "animations/LaserBeamAnimation", "animations/LaserImpactAnimation", "config"], function(THREE, bus, LaserBeamAnimation, LaserImpactAnimation, config) {
 
 
 	/**
@@ -42,20 +42,22 @@ define(["THREE", "engine/Bus", "animations/LaserAnimation", "config"], function(
 
 
 		bus.subscribe(bus.EVENT_INPUT_SHOOT, function() {
-			//var weapon = self._player.getEquipedWeapon();
+			// TODO : Use equipped weapon for weapon properties
 			var weaponRange = 10000;
+			var weaponLaserBeamColor = 0xFFAA22;
+			//var weaponLaserBeamColor = 0x22AAFF;
 
 			var laserStartPosition = self._player.getAbsoluteWeaponPosition();
-
-			var shootRayCaster = new THREE.Raycaster(laserStartPosition, self._player.getFacingDirection(), 0, weaponRange);
-			// TODO : do not check intersections for the whole scene.. only check objects that are in the direction. (maybe also use a 'shootable' flag?)
+			var shootDirection = self._player.getFacingDirection();
+			var shootRayCaster = new THREE.Raycaster(laserStartPosition, shootDirection, 0, weaponRange);
+			// TODO : do not check intersections for the whole scene.. only check objects that are in the direction.
 			var intersectObjects = shootRayCaster.intersectObjects(pGraphics.scene.children, true);
+			// TODO : check if the intersected object is shootable  (maybe also use a 'shootable' flag?)
+			var laserTargetPosition = intersectObjects[0].point;
+			var laserBeamLength =  laserTargetPosition.clone().sub(laserStartPosition).length();
 
-			var test = new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color : 0x000000}));
-			test.position = intersectObjects[0].point;
-			self._graphics.scene.add(test);
-
-			self._graphics.addAnimation(new LaserAnimation(self._player.position, self._player.rotation, null, self._graphics), true);
+			self._graphics.addAnimation(new LaserBeamAnimation(self._player.position, self._player.rotation, laserBeamLength, weaponLaserBeamColor, self._graphics, null), true);
+			self._graphics.addAnimation(new LaserImpactAnimation(laserTargetPosition, shootDirection, self._graphics, null), true);
 
 
 

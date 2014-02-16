@@ -7,12 +7,12 @@ define(["THREE", "config", "animations/Animation"], function(THREE, config, Anim
 	 *
 	 * @param pPlayerPosition {THREE.Vector3} The player position.
 	 * @param pPlayerDirection {THREE.Vector3} The player direction.
-	 * @param pCallback {function} The function to on animation end.
 	 * @param graphics The graphic controller.
+ 	 * @param pCallback {function} The function to on animation end.
 	 * @constructor
 	 * @author LucaHofmann@gmx.net
 	 */
-	var LaserAnimation = function(pPlayerPosition, pPlayerDirection, pCallback, graphics) {
+	var LaserBeamAnimation = function(pPlayerPosition, pPlayerDirection, pLaserBeamLength, pLeaserBeamColor, graphics, pCallback) {
 		Animation.call(this);
 		this.setDurationMillis(200);
 
@@ -22,8 +22,7 @@ define(["THREE", "config", "animations/Animation"], function(THREE, config, Anim
 			if (pCallback) pCallback();
 		});
 
-		this._direction = pPlayerDirection;
-		this._beamLength = 10000;
+		this._beamLength = pLaserBeamLength;
 
 
 		this._beamStartPosition = new THREE.Vector3(
@@ -39,8 +38,8 @@ define(["THREE", "config", "animations/Animation"], function(THREE, config, Anim
 
 		var sphereGeometry = new THREE.SphereGeometry(0.8, 10, 10);
 
-		this._laserMaterial = new THREE.MeshBasicMaterial({ transparent: true, color: 0xFFAA22	});
-		this._torusMaterial = new THREE.MeshBasicMaterial({ transparent: true, color: 0xFFAA22	});
+		this._laserMaterial = new THREE.MeshBasicMaterial({ transparent: true, color: pLeaserBeamColor	});
+		this._torusMaterial = new THREE.MeshBasicMaterial({ transparent: true, color: pLeaserBeamColor	});
 
 		this._laserBeam = new THREE.Mesh(cylinderGeometry, this._laserMaterial);
 		this._laserBeam.position = this._beamStartPosition;
@@ -96,14 +95,14 @@ define(["THREE", "config", "animations/Animation"], function(THREE, config, Anim
 	 * Inherits from THREE.Object3D
 	 * @type {*}
 	 */
-	LaserAnimation.prototype = Object.create( Animation.prototype );
+	LaserBeamAnimation.prototype = Object.create( Animation.prototype );
 
 
 	/**
 	 * Applies the animation progress to the graphic elements.
 	 * @param animationProgress The progress starting by 0 ending at 1.
 	 */
-	LaserAnimation.prototype.applyAnimationProgress = function(animationProgress) {
+	LaserBeamAnimation.prototype.applyAnimationProgress = function(animationProgress) {
 		var self = this;
 		var invertedProgress = 1 - animationProgress;
 
@@ -143,7 +142,7 @@ define(["THREE", "config", "animations/Animation"], function(THREE, config, Anim
 	 * @param pPosition {THREE.Vector3} The position for the system.
 	 * @returns {THREE.ParticleSystem} The particle system.
 	 */
-	LaserAnimation.prototype.createParticles = function(pPosition) {
+	LaserBeamAnimation.prototype.createParticles = function(pPosition) {
 		var particleCount = 100,
 			particles = new THREE.Geometry(),
 			pMaterial = new THREE.ParticleBasicMaterial({
@@ -173,18 +172,7 @@ define(["THREE", "config", "animations/Animation"], function(THREE, config, Anim
 
 	};
 
-	/**
-	 * Clone the object.
-	 * @param object
-	 * @returns {*}
-	 */
-	LaserAnimation.prototype.clone = function ( object ) {
-		if ( object === undefined ) object = new LaserAnimation(this._startPosition, this._direction, this._callback);
-		Animation.prototype.clone.call( this, object );
-		return object;
-	};
 
-
-	return LaserAnimation;
+	return LaserBeamAnimation;
 
 });
