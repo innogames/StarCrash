@@ -14,6 +14,7 @@ define(["THREE", "config"], function(THREE, config) {
 		THREE.Object3D.call(this);
 		this._startTime = new Date().getTime();
 		this._durrationMillis = null;
+		this._callback = null;
 	};
 
 	/**
@@ -22,8 +23,20 @@ define(["THREE", "config"], function(THREE, config) {
 	 */
 	Animation.prototype = Object.create( THREE.Object3D.prototype );
 
+	/**
+	 * Set the duration of this animation.
+	 * @param pDurationMillis The duration in milliseconds.
+	 */
 	Animation.prototype.setDurationMillis = function(pDurationMillis) {
 		this._durrationMillis = pDurationMillis;
+	};
+
+	/**
+	 * Sets the callback that gets called after the animation.
+	 * @param pDurationMillis A function that gets called after the animation.
+	 */
+	Animation.prototype.onAnimationEnds = function(pCallback) {
+		this._callback = pCallback;
 	};
 
 	/**

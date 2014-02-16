@@ -16,9 +16,9 @@ define(["THREE", "animations/Animation"], function(THREE, Animation) {
 	var TransformationAnimation = function(pObject3D, pPositionOffset, pRotationOffset, pDurationMillis, pCallback) {
 		Animation.call(this);
 		this.setDurationMillis(pDurationMillis);
+		this.onAnimationEnds(pCallback);
 
 		this._object3D = pObject3D;
-		this._callback = pCallback;
 
 		this._startPosition = { "x" : this._object3D.position.x , "y" : this._object3D.position.y, "z" : this._object3D.position.z };
 		this._startRotation = { "x" : this._object3D.rotation.x , "y" : this._object3D.rotation.y, "z" : this._object3D.rotation.z };

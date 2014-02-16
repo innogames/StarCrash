@@ -16,9 +16,13 @@ define(["THREE", "config", "animations/Animation"], function(THREE, config, Anim
 		Animation.call(this);
 		this.setDurationMillis(200);
 
-		this._direction = pPlayerDirection;
-		this._callback = pCallback;
+		this.onAnimationEnds( function() {
+			// use the light from graphics because add lights dynamically is not possible.
+			graphics.laserBeamLight.intensity = 0;
+			if (pCallback) pCallback();
+		});
 
+		this._direction = pPlayerDirection;
 		this._beamLength = 10000;
 
 
