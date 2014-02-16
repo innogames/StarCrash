@@ -1,4 +1,4 @@
-define(["THREE", "engine/Bus", "animations/LaserBeamAnimation", "animations/LaserImpactAnimation", "config"], function(THREE, bus, LaserBeamAnimation, LaserImpactAnimation, config) {
+define(["THREE", "engine/Bus", "animations/LaserBeamAnimation", "animations/LaserImpactAnimation", "config", "entities/Entity"], function(THREE, bus, LaserBeamAnimation, LaserImpactAnimation, config, Entity) {
 
 
 	/**
@@ -53,11 +53,25 @@ define(["THREE", "engine/Bus", "animations/LaserBeamAnimation", "animations/Lase
 			// TODO : do not check intersections for the whole scene.. only check objects that are in the direction.
 			var intersectObjects = shootRayCaster.intersectObjects(pGraphics.scene.children, true);
 			// TODO : check if the intersected object is shootable  (maybe also use a 'shootable' flag?)
-			var laserTargetPosition = intersectObjects[0].point;
-			var laserBeamLength =  laserTargetPosition.clone().sub(laserStartPosition).length();
+
+			var laserTargetPosition = null;
+			var laserBeamLength = 10000;
+			var targetEntity = null;
+
+			for (var i = 0; i < intersectObjects.length; i++) {
+				if (intersectObjects[i].object instanceof Entity || intersectObjects[i].object.parent instanceof Entity) {
+					laserTargetPosition = intersectObjects[i].point;
+					laserBeamLength = laserTargetPosition.clone().sub(laserStartPosition).length();
+					targetEntity = intersectObjects[i];
+					break;
+				}
+			}
 
 			self._graphics.addAnimation(new LaserBeamAnimation(self._player.position, self._player.rotation, laserBeamLength, weaponLaserBeamColor, self._graphics, null), true);
-			self._graphics.addAnimation(new LaserImpactAnimation(laserTargetPosition, shootDirection, self._graphics, null), true);
+
+			if (laserTargetPosition != null) {
+				self._graphics.addAnimation(new LaserImpactAnimation(laserTargetPosition, shootDirection, self._graphics, null), true);
+			}
 
 
 

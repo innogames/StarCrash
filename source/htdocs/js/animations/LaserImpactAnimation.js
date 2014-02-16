@@ -8,8 +8,8 @@ define(["THREE", "animations/Animation"], function(THREE,  Animation) {
 		this._impactMaterial = new THREE.MeshBasicMaterial({ transparent: true, color : 0xFF0000});
 		this._torusMaterial = new THREE.MeshBasicMaterial({ transparent: true, color : 0xFFAA22, opacity : 0.3});
 
-		var glowImpact = new THREE.Mesh(new THREE.SphereGeometry(1), this._impactMaterial);
-		glowImpact.position = pLaserBeamImpactPosition.clone();
+		this._glowImpact = new THREE.Mesh(new THREE.SphereGeometry(1), this._impactMaterial);
+		this._glowImpact.position = pLaserBeamImpactPosition.clone();
 
 		var rotation = 0;
 
@@ -40,7 +40,7 @@ define(["THREE", "animations/Animation"], function(THREE,  Animation) {
 
 		this.add(this._particleSystem);
 
-		this.add(glowImpact);
+		this.add(this._glowImpact);
 
 	};
 
@@ -58,6 +58,8 @@ define(["THREE", "animations/Animation"], function(THREE,  Animation) {
 	LaserImpactAnimation.prototype.applyAnimationProgress = function(animationProgress) {
 		var invertedProgress = 1 - animationProgress;
 		this._impactMaterial.opacity = invertedProgress;
+
+		this._glowImpact.scale.set(invertedProgress + 0.5, invertedProgress  + 0.5, invertedProgress + 0.5);
 
 		var torusProgress = animationProgress * 15;
 		var torusScaleFactor = 50;
