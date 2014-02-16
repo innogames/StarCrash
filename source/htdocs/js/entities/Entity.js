@@ -1,5 +1,10 @@
 define(["THREE", "engine/modelStore", "config"], function(THREE, modelStore, config) {
 
+	/**
+	 * An entity that inherits from THREE.Object3D.
+	 * @param rawEntityInfo The raw information to create this entity.
+	 * @constructor
+	 */
 	var Entity = function(rawEntityInfo) {
 		THREE.Object3D.call(this);
 

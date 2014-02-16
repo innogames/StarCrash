@@ -1,24 +1,26 @@
-define(["THREE", "config"], function(THREE, config) {
+define(["THREE", "config", "animations/Animation"], function(THREE, config, Animation) {
 
 	/**
-	 * Creates a new Laser animation instance.
-	 * Call 'animate' for every animation step.
+	 * Creates a new Laser animation instance. Inherits from Animation.
+	 * Usage: call 'animate' for every animation step.
+	 * Inherits from Animation.
 	 *
 	 * @param pPlayerPosition {THREE.Vector3} The player position.
 	 * @param pPlayerDirection {THREE.Vector3} The player direction.
 	 * @param pCallback {function} The function to on animation end.
 	 * @param graphics The graphic controller.
 	 * @constructor
+	 * @author LucaHofmann@gmx.net
 	 */
 	var LaserAnimation = function(pPlayerPosition, pPlayerDirection, pCallback, graphics) {
-		THREE.Object3D.call(this);
+		Animation.call(this);
+		this.setDurationMillis(200);
+
 		this._direction = pPlayerDirection;
 		this._callback = pCallback;
 
 		this._beamLength = 10000;
 
-		this._startTime = new Date().getTime();
-		this._durration = 200;
 
 		this._beamStartPosition = new THREE.Vector3(
 			config.player.graphics.weaponOffset.x,
@@ -90,26 +92,8 @@ define(["THREE", "config"], function(THREE, config) {
 	 * Inherits from THREE.Object3D
 	 * @type {*}
 	 */
-	LaserAnimation.prototype = Object.create( THREE.Object3D.prototype );
+	LaserAnimation.prototype = Object.create( Animation.prototype );
 
-
-	/**
-	 * Call this for every render loop.
-	 */
-	LaserAnimation.prototype.animate = function() {
-		var currentAnimationTime = new Date().getTime() - this._startTime;
-		var animationProgress = (currentAnimationTime / this._durration);
-		if (animationProgress < 1) {
-			this.applyAnimationProgress(animationProgress);
-		} else {
-			this.applyAnimationProgress(1);
-			if (this._callback) {
-				this.light.intensity = 0;
-				this._callback();
-			}
-			return false;
-		}
-	};
 
 	/**
 	 * Applies the animation progress to the graphic elements.
@@ -151,8 +135,8 @@ define(["THREE", "config"], function(THREE, config) {
 	};
 
 	/**
-	 * Creates the particle system where every vertex has an random velocity.
-	 * @param pPosition The position for the system.
+	 * Creates the particle system.
+	 * @param pPosition {THREE.Vector3} The position for the system.
 	 * @returns {THREE.ParticleSystem} The particle system.
 	 */
 	LaserAnimation.prototype.createParticles = function(pPosition) {
@@ -164,22 +148,17 @@ define(["THREE", "config"], function(THREE, config) {
 			});
 		// now create the individual particles
 		for (var p = 0; p < particleCount; p++) {
-			// create a particle with random
-			// position values, -250 -> 250
-
 			var pX = pPosition.x,
 				pY = pPosition.y,
 				pZ = pPosition.z,
-				particle = new THREE.Vertex(
-					new THREE.Vector3(pX, pY, pZ)
-				);
+				particle = 	new THREE.Vector3(pX, pY, pZ);
 
+			// place velocity as a circle.
 			particle.velocity = new THREE.Vector3(
 				(Math.cos(p / particleCount * Math.PI * 2)) + (Math.random() - 0.5) * 0.2,
 				(Math.sin(p / particleCount * Math.PI * 2)) + (Math.random() - 0.5) * 0.2,
 				0
 			);
-			// add it to the geometry
 			particles.vertices.push(particle);
 		}
 		// create the particle system
@@ -197,7 +176,7 @@ define(["THREE", "config"], function(THREE, config) {
 	 */
 	LaserAnimation.prototype.clone = function ( object ) {
 		if ( object === undefined ) object = new LaserAnimation(this._startPosition, this._direction, this._callback);
-		THREE.Object3D.prototype.clone.call( this, object );
+		Animation.prototype.clone.call( this, object );
 		return object;
 	};
 
