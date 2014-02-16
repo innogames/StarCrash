@@ -1,0 +1,19 @@
+00 = hallway07, room01
+01 = hallway04, roomwall04  
+02 = hallway06, roomwall03
+03 = corner03, roomcorner03
+04 = hallway03, roomwall02
+05 = hallway02
+06 = corner02, roomcorner04
+07 = ---
+08 = hallway05, roomwall01 
+09 = corner04, roomcorner02
+10 = hallway01
+11 = ---
+12 = corner01, roomcorner01
+13 = --
+14 = --
+15 = room02
+
+
+
