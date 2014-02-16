@@ -47,6 +47,14 @@ define(["THREE", "engine/Bus", "config", "animations/TransformationAnimation"], 
 		this.currentLookAtAnimation = null; // do not mix that up with a turning-animation.. it is not.
 		this.playerModelAnimationCounter = 0;
 
+		this._weaponOffsetTarget = new THREE.Object3D();
+		this._weaponOffsetTarget.position.set(
+			config.player.graphics.weaponOffset.x,
+			config.player.graphics.weaponOffset.y,
+			config.player.graphics.weaponOffset.z
+		);
+
+
 		this.add(this.playerModel);
 		this.add(this._camera);
 
@@ -83,6 +91,7 @@ define(["THREE", "engine/Bus", "config", "animations/TransformationAnimation"], 
 
 		this.add(spotLight);
 		this.add(pointLight);
+		this.add(this._weaponOffsetTarget);
 
 		// (debug) add a cylinder to find the player easy
 		//this.add(new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 10, 10, 10, false),new THREE.MeshBasicMaterial({	color: 0xCC0000	})));
@@ -253,6 +262,18 @@ define(["THREE", "engine/Bus", "config", "animations/TransformationAnimation"], 
 	Player.prototype.justifyPlayerModel = function() {
 		this.playerModel.position.set(this.playerModelStandardOffset.x, this.playerModelStandardOffset.y, this.playerModelStandardOffset.z);
 	};
+
+	/**
+	 * Gets the absolute position of the weapon.
+	 * @returns {THREE.Vector3} The absolute position of the weapon.
+	 */
+	Player.prototype.getAbsoluteWeaponPosition = function() {
+		this.updateMatrixWorld();
+		var absolutePosition = new THREE.Vector3();
+		absolutePosition.getPositionFromMatrix( this._weaponOffsetTarget.matrixWorld);
+		return absolutePosition;
+	};
+
 
 	return Player;
 
