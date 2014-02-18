@@ -1,10 +1,14 @@
 body {
 	position: relative;
 	margin: 0;
-	background-color: #000;
+	background-color: #001221;
 	overflow: hidden;
 	font-family: arial;
-	color: white
+	color: white;
+	background-image: url("../img/background.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
 }
 
 #fps {
