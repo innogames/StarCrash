@@ -1,4 +1,10 @@
-define(["config"], function(config) {
+define(	[
+	"starcrash/static/config"
+	], function(
+	config
+	)
+
+{
 	return  [
 
 		// 		o    o

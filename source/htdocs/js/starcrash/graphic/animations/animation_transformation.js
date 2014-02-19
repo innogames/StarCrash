@@ -1,4 +1,10 @@
-define(["THREE", "animations/Animation"], function(THREE, Animation) {
+define([
+		"THREE",
+		"starcrash/graphic/animations/animation"
+	], function(
+		THREE,
+		Animation
+	) {
 
 	/**
 	 * An animation that animates the assigned object3d to the assigned position and rotation.

@@ -1,4 +1,12 @@
-define(["THREE", "config", "engine/debugTool"], function(THREE, config, debugTool) {
+define([
+		"THREE",
+		"starcrash/static/config",
+		"starcrash/debug/debug_tool"
+	], function(
+		THREE,
+		config,
+		debugTool
+	) {
 
 	var singletonInstance;
 

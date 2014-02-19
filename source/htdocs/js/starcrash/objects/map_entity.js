@@ -1,4 +1,12 @@
-define(["THREE", "engine/modelStore", "config"], function(THREE, modelStore, config) {
+define([
+		"THREE",
+		"starcrash/graphic/model_store",
+		"starcrash/static/config"
+	], function(
+		THREE,
+		modelStore,
+		config
+	) {
 
 	/**
 	 * An entity that inherits from THREE.Object3D.

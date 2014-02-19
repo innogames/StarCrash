@@ -1,4 +1,10 @@
-define(["THREE", "animations/Animation"], function(THREE,  Animation) {
+define([
+		"THREE",
+		"starcrash/graphic/animations/animation"
+	], function(
+		THREE,
+		Animation
+	) {
 
 	var LaserImpactAnimation = function(pLaserBeamImpactPosition, pShootDirection, graphics, pCallback) {
 		Animation.call(this);

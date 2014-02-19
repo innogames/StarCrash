@@ -1,4 +1,10 @@
-define(["THREE", "entities/Entity"], function(THREE, Entity) {
+define([
+		"THREE",
+		"starcrash/objects/map_entity"
+	], function(
+		THREE,
+		Entity
+	) {
 
 	/**
 	 * Constructor of a level.

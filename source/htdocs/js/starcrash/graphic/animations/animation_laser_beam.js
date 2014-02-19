@@ -1,4 +1,12 @@
-define(["THREE", "config", "animations/Animation"], function(THREE, config, Animation) {
+define([
+		"THREE",
+		"starcrash/static/config",
+		"starcrash/graphic/animations/animation"
+	], function(
+		THREE,
+		config,
+		Animation
+	) {
 
 	/**
 	 * Creates a new Laser animation instance. Inherits from Animation.

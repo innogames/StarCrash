@@ -15,22 +15,20 @@ require.config({
 });
 
 require(    [
-				"engine/graphicController",
-				"engine/LevelController",
-				"ui/UIMap",
-				"engine/Player",
-				"engine/inputController",
-				"engine/gameController",
-				"engine/modelStore",
-				"engine/debugTool",
-				"mapView/mapView",
-				"config"
+				"starcrash/controller/controller_graphic",
+				"starcrash/objects/level",
+				"starcrash/objects/player",
+				"starcrash/controller/controller_input",
+				"starcrash/controller/controller_game",
+				"starcrash/graphic/model_store",
+				"starcrash/debug/debug_tool",
+				"starcrash/ui/map_view/controller_map_view",
+				"starcrash/static/config"
 			],
 
     function(
 				graphics,
 				Level,
-				UIMap,
 				Player,
 				inputController,
 				GameController,
@@ -80,7 +78,6 @@ require(    [
 					 graphics.scene.add(aLight);*/
 
 					new GameController(player, level, graphics);
-					//new UIMap(level, player);
 
 					debugTool.init(player, level, graphics.getMainCamera(), graphics.renderer.domElement);
 

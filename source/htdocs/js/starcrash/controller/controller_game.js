@@ -1,4 +1,17 @@
-define(["THREE", "engine/Bus", "animations/LaserBeamAnimation", "animations/LaserImpactAnimation", "config", "entities/Entity"], function(THREE, bus, LaserBeamAnimation, LaserImpactAnimation, config, Entity) {
+define([
+		"THREE",
+		"starcrash/event_bus",
+		"starcrash/graphic/animations/animation_laser_beam",
+		"starcrash/graphic/animations/animation_laser_impact",
+		"starcrash/static/config",
+		"starcrash/objects/map_entity"
+	], function(
+		THREE,
+		bus,
+		LaserBeamAnimation,
+		LaserImpactAnimation,
+		config,
+		Entity) {
 
 
 	/**

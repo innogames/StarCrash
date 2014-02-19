@@ -1,4 +1,12 @@
-define(["THREE", "libs/FlyControls", "config"], function(THREE, FlyControls, config) {
+define([
+		"THREE",
+		"starcrash/debug/fly_controls",
+		"starcrash/static/config"
+	], function(
+		THREE,
+		FlyControls,
+		config
+	) {
 
 	return {
 

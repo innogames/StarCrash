@@ -1,4 +1,10 @@
-define(["THREE", "config"], function(THREE, config) {
+define([
+		"THREE",
+		"starcrash/static/config"
+	], function(
+		THREE, 
+		config
+	) {
 
 	/**
 	 * Abstract base class for animations that inherits from THREE.Object3D.

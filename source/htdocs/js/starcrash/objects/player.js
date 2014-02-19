@@ -1,4 +1,14 @@
-define(["THREE", "engine/Bus", "config", "animations/TransformationAnimation"], function(THREE, bus, config, TransformationAnimation) {
+define([
+		"THREE",
+		"starcrash/event_bus",
+		"starcrash/static/config",
+		"starcrash/graphic/animations/animation_transformation"
+	], function(
+		THREE,
+		bus,
+		config,
+		TransformationAnimation
+	) {
 
 	/**
 	 * Creates a new player by its start position and the scene mainCamera. Inherits from THREE.Object3D

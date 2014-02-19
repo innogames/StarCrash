@@ -1,4 +1,18 @@
-define(["THREE", "engine/graphicController", "config", "engine/Bus", "mapView/GridLine", "mapView/GridWalls"], function(THREE, graphics, config, bus, GridLine, GridWalls) {
+define([
+		"THREE",
+		"starcrash/controller/controller_graphic",
+		"starcrash/static/config",
+		"starcrash/event_bus",
+		"starcrash/ui/map_view/map_grid_line",
+		"starcrash/ui/map_view/map_grid_walls"
+	], function(
+		THREE,
+		graphics,
+		config,
+		bus,
+		GridLine,
+		GridWalls
+	) {
 
 
 	var MapView = function(pPlayer, pLevel) {

@@ -1,4 +1,12 @@
-define(["THREE", "constants", "config"], function(THREE, constants, config) {
+define([
+		"THREE",
+		"starcrash/static/constants",
+		"starcrash/static/config"
+	], function(
+		THREE,
+		constants,
+		config
+	) {
 
 	/**
 	 * An object 3d containing meshes that representing the walls of a level.

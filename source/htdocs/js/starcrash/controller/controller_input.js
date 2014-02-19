@@ -1,4 +1,10 @@
-define(["engine/Bus", "config"], function(bus, config) {
+define([
+		"starcrash/event_bus",
+		"starcrash/static/config"
+	], function(
+		bus,
+		config
+	) {
 
 	var mouseX = 0,
 		mouseY = 0;

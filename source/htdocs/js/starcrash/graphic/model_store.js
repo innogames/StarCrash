@@ -1,4 +1,10 @@
-define(["THREE", "entities/entityTypes"], function(THREE, entityDefinition) {
+define([
+		"THREE",
+		"starcrash/static/map_entity_types"
+	], function(
+		THREE,
+		entityDefinition
+	) {
 
 	var singletonInstance;
 
