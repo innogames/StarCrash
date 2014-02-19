@@ -8,23 +8,9 @@
 
 		<script type="text/javascript">
 
-			// TODO find a place for such utility functions..
-			function fetchJSONFile(path, callback) {
-				var httpRequest = new XMLHttpRequest();
-				httpRequest.onreadystatechange = function() {
-					if (httpRequest.readyState === 4) {
-						if (httpRequest.status === 200) {
-							var data = JSON.parse(httpRequest.responseText);
-							if (callback) callback(data);
-						}
-					}
-				};
-				httpRequest.open('GET', path);
-				httpRequest.send();
-			}
 		</script>
 
-		<script data-main="js/starcrash/launcher.js" src="js/libs/require.js"></script>
+		<script data-main="js/main.js" src="js/libs/require.js"></script>
 	</head>
 	<body>
 
