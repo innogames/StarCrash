@@ -3,31 +3,52 @@ define([
 		"starcrash/event_bus",
 		"starcrash/graphic/animations/animation_laser_beam",
 		"starcrash/graphic/animations/animation_laser_impact",
+		"starcrash/controller/controller_input",
 		"starcrash/static/config",
-		"starcrash/objects/map_entity"
+		"starcrash/objects/map_entity",
+		"starcrash/objects/player",
+		"starcrash/ui/map_view/controller_map_view",
+		"starcrash/debug/debug_tool"
 	], function(
 		THREE,
 		bus,
 		LaserBeamAnimation,
 		LaserImpactAnimation,
+		inputController,
 		config,
-		Entity) {
+		Entity,
+		PlayerClass,
+		MapView,
+		debugTool) {
 
 
 	/**
 	 * Singleton of the game controller. Implements game logic.
 	 *
-	 * @param pPlayer The player.
 	 * @param pLevel The loaded level
 	 * @param pGraphics The graphic controller.
 	 * @constructor
 	 * @author LucaHofmann@gmx.net
 	 */
-	var GameController = function(pPlayer, pLevel, pGraphics) {
+	var GameController = function(pLevel, pGraphics) {
 		var self = this;
-		this._player = pPlayer;
 		this._level = pLevel;
 		this._graphics = pGraphics;
+
+		this._graphics.init();
+		this._level.initEntities();
+		this._graphics.scene.add(this._level);
+		this._player = new PlayerClass(0, 0, this._graphics.getMainCamera());
+		this._graphics.scene.add(this._player);
+		this._graphics.addAnimation(this._player);
+		this._graphics.addAnimation(new MapView(this._player, this._level));
+		this._graphics.animationCallback();
+
+		inputController.init();
+		debugTool.init(this._player, this._level, this._graphics.getMainCamera(), this._graphics.renderer.domElement);
+		this._graphics.addAnimation(debugTool);
+
+
 
 		bus.subscribe(bus.EVENT_INPUT_TURN_LEFT, function() {
 			self._player.turnLeft();
@@ -80,10 +101,12 @@ define([
 				}
 			}
 
-			self._graphics.addAnimation(new LaserBeamAnimation(self._player.position, self._player.rotation, laserBeamLength, weaponLaserBeamColor, self._graphics, null), true);
+			var beamAnimation = new LaserBeamAnimation(self._player.position, self._player.rotation, laserBeamLength, weaponLaserBeamColor, self._graphics, null);
+			self._graphics.addAnimation(beamAnimation, true);
 
 			if (laserTargetPosition != null) {
-				self._graphics.addAnimation(new LaserImpactAnimation(laserTargetPosition, shootDirection, self._graphics, null), true);
+				var impactAnimation = new LaserImpactAnimation(laserTargetPosition, shootDirection, self._graphics, null)
+				self._graphics.addAnimation(impactAnimation, true);
 			}
 
 		});

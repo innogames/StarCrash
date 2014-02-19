@@ -2,117 +2,85 @@ define([
 		"UTILS",
 		"starcrash/controller/controller_graphic",
 		"starcrash/objects/level",
-		"starcrash/objects/player",
-		"starcrash/controller/controller_input",
 		"starcrash/controller/controller_game",
-		"starcrash/graphic/model_store",
-		"starcrash/debug/debug_tool",
-		"starcrash/ui/map_view/controller_map_view",
-		"starcrash/static/config"
+		"starcrash/static/config",
+		"starcrash/graphic/model_store"
 	],
 	function(
 		UTILS,
 		graphics,
-		Level,
-		Player,
-		inputController,
+		LevelClass,
 		GameController,
-		modelStore,
-		debugTool,
-		MapView,
-		config
+		config,
+	    modelStore
 	) {
 
-	var Launcher = function(pGameContainerId) {
-		this._gameContainerId = pGameContainerId;
-	};
-
-
-
-	/**
-	 * Continues the game at the last save point.
-	 */
-	Launcher.prototype.continueGame = function() {
-
-		this.injectLoadingScreen(this._loadLevel);
-
-
-	};
-
-
-	Launcher.prototype.injectLoadingScreen = function(callback) {
-		var gameContainer = document.getElementById(this._gameContainerId);
-			httpRequest = new XMLHttpRequest();
-
-		httpRequest.open('get', 'js/starcrash/templates/game.html');
-		httpRequest.onreadystatechange = function() {
-			if (httpRequest.readyState == 4) {
-				gameContainer.innerHTML = httpRequest.responseText;
-				callback();
-			}
+		/**
+		 * Creates a new launcher for the game.
+		 * This launcher injects the loading-screen, loads all necessary resources,
+		 * injects the game-screen and creates the game controller.
+		 *
+		 * @param pGameContainerId The id of the dom-element to inject the game to.
+		 * @constructor Creates a new instance.
+		 */
+		var Launcher = function(pGameContainerId) {
+			this._gameContainerId = pGameContainerId;
 		};
-		httpRequest.send(null);
 
 
+		/**
+		 * Continues the game at the last save point.
+		 */
+		Launcher.prototype.continueGame = function() {
+			var levelPath = "levels/level02.json",
+				self = this;
+
+			// TODO : get the levelPath depending on save point (web storage).
+			// TODO : get player position, inventory etc. (web storage) and create a new player instance.
+
+			UTILS.injectTemplate('js/starcrash/templates/loading_screen.html', self._gameContainerId, function() {
+				// loading-screen html-elements are added to dom
+				self._loadResources(levelPath, function(levelInstance) {
+					// level-file and the needed assets are loaded
+					UTILS.injectTemplate('js/starcrash/templates/game_screen.html', self._gameContainerId, function() {
+						// game-screen html-elements are added to dom
+						new GameController(levelInstance, graphics);
+					});
+				});
+			});
+		};
+
+		/**
+		 * Starts the intro and the first level.
+		 */
+		Launcher.prototype.startNewGame = function() {
+			// TODO : play intro, start with level 1
+		};
 
 
-	};
+		/**
+		 * Loads needed resources / assets for the level.
+		 * @param levelPath The path of the level.
+		 * @param callback The callback on finish.
+		 * @private
+			 */
+		Launcher.prototype._loadResources = function(levelPath, callback) {
+			var modelsToLoad = [],
+				levelInstance;
 
-	Launcher.prototype.injectGameScreen = function() {
+			UTILS.fetchJSONFile(levelPath, function(levelJSON) {
+				// raw level file is loaded
+				levelInstance = new LevelClass(levelJSON);
+				modelsToLoad = modelStore.getModelFileList(levelInstance.getContainingEntityTypes());
+				modelsToLoad.push("models/aim.js"); // hack.. add the player model
 
-	};
-
-
-	Launcher.prototype._loadLevel = function() {
-		graphics.init();
-		inputController.init();
-
-		var modelsToLoad = [],
-			player,
-			level,
-			mapView;
-
-		// TODO : get player progress from 'Web Storage' or cookies
-
-		UTILS.fetchJSONFile("levels/level02.json", function(levelJSON) {
-
-			level = new Level(levelJSON);
-			modelsToLoad = modelStore.getModelFileList(level.getContainingEntityTypes());
-			modelsToLoad.push("models/aim.js"); // add the player model
-
-			modelStore.load(modelsToLoad, function(geometries, materials) {
-
-				level.initEntities();
-				graphics.scene.add(level);
-
-
-				window.level = level;
-
-				//world.initMap(geometries, materials);
-				player = new Player(0, 0, graphics.getMainCamera(), geometries["models/aim.js"], materials["models/aim.js"]);
-
-				window.player = player;
-
-				graphics.addAnimation(player);
-				mapView = new MapView(player, level);
-				graphics.addAnimation(mapView);
-				graphics.scene.add(player);
-
-				/*var aLight = new THREE.AmbientLight( 0x404040 );
-				 aLight.intensity = 100;
-				 graphics.scene.add(aLight);*/
-
-				new GameController(player, level, graphics);
-
-				debugTool.init(player, level, graphics.getMainCamera(), graphics.renderer.domElement);
-
-				graphics.animationCallback();
-
+				modelStore.load(modelsToLoad, function() {
+					// models of the level are loaded
+					callback(levelInstance);
+				});
 
 			});
-
-		});
-	};
+		};
 
 	return Launcher;
 });

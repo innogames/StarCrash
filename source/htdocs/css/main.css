@@ -1,14 +1,21 @@
+html {
+    height:100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-	position: relative;
-	margin: 0;
+    height:100%;
+    position:absolute; top:0; bottom:0; right:0; left:0;
 	background-color: #001221;
-	overflow: hidden;
 	font-family: arial;
 	color: white;
 	background-image: url("../img/background.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
+    margin: 0;
+    padding: 0;
 }
 
 #fps {
@@ -22,6 +29,11 @@ body {
 	left: 0;
 	right: 0;
 	bottom: 0
+}
+
+#gameContainer {
+    height:100%;
+    position:absolute; top:0; bottom:0; right:0; left:0;
 }
 
 #arrows {

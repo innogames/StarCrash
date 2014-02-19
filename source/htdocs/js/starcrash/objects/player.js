@@ -2,12 +2,14 @@ define([
 		"THREE",
 		"starcrash/event_bus",
 		"starcrash/static/config",
-		"starcrash/graphic/animations/animation_transformation"
+		"starcrash/graphic/animations/animation_transformation",
+		"starcrash/graphic/model_store"
 	], function(
 		THREE,
 		bus,
 		config,
-		TransformationAnimation
+		TransformationAnimation,
+		modelStore
 	) {
 
 	/**
@@ -15,14 +17,16 @@ define([
 	 * @param gridStartX The x grid coordinate to start.
 	 * @param gridStartZ The y grid coordinate to start.
 	 * @param pCamera The mainCamera of the scene.
-	 * @param pPlayerModelGeometry THREE.Geometry of the player model.
-	 * @param pPlayerModelMaterial THREE.Material of the player model.
+	 * @param playerModelGeometry THREE.Geometry of the player model.
+	 * @param playerModelMaterial THREE.Material of the player model.
 	 *
 	 * @constructor Creates a new player.
 	 */
-	var Player = function(gridStartX, gridStartZ, pCamera, pPlayerModelGeometry, pPlayerModelMaterial) {
+	var Player = function(gridStartX, gridStartZ, pCamera) {
 		THREE.Object3D.call( this );
 
+		var playerModelGeometry = modelStore.getGeometry("models/aim.js"),
+			playerModelMaterial = modelStore.getMaterial("models/aim.js")
 
 
 		this.name = "The Player";
@@ -42,10 +46,10 @@ define([
 			config.player.graphics.modelOffset.y,
 			config.player.graphics.modelOffset.z);
 
-		pPlayerModelGeometry.computeVertexNormals();
-		pPlayerModelGeometry.computeFaceNormals();
+		playerModelGeometry.computeVertexNormals();
+		playerModelGeometry.computeFaceNormals();
 
-		this.playerModel = new THREE.Mesh(pPlayerModelGeometry, new THREE.MeshFaceMaterial( pPlayerModelMaterial ));
+		this.playerModel = new THREE.Mesh(playerModelGeometry, new THREE.MeshFaceMaterial( playerModelMaterial ));
 
 		this.playerModel.receiveShadow = true;
 		this.playerModel.name = "The Player-Model";

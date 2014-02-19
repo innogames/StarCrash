@@ -136,7 +136,6 @@ define([
 		singletonInstance.applyViewportSettings(singletonInstance.renderer, camera);
 		singletonInstance.renderer.render(singletonInstance.scene, camera);
 
-		debugTool.animate(singletonInstance.clock.getDelta());
 
 		// animate animatables
 		for (var i = 0; i < singletonInstance._animationList.length; i++) {
@@ -181,14 +180,9 @@ define([
 	};
 
 
-	GraphicController.prototype.addAnimation = function(animatable, addToScene) {
-		if (!animatable instanceof THREE.Object3D) {
-			console.error("[GraphicController] You can only add instances of THREE.Object3D to the animations: " + animatable);
-			return;
-		}
-
+	GraphicController.prototype.addAnimation = function(animatable, removeOnEnd) {
 		this._animationList.push(animatable);
-		if (addToScene) {
+		if (removeOnEnd) {
 			this._animationGroup.add(animatable);
 		}
 		if (config.debug) console.log("[GraphicController] Added animation: ",  animatable);
