@@ -1,10 +1,11 @@
 <html>
 <head>
-    <title>Test - Reading data in JSON format</title>
+    <title>StarCrash - Crafting</title>
     <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-	<link type="text/css" rel="stylesheet" href="css/font-awesome.css" media="screen, projection" />
 	<link type="text/css" rel="stylesheet" href="css/crafting.css" media="screen, projection" />
+	<link type="text/css" rel="stylesheet" href="css/items.css" media="screen, projection" />
 	<link href='http://fonts.googleapis.com/css?family=Orbitron:400,500,700' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="js/craftingData.js"></script>
 	<script type="text/javascript" src="js/crafting.js"></script>
 </head>
 <body onload="init();">
@@ -18,9 +19,17 @@
 	<div id="inventoryBox" class='box'>
 		<h2>My Items</h2>
 		<ul id="inventory" class='inner_box'></ul>
-		<button id="test">Add Energy</button>
-		<button id="test1">Remove Energy</button>
+		<button id="test">Add a Battery</button>
+		<button id="test1">Remove a Battery</button>
 	</div>
 
+	<div id="allItems" class="box">
+		<h2>All Items</h2>
+		<ul id="itemlist" class='inner_box'></ul>
+	</div>
+
+	<footer>
+		<p>Icons made by <a href="http://www.flaticon.com/authors/freepik">Feepik from Flaticon.com</a></p>
+	</footer>
 </body>
 </html>

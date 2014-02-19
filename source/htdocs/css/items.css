@@ -1,0 +1,18 @@
+.item{
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+.item.pipe		{ background-image: url('../img/items/stick.svg'); }
+.item.cloth		{ background-image: url('../img/items/tshirt11.svg'); }
+.item.stone		{ background-image: url('../img/items/zen.svg'); }
+.item.wire		{ background-image: url('../img/items/brick2.svg'); }
+
+.item.cord		{ background-image: url('../img/items/cable3.svg'); }
+.item.battery	{ background-image: url('../img/items/full18.svg'); }
+.item.light		{ background-image: url('../img/items/light20.svg'); }
+.item.flashlight{ background-image: url('../img/items/lantern1.svg'); }
+.item.nail		{ background-image: url('../img/items/nail3.svg'); }
+.item.syringe	{ background-image: url('../img/items/syringe.svg'); }
+
