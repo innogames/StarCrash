@@ -76,7 +76,14 @@ define([
 
 				modelStore.load(modelsToLoad, function() {
 					// models of the level are loaded
-					callback(levelInstance);
+
+					// TODO : remove this hack to play the laser sound.
+					window.laserSoundHack = new Audio("sounds/laser.mp3");
+					laserSoundHack.load();
+					laserSoundHack.addEventListener('canplaythrough', function() {
+						callback(levelInstance);
+					});
+
 				});
 
 			});

@@ -101,6 +101,8 @@ define([
 				}
 			}
 
+			window.laserSoundHack.play();
+
 			var beamAnimation = new LaserBeamAnimation(self._player.position, self._player.rotation, laserBeamLength, weaponLaserBeamColor, self._graphics, null);
 			self._graphics.addAnimation(beamAnimation, true);
 

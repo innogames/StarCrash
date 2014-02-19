@@ -1,7 +1,5 @@
 html {
     height:100%;
-    margin: 0;
-    padding: 0;
 }
 
 body {
@@ -14,8 +12,7 @@ body {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
-    margin: 0;
-    padding: 0;
+    overflow: hidden;
 }
 
 #fps {
