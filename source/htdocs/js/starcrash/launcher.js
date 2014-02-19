@@ -23,14 +23,48 @@ define([
 		config
 	) {
 
-	var Launcher = function() {
-
+	var Launcher = function(pGameContainerId) {
+		this._gameContainerId = pGameContainerId;
 	};
+
+
 
 	/**
 	 * Continues the game at the last save point.
 	 */
 	Launcher.prototype.continueGame = function() {
+
+		this.injectLoadingScreen(this._loadLevel);
+
+
+	};
+
+
+	Launcher.prototype.injectLoadingScreen = function(callback) {
+		var gameContainer = document.getElementById(this._gameContainerId);
+			httpRequest = new XMLHttpRequest();
+
+		httpRequest.open('get', 'js/starcrash/templates/game.html');
+		httpRequest.onreadystatechange = function() {
+			if (httpRequest.readyState == 4) {
+				gameContainer.innerHTML = httpRequest.responseText;
+				callback();
+			}
+		};
+		httpRequest.send(null);
+
+
+
+
+	};
+
+	Launcher.prototype.injectGameScreen = function() {
+
+	};
+
+
+	Launcher.prototype._loadLevel = function() {
+		graphics.init();
 		inputController.init();
 
 		var modelsToLoad = [],
@@ -80,6 +114,5 @@ define([
 		});
 	};
 
-
-	return new Launcher();
+	return Launcher;
 });

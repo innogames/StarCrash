@@ -1,0 +1,46 @@
+<div id="canvasContainer"></div>
+<div id="fps"></div>
+
+<div id="arrow-wrap" style="visibility: hidden">
+    <div id="arrows">
+        <div class="arrow" id="input_turn_left">&larr;</div>
+        <div class="arrow" id="input_move_forward">&uarr;</div>
+        <div class="arrow" id="input_move_backward">&darr;</div>
+        <div class="arrow" id="input_turn_right">&rarr;</div>
+    </div>
+</div>
+
+<div id="UIMap" style="position: absolute; right: 10px; top: 10px "></div>
+
+
+<!-- ============ DEBUG INFORMATION ============ -->
+
+<div id="debugShow" class="debugButton" style="position: absolute; left: 10px; bottom: 10px; visibility: visible" >i</div>
+
+<div id="debugInfo" class="debugInfo" style="position: absolute; left: 10px; bottom: 10px; visibility: hidden ">
+
+    <div id="debugHide" class="debugButton">X</div>
+
+    <div style="margin: 5px">
+        PLAYER
+        <div class="debugLeftPadding" id="debugPlayerGrid"></div>
+        <div class="debugLeftPadding" id="debugPlayerDirection"></div>
+        <div class="debugLeftPadding" id="debugPlayerPosition"></div>
+    </div>
+
+
+    <div style="margin: 5px">
+        CAMERA
+        <form action="">
+            <div class="debugLeftPadding"><input id="debugUsePlayerCam" type="radio" name="camera" value="player" checked="true" >player</div>
+            <div class="debugLeftPadding" title="(W|A|S|D: move, R|F: up/down, Q|E: roll, DRAG MOUSE: look)"><input id="debugUseFreeCam" type="radio" name="camera" value="free">free</div>
+        </form>
+    </div>
+
+    <div style="margin: 5px">
+        LEVEL
+        <div class="debugLeftPadding" id="debugLevelSize"></div>
+        <div class="debugLeftPadding" id="debugLevelModelCount"></div>
+    </div>
+
+</div>

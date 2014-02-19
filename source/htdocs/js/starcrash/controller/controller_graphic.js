@@ -10,10 +10,10 @@ define([
 
 	var singletonInstance;
 
-	var GraphicController = function() {
+	var GraphicController = function() {};
 
 
-
+	GraphicController.prototype.init = function() {
 		this._debugAxisHelper = new THREE.AxisHelper(100);
 		this._debugAxisHelper.visible = false;
 		this._debugGridHelper = new THREE.GridHelper(100 *  config.gridCellSize,  config.gridCellSize);
@@ -105,11 +105,9 @@ define([
 		}
 
 		this.scene.fog = new THREE.FogExp2( 0x333333, config.fogDensity );
-
 	};
 
 	GraphicController.prototype.animationCallback = function() {
-
 		var animationsToRemoveList = [],
 			tmpAnimation,
 			camera;

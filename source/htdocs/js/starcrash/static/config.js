@@ -6,7 +6,7 @@ define([], function() {
 		mapViewElementsY: 100,
 
 		renderSize : { "width" : window.innerWidth, "height" : window.innerHeight},
-		viewPortContainerId : "container",
+		viewPortContainerId : "canvasContainer",
 
 		fogDensity : 0.002,
 

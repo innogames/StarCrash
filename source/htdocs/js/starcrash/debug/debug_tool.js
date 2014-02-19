@@ -16,16 +16,14 @@ define([
 		player : null,
 		level : null,
 
-		domPlayerPosition : document.getElementById("debugPlayerPosition"),
-		domPlayerDirection : document.getElementById("debugPlayerDirection"),
-		domPlayerGrid : document.getElementById("debugPlayerGrid"),
-		domLevelModelCount : document.getElementById("debugLevelModelCount"),
-		domLevelSize : document.getElementById("debugLevelSize"),
-
-
-
 		init : function(pPlayer, pLevel, pCamera, rendererDomElement) {
 			var self = this;
+
+			this.domPlayerPosition = document.getElementById("debugPlayerPosition");
+			this.domPlayerDirection = document.getElementById("debugPlayerDirection");
+			this.domPlayerGrid = document.getElementById("debugPlayerGrid");
+			this.domLevelModelCount = document.getElementById("debugLevelModelCount");
+			this.domLevelSize = document.getElementById("debugLevelSize");
 
 			this.player = pPlayer;
 			this.level = pLevel;

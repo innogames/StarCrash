@@ -14,13 +14,13 @@ require.config({
 	}
 });
 
-require(["starcrash/launcher"], function(starCrashLauncher) {
+require(["starcrash/launcher"], function(StarCrashLauncher) {
 
+	var launcher = new StarCrashLauncher("gameContainer");
 
-
-		document.addEventListener("click", function() {
-			starCrashLauncher.continueGame();
-		});
+	document.getElementById("start_button").addEventListener("click", function() {
+		launcher.continueGame();
+	});
 
 
 });
