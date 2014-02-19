@@ -73,11 +73,7 @@ define(["THREE", "engine/Bus", "animations/LaserBeamAnimation", "animations/Lase
 				self._graphics.addAnimation(new LaserImpactAnimation(laserTargetPosition, shootDirection, self._graphics, null), true);
 			}
 
-
-
 		});
-
-
 	};
 
 	return GameController;
