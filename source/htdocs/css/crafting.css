@@ -39,6 +39,7 @@ li{
 	list-style: none;
 	float: left;
 	margin: 0 3px;
+	position: relative;
 }
 
 li .name{
@@ -87,6 +88,35 @@ button{
 	width: 500px;
 	background: #CBD6DB;
 	overflow: auto;
+}
+
+.iteminfo{
+	display: block;
+	font-size: 12px;
+	position: absolute;
+	top: 0px;
+	left: 63px;
+	background-color: #F0E8E8;
+	width: 150px;
+	padding: 2px 5px;
+	z-index: 100;
+	border: solid 1px #000;
+	border-radius: 5px;
+	font-family: monospace;
+	display: none;
+}
+
+li:hover .iteminfo{
+	display:block;
+}
+
+.iteminfo h3{
+	margin:5px 0;
+}
+
+.iteminfo dt,
+.iteminfo dd {
+	display: inline-block;
 }
 
 footer{

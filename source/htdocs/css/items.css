@@ -14,5 +14,17 @@
 .item.light		{ background-image: url('../img/items/light20.svg'); }
 .item.flashlight{ background-image: url('../img/items/lantern1.svg'); }
 .item.nail		{ background-image: url('../img/items/nail3.svg'); }
+.item.backpack	{ background-image: url('../img/items/military1.svg'); }
 .item.syringe	{ background-image: url('../img/items/syringe.svg'); }
+
+.item.drugs		{ background-image: url('../img/items/medicine1.svg'); }
+.item.water		{ background-image: url('../img/items/water27.svg'); }
+.item.bottle	{ background-image: url('../img/items/bottle7.svg'); }
+.item.alc		{ background-image: url('../img/items/couple39.svg'); }
+.item.bandages	{ background-image: url('../img/items/adhesive.svg'); }
+.item.tape		{ background-image: url('../img/items/adhesive2.svg'); }
+.item.wrench	{ background-image: url('../img/items/double41.svg'); }
+.item.rope		{ background-image: url('../img/items/rope1.svg'); }
+
+
 
