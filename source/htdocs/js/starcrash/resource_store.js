@@ -27,7 +27,9 @@ define([
 		};
 
 		/**
-		 * Loads the standard resources needed and the resources needed for a assigned level.
+		 * Loads the standard resources needed and the resources needed for the assigned level.
+		 * Does not load already loaded resources again (progress and finish callbacks will be called anyway).
+		 *
 		 * @param levelInstance The levels to load resources for.
 		 * @param onProgressCallback {Function} A callback for a loading progress. It gets called with this parameters:
 		 *                                      {Number} The index of the loaded resource.
@@ -36,13 +38,10 @@ define([
 		 *
 		 * @param onFinishCallback {Function} A callback on finish loading.
 		 */
-		ResourceStore.prototype.loadResources = function(levelInstance, onProgressCallback, onFinishCallback) {
-			var tmpResourceDefinition,
-				levelEntityTypes,
+		ResourceStore.prototype.loadLevelResources = function(levelInstance, onProgressCallback, onFinishCallback) {
+			var levelEntityTypes,
 				levelResourceIDs,
 				resourceIDs = [],
-				resourceCount = 0,
-				self = this,
 				i;
 
 			// add standard resources
@@ -55,7 +54,26 @@ define([
 			// get a list of resource ids of the level entities.
 			levelResourceIDs = this.getResourceIDsByEntityTypes(levelEntityTypes);
 			resourceIDs = resourceIDs.concat(levelResourceIDs);
-			resourceCount = resourceIDs.length - 1;
+
+			this.loadResources(resourceIDs, onProgressCallback, onFinishCallback);
+		};
+
+
+		/**
+		 * Loads multiple resources by an array of resource ids.
+		 * Does not load already loaded resources again (progress and finish callbacks will be called anyway).
+		 *
+		 * @param resourceIDs The resources to load.
+		 * @param onProgressCallback {Function} A callback for a loading progress. It gets called with this parameters:
+		 *                                      {Number} The index of the loaded resource.
+		 *                                      {Number} The count of all resources to load.
+		 *                                      {ResourceDefinition} The definition of the loaded resource.
+		 *
+		 * @param onFinishCallback {Function} A callback on finish loading.
+		 */
+		ResourceStore.prototype.loadResources = function(resourceIDs, onProgressCallback, onFinishCallback) {
+			var resourceCount = resourceIDs.length - 1,
+				i;
 
 			// load every resource..
 			for (i = 0; i < resourceIDs.length; i++) {
@@ -68,15 +86,13 @@ define([
 							// call the progress callback
 							if (onProgressCallback) onProgressCallback(theIndex, resourceCount, loadedResourceDefinition);
 							if (theIndex == resourceCount) {
-								// cal the finish callback
+								// call the finish callback
 								onFinishCallback();
 							}
 						}
 					})(i)
 				);
 			}
-
-
 		};
 
 		/**

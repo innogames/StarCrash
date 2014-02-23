@@ -71,7 +71,7 @@ define([
 				// raw level file is loaded
 				levelInstance = new LevelClass(levelJSON);
 
-				resourceStore.loadResources(levelInstance, null, function() {
+				resourceStore.loadLevelResources(levelInstance, null, function() {
 					// models of the level are loaded
 
 					callback(levelInstance);
