@@ -46,10 +46,10 @@ define([
 			config.player.graphics.modelOffset.y,
 			config.player.graphics.modelOffset.z);
 
-		this.playerModel = new THREE.Mesh(playerModelGeometry, new THREE.MeshFaceMaterial( playerModelMaterial ));
+		playerModelGeometry.computeVertexNormals();
+		playerModelGeometry.computeFaceNormals();
 
-		//playerModelGeometry.computeVertexNormals();
-		//playerModelGeometry.computeFaceNormals();
+		this.playerModel = new THREE.Mesh(playerModelGeometry, new THREE.MeshFaceMaterial( playerModelMaterial ));
 
 		this.playerModel.receiveShadow = true;
 		this.playerModel.name = "The Player-Model";
