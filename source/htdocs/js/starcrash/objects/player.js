@@ -48,8 +48,8 @@ define([
 
 		this.playerModel = new THREE.Mesh(playerModelGeometry, new THREE.MeshFaceMaterial( playerModelMaterial ));
 
-		playerModelGeometry.computeVertexNormals();
-		playerModelGeometry.computeFaceNormals();
+		//playerModelGeometry.computeVertexNormals();
+		//playerModelGeometry.computeFaceNormals();
 
 		this.playerModel.receiveShadow = true;
 		this.playerModel.name = "The Player-Model";
