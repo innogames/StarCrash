@@ -76,12 +76,11 @@ define([
 
 				resourceStore.loadLevelResources(levelInstance, function(resourceIndex, resourceCount, resourceDefinition) {
 					// on resource loading progress
-					tmpLoadedCount++;
-
 					if (domElementLoadingProgressText != null) {
 						domElementLoadingProgressText.innerHTML = resourceDefinition.id + " (" + tmpLoadedCount + "/" + resourceCount + ")";
 					}
 
+					tmpLoadedCount++;
 
 				}, function() {
 					// on resource loading finished

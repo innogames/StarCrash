@@ -137,13 +137,13 @@ define([
 
 				} else if (resourceDefinition.type == "3dmodel") {
 					// load a model resource
-					this._modelLoader.load(resourceDefinition.url, function (geometry, material) {
+					this._modelLoader.loadAjaxJSON(this._modelLoader, resourceDefinition.url, function (geometry, material) {
 						material.shading = THREE.SmoothShading; // TODO : use smooth shading for every material?
 						self._resources["3dmodel"]["geometry"][resourceDefinition.id] = geometry;
 						self._resources["3dmodel"]["material"][resourceDefinition.id] = material;
 						callback(resourceDefinition);
 
-					});
+					}, config.texturePath);
 
 				} else if (resourceDefinition.type == "image") {
 					// load a image resource

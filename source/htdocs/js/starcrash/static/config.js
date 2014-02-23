@@ -15,6 +15,8 @@ define([], function() {
 			"audio_laser"
 		],
 
+		texturePath : "img/textures/",
+
 
 		player : {
 
