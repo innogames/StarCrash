@@ -65,14 +65,26 @@ define([
 		 * @private
 			 */
 		Launcher.prototype._loadResources = function(levelPath, callback) {
-			var levelInstance;
+			var domElementLoadingProgressText = document.getElementById("loadingProgressText"),
+				tmpLoadedCount = 0,
+				levelInstance,
+				self = this;
 
 			UTILS.fetchJSONFile(levelPath, function(levelJSON) {
 				// raw level file is loaded
 				levelInstance = new LevelClass(levelJSON);
 
-				resourceStore.loadLevelResources(levelInstance, null, function() {
-					// models of the level are loaded
+				resourceStore.loadLevelResources(levelInstance, function(resourceIndex, resourceCount, resourceDefinition) {
+					// on resource loading progress
+					tmpLoadedCount++;
+
+					if (domElementLoadingProgressText != null) {
+						domElementLoadingProgressText.innerHTML = resourceDefinition.id + " (" + tmpLoadedCount + "/" + resourceCount + ")";
+					}
+
+
+				}, function() {
+					// on resource loading finished
 
 					callback(levelInstance);
 
