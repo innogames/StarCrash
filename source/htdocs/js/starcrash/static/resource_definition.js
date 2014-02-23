@@ -5,7 +5,7 @@ define([], function(){
 		 { 'id' : "image_background", 	'type' : 'image', 'url' : 'img/background.jpg', 	'sizeKB' : null },
 
 
-		 { 'id' : "sound_laser", 	'type' : 'sound', 'url' : 'sounds/laser.mp3', 	'sizeKB' : null },
+		 { 'id' : "audio_laser", 	'type' : 'audio', 'url' : 'sounds/laser.mp3', 	'sizeKB' : null },
 
 
 		 { 'id' : "model_aim", 	'type' : '3dmodel', 'url' : 'models/aim.js', 	'sizeKB' : null },

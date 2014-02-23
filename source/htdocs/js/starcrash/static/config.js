@@ -10,6 +10,12 @@ define([], function() {
 
 		fogDensity : 0.002,
 
+		standardResources : [
+			"model_aim",
+			"audio_laser"
+		],
+
+
 		player : {
 
 			graphics : {

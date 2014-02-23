@@ -18,7 +18,7 @@ define([
 			this._resources = {};
 
 			this._resources["image"] = {};
-			this._resources["sound"] = {};
+			this._resources["audio"] = {};
 			this._resources["3dmodel"] = {};
 
 			this._resources["3dmodel"]["material"] = {};
@@ -45,11 +45,10 @@ define([
 				self = this,
 				i;
 
-			resourceIDs.push("image_background");
-
 			// add standard resources
-			resourceIDs.push("model_aim");
-			resourceIDs.push("sound_laser");
+			for (i = 0; i < config.standardResources.length; i++) {
+				resourceIDs.push(config.standardResources[i]);
+			}
 
 			// get a list of entity types needed used in the level.
 			levelEntityTypes = levelInstance.getContainingEntityTypes();
@@ -86,7 +85,7 @@ define([
 		 * @param callback The callback to call if the resource was loaded.
 		 */
 		ResourceStore.prototype.loadResource = function(resourceID, callback) {
-			var resourceDefinition = this._getResourceDefinition(resourceID),
+			var resourceDefinition = this.getResourceDefinition(resourceID),
 				self = this;
 
 			if (resourceDefinition != null) {
@@ -110,9 +109,9 @@ define([
 				}
 
 
-				if (resourceDefinition.type == "sound") {
-					// load a sound resource
-					var audio = new Audio("sounds/laser.mp3");
+				if (resourceDefinition.type == "audio") {
+					// load a audio resource
+					var audio = new Audio(resourceDefinition.url);
 					audio.addEventListener('canplaythrough', function() {
 						self._resources[resourceDefinition.type][resourceDefinition.id] = audio;
 						callback(resourceDefinition);
@@ -154,7 +153,7 @@ define([
 				tmpDefinition,
 				i;
 			for (i = 0; i < resourceIDArray.length; i++) {
-				tmpDefinition = this._getResourceDefinition(resourceIDArray[i]);
+				tmpDefinition = this.getResourceDefinition(resourceIDArray[i]);
 				if (tmpDefinition != null) {
 					returnValue.push(tmpDefinition);
 				}
@@ -168,7 +167,7 @@ define([
 		 * @returns {*} The resource definition.
 		 * @private
 		 */
-		ResourceStore.prototype._getResourceDefinition = function(resourceID) {
+		ResourceStore.prototype.getResourceDefinition = function(resourceID) {
 			for (var i = 0; i < resourceDefinition.length; i++) {
 
 				if (resourceDefinition[i].id == resourceID) {
@@ -179,20 +178,51 @@ define([
 			return null;
 		};
 
+		/**
+		 * Gets a preloaded image.
+		 * @param resourceID The resource id of the image.
+		 * @returns {Image} The image or null.
+		 */
 		ResourceStore.prototype.getImage = function(resourceID) {
-
+			var returnValue = this._resources["image"][resourceID];
+			if (returnValue == null) {
+				console.log("[ResourceStore] The requested image has not been preloaded. ", resourceID);
+			}
+			return returnValue;
 		};
 
+		/**
+		 * Gets a preloaded audio.
+		 * @param resourceID The resource id of the audio.
+		 * @returns {Audio} The audio or null.
+		 */
 		ResourceStore.prototype.getAudio = function(resourceID) {
-
+			var returnValue = this._resources["audio"][resourceID];
+			if (returnValue == null) {
+				console.log("[ResourceStore] The requested audio has not been preloaded. ", resourceID);
+			}
+			return returnValue;
 		};
 
+		/**
+		 * Gets a preloaded geometry.
+		 * @param resourceID The resource id of the geometry.
+		 * @returns {THREE.Geometry} The geometry or null.
+		 */
 		ResourceStore.prototype.getGeometry = function(resourceID) {
-			return this._resources["3dmodel"]["geometry"][resourceID];
+			var returnValue = this._resources["3dmodel"]["geometry"][resourceID];
+			if (returnValue == null) {
+				console.log("[ResourceStore] The requested geometry has not been preloaded. ", resourceID);
+			}
+			return returnValue;
 		};
 
 		ResourceStore.prototype.getMaterial = function(resourceID) {
-			return this._resources["3dmodel"]["material"][resourceID];
+			var returnValue = this._resources["3dmodel"]["material"][resourceID];
+			if (returnValue == null) {
+				console.log("[ResourceStore] The requested material has not been preloaded. ", resourceID);
+			}
+			return returnValue;
 		};
 
 
@@ -209,19 +239,17 @@ define([
 				i;
 
 			if (!entityTypeArray instanceof Array) {
-				console.error("Error getting model files. Use an array as parameter instead of: " + entityTypeArray);
+				console.error("[ResourceStore] Error getting resource ids. Use an array as parameter instead of: " + entityTypeArray);
 			}
 
 			for (entityTypeIndex = 0; entityTypeIndex < entityTypeArray.length; entityTypeIndex++) {
 				entityType = entityTypeArray[entityTypeIndex];
 				entityDefinition = this.getEntityDefinition(entityType);
-
-				if (!entityDefinition.models) console.error("Error getting model files. No models defined for entity: " + entityType);
+				if (!entityDefinition.models) console.error("[ResourceStore] Error getting resource ids. No models defined for entity: " + entityType);
 				for (i = 0; i < entityDefinition.models.length; i++) {
 					resourceIDs.push(entityDefinition.models[i].resourceID);
 				}
 			}
-
 			return resourceIDs;
 		};
 
@@ -240,7 +268,7 @@ define([
 					return tmpDefinition;
 				}
 			}
-			console.error("Error loading entity. No entity definition found for entity type: " + entityType);
+			console.error("[ResourceStore] Error getting entity definition. No entity definition found for entity type: " + entityType);
 			return null;
 		};
 

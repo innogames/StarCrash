@@ -8,7 +8,8 @@ define([
 		"starcrash/objects/map_entity",
 		"starcrash/objects/player",
 		"starcrash/ui/map_view/controller_map_view",
-		"starcrash/debug/debug_tool"
+		"starcrash/debug/debug_tool",
+		"starcrash/resource_store"
 	], function(
 		THREE,
 		bus,
@@ -19,7 +20,8 @@ define([
 		Entity,
 		PlayerClass,
 		MapView,
-		debugTool) {
+		debugTool,
+		resourceStore) {
 
 
 	/**
@@ -101,7 +103,7 @@ define([
 				}
 			}
 
-			window.laserSoundHack.play();
+			resourceStore.getAudio("audio_laser").play();
 
 			var beamAnimation = new LaserBeamAnimation(self._player.position, self._player.rotation, laserBeamLength, weaponLaserBeamColor, self._graphics, null);
 			self._graphics.addAnimation(beamAnimation, true);
