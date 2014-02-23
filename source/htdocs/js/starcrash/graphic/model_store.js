@@ -6,8 +6,6 @@ define([
 		entityDefinition
 	) {
 
-	var singletonInstance;
-
 	var ModelStore = function() {
 		this.jsonLoader = new THREE.JSONLoader();
 		this.geometries = {};
@@ -73,7 +71,8 @@ define([
 
 			if (!entityDefinition.models) console.error("Error getting model files. No models defined for entity: " + entityType);
 			for (i = 0; i < entityDefinition.models.length; i++) {
-				fileList.push(entityDefinition.models[i].file);
+				// TODO use resource store
+				fileList.push(entityDefinition.models[i].resourceID);
 			}
 		}
 
@@ -98,8 +97,8 @@ define([
 		return null;
 	};
 
-	singletonInstance = new ModelStore();
-	return singletonInstance;
+
+	return ModelStore;
 
 
 });

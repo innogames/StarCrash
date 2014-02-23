@@ -14,7 +14,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "hallway07",
 			"models" : [ {
-				"file": "models/corridors/standard/hallway07.js",
+				"resourceID": "model_hallway07",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -35,7 +35,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "hallway04",
 			"models" : [ {
-				"file": "models/corridors/standard/hallway04.js",
+				"resourceID": "model_hallway04",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -56,7 +56,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "hallway06",
 			"models" : [ {
-				"file": "models/corridors/standard/hallway06.js",
+				"resourceID": "model_hallway06",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -77,7 +77,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "corner03",
 			"models" : [ {
-				"file": "models/corridors/standard/corner03.js",
+				"resourceID": "model_corner03",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -98,7 +98,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "hallway03",
 			"models" : [ {
-				"file": "models/corridors/standard/hallway03.js",
+				"resourceID": "model_hallway03",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -119,7 +119,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "hallway02",
 			"models" : [ {
-				"file": "models/corridors/standard/hallway02.js",
+				"resourceID": "model_hallway02",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -140,7 +140,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "corner02",
 			"models" : [ {
-				"file": "models/corridors/standard/corner02.js",
+				"resourceID": "model_corner02",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -162,7 +162,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "hallway05",
 			"models" : [ {
-				"file": "models/corridors/standard/hallway05.js",
+				"resourceID": "model_hallway05",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -184,7 +184,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "corner04",
 			"models" : [ {
-				"file": "models/corridors/standard/corner04.js",
+				"resourceID": "model_corner04",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -206,7 +206,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "hallway01",
 			"models" : [ {
-				"file": "models/corridors/standard/hallway01.js",
+				"resourceID": "model_hallway01",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -227,7 +227,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "corner01",
 			"models" : [ {
-				"file": "models/corridors/standard/corner01.js",
+				"resourceID": "model_corner01",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -249,7 +249,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "roomwall01",
 			"models" : [ {
-				"file": "models/corridors/standard/roomwall01.js",
+				"resourceID": "model_roomwall01",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -270,7 +270,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "roomwall02",
 			"models" : [ {
-				"file": "models/corridors/standard/roomwall02.js",
+				"resourceID": "model_roomwall02",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -291,7 +291,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "roomwall03",
 			"models" : [ {
-				"file": "models/corridors/standard/roomwall03.js",
+				"resourceID": "model_roomwall03",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -312,7 +312,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "roomwall04",
 			"models" : [ {
-				"file": "models/corridors/standard/roomwall04.js",
+				"resourceID": "model_roomwall04",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -334,7 +334,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "roomcorner01",
 			"models" : [ {
-				"file": "models/corridors/standard/roomcorner01.js",
+				"resourceID": "model_roomcorner01",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -355,7 +355,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "roomcorner02",
 			"models" : [ {
-				"file": "models/corridors/standard/roomcorner02.js",
+				"resourceID": "model_roomcorner02",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -377,7 +377,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "roomcorner03",
 			"models" : [ {
-				"file": "models/corridors/standard/roomcorner03.js",
+				"resourceID": "model_roomcorner03",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -399,7 +399,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "roomcorner04",
 			"models" : [ {
-				"file": "models/corridors/standard/roomcorner04.js",
+				"resourceID": "model_roomcorner04",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -418,7 +418,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "room01",
 			"models" : [ {
-				"file": "models/corridors/standard/room01.js",
+				"resourceID": "model_room01",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -437,7 +437,7 @@ define(	[
 			"class" : "corridor",
 			"type" : "room02",
 			"models" : [ {
-				"file": "models/corridors/standard/room02.js",
+				"resourceID": "model_room02",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -456,7 +456,7 @@ define(	[
 			"class" : "corridor_door",
 			"type" : "roomdoor01",
 			"models" : [ {
-				"file": "models/corridors/standard/roomdoor01.js",
+				"resourceID": "model_roomdoor01",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -478,7 +478,7 @@ define(	[
 			"class" : "corridor_door",
 			"type" : "roomdoor02",
 			"models" : [ {
-				"file": "models/corridors/standard/roomdoor02.js",
+				"resourceID": "model_roomdoor02",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -499,7 +499,7 @@ define(	[
 			"class" : "corridor_door",
 			"type" : "roomdoor03",
 			"models" : [ {
-				"file": "models/corridors/standard/roomdoor03.js",
+				"resourceID": "model_roomdoor03",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -520,7 +520,7 @@ define(	[
 			"class" : "corridor_door",
 			"type" : "roomdoor04",
 			"models" : [ {
-				"file": "models/corridors/standard/roomdoor04.js",
+				"resourceID": "model_roomdoor04",
 				"rotationOffset" : { "x" : 0, "y" : 0, "z" : 0},
 				"positionOffset" : {
 					"x" : 0,
@@ -535,7 +535,7 @@ define(	[
 			"door" : [
 				[ 2 ]
 			]
-		},
+		}
 
 	]
 });

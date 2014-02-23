@@ -35,12 +35,13 @@ define([
 
 		// Loop through every model of this entity
 		for (i = 0; i < this._definition.models.length; i++) {
-			tmpModelName = this._definition.models[i].file;
+			// TODO : use resource store
+			tmpModelName = this._definition.models[i].resourceID;
 
 			// create the mesh
 			tmpGeometry = modelStore.getGeometry(tmpModelName);
 			tmpMaterial = modelStore.getMaterial(tmpModelName);
-			if (tmpGeometry == null || tmpMaterial == null) console.error("Error constructing entity "+ this._rawEntityInfo.type + ". Model file was not loaded to the modelStore.");
+			if (tmpGeometry == null || tmpMaterial == null) console.error("Error constructing entity '"+ this._rawEntityInfo.type + "'. Model file was not loaded to the modelStore.");
 			tmpMesh = new THREE.Mesh(tmpGeometry, tmpMaterial[0]); // TODO : take care of multiple materials
 
 			// add optional entity position- and rotation-offset
