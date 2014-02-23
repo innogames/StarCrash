@@ -2,6 +2,16 @@ define([], function(){
 
 	 return [
 
+		 { 'id' : "image_background", 	'type' : 'image', 'url' : 'img/background.jpg', 	'sizeKB' : null },
+
+
+		 { 'id' : "sound_laser", 	'type' : 'sound', 'url' : 'sounds/laser.mp3', 	'sizeKB' : null },
+
+
+		 { 'id' : "model_aim", 	'type' : '3dmodel', 'url' : 'models/aim.js', 	'sizeKB' : null },
+
+
+
 		 { 'id' : "model_hallway07", 	'type' : '3dmodel', 'url' : 'models/corridors/standard/hallway07.js', 		'sizeKB' : null },
 		 { 'id' : "model_hallway04", 	'type' : '3dmodel', 'url' : 'models/corridors/standard/hallway04.js', 		'sizeKB' : null },
 		 { 'id' : "model_hallway06", 	'type' : '3dmodel', 'url' : 'models/corridors/standard/hallway06.js', 		'sizeKB' : null },

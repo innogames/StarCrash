@@ -1,10 +1,10 @@
 define([
 		"THREE",
-		"starcrash/graphic/model_store",
+		"starcrash/resource_store",
 		"starcrash/static/config"
 	], function(
 		THREE,
-		modelStore,
+		resourceStore,
 		config
 	) {
 
@@ -31,7 +31,7 @@ define([
 		if (this._rawEntityInfo.gridPosition.x == null ||
 			this._rawEntityInfo.gridPosition.z == null)     console.error("Error constructing entity. Grid position of entity with the id: "+ gameId +" is invalid.");
 
-		this._definition = modelStore.getEntityDefinition(this._rawEntityInfo.type);
+		this._definition = resourceStore.getEntityDefinition(this._rawEntityInfo.type);
 
 		// Loop through every model of this entity
 		for (i = 0; i < this._definition.models.length; i++) {
@@ -39,8 +39,8 @@ define([
 			tmpModelName = this._definition.models[i].resourceID;
 
 			// create the mesh
-			tmpGeometry = modelStore.getGeometry(tmpModelName);
-			tmpMaterial = modelStore.getMaterial(tmpModelName);
+			tmpGeometry = resourceStore.getGeometry(tmpModelName);
+			tmpMaterial = resourceStore.getMaterial(tmpModelName);
 			if (tmpGeometry == null || tmpMaterial == null) console.error("Error constructing entity '"+ this._rawEntityInfo.type + "'. Model file was not loaded to the modelStore.");
 			tmpMesh = new THREE.Mesh(tmpGeometry, tmpMaterial[0]); // TODO : take care of multiple materials
 

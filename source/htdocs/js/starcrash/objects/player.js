@@ -3,13 +3,13 @@ define([
 		"starcrash/event_bus",
 		"starcrash/static/config",
 		"starcrash/graphic/animations/animation_transformation",
-		"starcrash/graphic/model_store"
+		"starcrash/resource_store"
 	], function(
 		THREE,
 		bus,
 		config,
 		TransformationAnimation,
-		modelStore
+		resourceStore
 	) {
 
 	/**
@@ -25,8 +25,8 @@ define([
 	var Player = function(gridStartX, gridStartZ, pCamera) {
 		THREE.Object3D.call( this );
 
-		var playerModelGeometry = modelStore.getGeometry("models/aim.js"),
-			playerModelMaterial = modelStore.getMaterial("models/aim.js")
+		var playerModelGeometry = resourceStore.getGeometry("model_aim"),
+			playerModelMaterial = resourceStore.getMaterial("model_aim");
 
 
 		this.name = "The Player";

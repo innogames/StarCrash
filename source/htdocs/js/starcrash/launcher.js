@@ -4,7 +4,7 @@ define([
 		"starcrash/objects/level",
 		"starcrash/controller/controller_game",
 		"starcrash/static/config",
-		"starcrash/graphic/model_store"
+		"starcrash/resource_store"
 	],
 	function(
 		UTILS,
@@ -12,7 +12,7 @@ define([
 		LevelClass,
 		GameController,
 		config,
-	    modelStore
+		resourceStore
 	) {
 
 		/**
@@ -65,24 +65,16 @@ define([
 		 * @private
 			 */
 		Launcher.prototype._loadResources = function(levelPath, callback) {
-			var modelsToLoad = [],
-				levelInstance;
+			var levelInstance;
 
 			UTILS.fetchJSONFile(levelPath, function(levelJSON) {
 				// raw level file is loaded
 				levelInstance = new LevelClass(levelJSON);
-				modelsToLoad = modelStore.getModelFileList(levelInstance.getContainingEntityTypes());
-				modelsToLoad.push("models/aim.js"); // hack.. add the player model
 
-				modelStore.load(modelsToLoad, function() {
+				resourceStore.loadResources(levelInstance, null, function() {
 					// models of the level are loaded
 
-					// TODO : remove this hack to play the laser sound.
-					window.laserSoundHack = new Audio("sounds/laser.mp3");
-					laserSoundHack.load();
-					laserSoundHack.addEventListener('canplaythrough', function() {
-						callback(levelInstance);
-					});
+					callback(levelInstance);
 
 				});
 

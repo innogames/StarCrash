@@ -1,9 +1,7 @@
 define([
-		"THREE",
-		"starcrash/static/map_entity_types"
+		"THREE"
 	], function(
-		THREE,
-		entityDefinition
+		THREE
 	) {
 
 	var ModelStore = function() {
@@ -48,53 +46,6 @@ define([
 
 	ModelStore.prototype.getMaterial = function(modelName) {
 		return this.materials[modelName];
-	};
-
-	/**
-	 * Gets a list of model-files that the entities use.
-	 * @param entityTypeArray An array of types.
-	 */
-	ModelStore.prototype.getModelFileList = function(entityTypeArray) {
-		var entityDefinition,
-			entityTypeIndex,
-			entityType,
-			fileList = [],
-			i;
-
-		if (!entityTypeArray instanceof Array) {
-			console.error("Error getting model files. Use an array as parameter instead of: " + entityTypeArray);
-		}
-
-		for (entityTypeIndex = 0; entityTypeIndex < entityTypeArray.length; entityTypeIndex++) {
-			entityType = entityTypeArray[entityTypeIndex];
-			entityDefinition = this.getEntityDefinition(entityType);
-
-			if (!entityDefinition.models) console.error("Error getting model files. No models defined for entity: " + entityType);
-			for (i = 0; i < entityDefinition.models.length; i++) {
-				// TODO use resource store
-				fileList.push(entityDefinition.models[i].resourceID);
-			}
-		}
-
-		return fileList;
-	};
-
-	/**
-	 * Gets the entity definition by its type.
-	 * @param entityType The type of the entity.
-	 * @returns {*} The definition.
-	 */
-	ModelStore.prototype.getEntityDefinition = function(entityType) {
-		var tmpDefinition,
-			i;
-		for (i = 0; i < entityDefinition.length; i++) {
-			tmpDefinition = entityDefinition[i];
-			if (tmpDefinition.type == entityType) {
-				return tmpDefinition;
-			}
-		}
-		console.error("Error loading entity. No entity definition found for entity type: " + entityType);
-		return null;
 	};
 
 
