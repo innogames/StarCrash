@@ -1,12 +1,12 @@
 function init() {
 
 	// Init buttons
-	$("#test").click(function(){
-		crafting.webdb.addToInventory(11, 1, true);
-	});
-	$("#test1").click(function(){
-		crafting.webdb.removeFromInventory(11, 1, true);
-	});
+//	$("#test").click(function(){
+//		crafting.webdb.addToInventory(11, 1, true);
+//	});
+//	$("#test1").click(function(){
+//		crafting.webdb.removeFromInventory(11, 1, true);
+//	});
 
 	$("#randomA").click(function(){
 		crafting.webdb.addRandomItem('A');
@@ -60,7 +60,7 @@ crafting.webdb.createTable = function() {
 
 	crafting.webdb.db.transaction(function(tx) {
 		tx.executeSql("CREATE TABLE IF NOT EXISTS " +
-					  "item(ID INTEGER PRIMARY KEY, name TEXT, class TEXT, dmgMin INTEGER, dmgMax INTEGER, dropGroup TEXT)", []);
+					  "item(ID INTEGER PRIMARY KEY, name TEXT, class TEXT, dmgMin INTEGER, dmgMax INTEGER, dropGroup TEXT, special TEXT, value INTEGER )", []);
 		tx.executeSql("CREATE TABLE IF NOT EXISTS " +
 					  "inventory(itemID INTEGER PRIMARY KEY, number INTEGER)", []);
 		tx.executeSql("CREATE TABLE IF NOT EXISTS " +
@@ -105,8 +105,8 @@ crafting.webdb.addItems = function() {
 
 	crafting.webdb.db.transaction(function(tx){
 		for (var i in items) {
-			tx.executeSql("INSERT INTO item(ID, name, class, dmgMin, dmgMax, dropGroup) VALUES (?,?,?,?,?,?)",
-				[items[i][0], items[i][1], items[i][2], items[i][3], items[i][4], items[i][5]],
+			tx.executeSql("INSERT INTO item(ID, name, class, dmgMin, dmgMax, dropGroup, special, value) VALUES (?,?,?,?,?,?,?,?)",
+				[items[i][0], items[i][1], items[i][2], items[i][3], items[i][4], items[i][5], items[i][6], items[i][7]],
 				crafting.webdb.onSuccess, crafting.webdb.onError);
 		}
 	});
@@ -190,8 +190,6 @@ crafting.webdb.addRandomItem = function(dropClass){
 		// Check if there are enough items available
 		tx.executeSql("SELECT * FROM item WHERE dropGroup = ?", [dropClass], function (tx, results) {
 
-			console.log(results.rows.length);
-
 			var resultNumber = results.rows.length;
 
 			var random = Math.floor( Math.random() * resultNumber );
@@ -202,9 +200,16 @@ crafting.webdb.addRandomItem = function(dropClass){
 
 		},crafting.webdb.onError);
   });
-
 };
 
+crafting.webdb.consumeItem = function(itemID, name, value){
+
+	alert("You used 1 "+ name +" and feel better now. (HP + "+value+")");
+	/* TODO: add real calculation here */
+
+	crafting.webdb.removeFromInventory(itemID, 1, true);
+
+};
 
 
 /* --------------- Display Items ---------------------- */
@@ -321,17 +326,23 @@ function renderItem(row) {
 				'<div class="iteminfo"><h3>' + row.name + '</h3>'+
 				'<dl><dt>Damage Min:</dt><dd>' + row.dmgMin + '</dd>'+
 				'	 <dt>Damage Max:</dt><dd>' + row.dmgMax + '</dd>'+
+				'	 <dt>Special:</dt><dd>' + row.special + '</dd>'+
+				'	 <dt>Special Value:</dt><dd>' + row.value + '</dd>'+
 				'	 <dt>Drop Group:</dt><dd>' + row.dropGroup + '</dd></dl>'+
 				'</div>'+
 		   '</li>';
 }
 
 function renderInventory(row) {
+	var special="";
 	if(row.number === 0){
 		return "";
 	}
 	else{
-		return '<li><i class="item ' + row.class + ' "><span class="num">' + row.number + '</span><span class="name">' + row.name + '</span></i></li>';
+		if(row.special === "consumable"){
+			special='<a href="#" onclick="crafting.webdb.consumeItem('+row.itemID + ', \'' +row.name + '\', '+ row.value+')">use</a>';
+		}
+		return '<li><i class="item ' + row.class + ' "><span class="num">' + row.number + '</span><span class="name">' + row.name + ' ' + special + '</span></i></li>';
 	}
 }
 

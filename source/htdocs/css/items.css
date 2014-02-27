@@ -10,17 +10,21 @@
 .item.wire		{ background-image: url('../img/items/brick2.svg'); }
 
 .item.cord		{ background-image: url('../img/items/cable3.svg'); }
+.item.circuit	{ background-image: url('../img/items/circuit.svg'); }
+
 .item.battery	{ background-image: url('../img/items/full18.svg'); }
 .item.light		{ background-image: url('../img/items/light20.svg'); }
 .item.flashlight{ background-image: url('../img/items/lantern1.svg'); }
 .item.nail		{ background-image: url('../img/items/nail3.svg'); }
 .item.backpack	{ background-image: url('../img/items/military1.svg'); }
 .item.syringe	{ background-image: url('../img/items/syringe.svg'); }
-
+.item.tube		{ background-image: url('../img/items/tube.svg'); }
+.item.firstAid	{ background-image: url('../img/items/Flaticon_504.svg'); }
 .item.drugs		{ background-image: url('../img/items/medicine1.svg'); }
 .item.water		{ background-image: url('../img/items/water27.svg'); }
 .item.bottle	{ background-image: url('../img/items/bottle7.svg'); }
 .item.alc		{ background-image: url('../img/items/couple39.svg'); }
+.item.sling		{ background-image: url('../img/items/sling.svg'); }
 .item.bandages	{ background-image: url('../img/items/adhesive.svg'); }
 .item.tape		{ background-image: url('../img/items/adhesive2.svg'); }
 .item.wrench	{ background-image: url('../img/items/double41.svg'); }
