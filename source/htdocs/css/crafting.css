@@ -24,6 +24,8 @@ li .item{
 	display: block;
 	position: relative;
 	margin-bottom: 36px;
+	background-size: 90%;
+background-position: center center;
 }
 
 li i.icon-arrow-right{
@@ -44,18 +46,23 @@ li{
 
 li .name{
 	position: absolute;
-	font-size: 16px;
-	font-family: 'Orbitron', sans-serif;
+	font-size: 12px;
+	font-family: monospace;
 	top: 62px;
 	left: 0;
 	width: 62px;
 }
 
 li i .num{
-	font-size: 14px;
+	background-color: #CECECE;
 	position: absolute;
 	bottom: 0;
-	right: 5px;
+	right: 0px;
+	width: 17px;
+	height: 17px;
+	font-size: 12px;
+	text-align: center;
+	border-top-left-radius: 3px;
 }
 
 ul, h2{
@@ -71,23 +78,25 @@ ul{
 button{
 	font-family: 'Orbitron', sans-serif;
 	width: 80px;
-	padding: 5px;
+	padding: 2px;
 	height: 60px;
 	font-weight: 700;
+	font-size: 12px;
 }
 
 .box{
 	float: left;
 	margin-right: 20px;
-}
-
-.inner_box{
 	border: solid 2px #808080;
 	border-radius: 5px;
 	padding: 10px 20px;
-	width: 500px;
+	width: 520px;
 	background: #CBD6DB;
 	overflow: auto;
+}
+
+.inner_box{
+	width: 500px;
 }
 
 .iteminfo{
@@ -97,7 +106,7 @@ button{
 	top: 0px;
 	left: 63px;
 	background-color: #F0E8E8;
-	width: 150px;
+	width: 120px;
 	padding: 2px 5px;
 	z-index: 100;
 	border: solid 1px #000;
@@ -117,6 +126,13 @@ li:hover .iteminfo{
 .iteminfo dt,
 .iteminfo dd {
 	display: inline-block;
+	width: 85px;
+	margin: 0;
+}
+
+.iteminfo dd {
+	display: inline-block;
+	width: 35px;
 }
 
 footer{
