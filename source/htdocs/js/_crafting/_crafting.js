@@ -8,6 +8,18 @@ function init() {
 		crafting.webdb.removeFromInventory(11, 1, true);
 	});
 
+	$("#randomA").click(function(){
+		crafting.webdb.addRandomItem('A');
+	});
+
+	$("#randomB").click(function(){
+		crafting.webdb.addRandomItem('B');
+	});
+
+	$("#randomC").click(function(){
+		crafting.webdb.addRandomItem('C');
+	});
+
 	// Init Database
 	crafting.webdb.open();
 	crafting.webdb.deleteDB();
@@ -82,7 +94,6 @@ var flushScreen = function(){
 
 	console.log("flush!");
 
-  	crafting.webdb.getAllItems();
 	crafting.webdb.getMyItems();
 	crafting.webdb.getRecipes();
 };
@@ -169,6 +180,29 @@ crafting.webdb.removeFromInventory = function(itemID, num, flush) {
 
 		},crafting.webdb.onError);
   });
+};
+
+
+crafting.webdb.addRandomItem = function(dropClass){
+
+	crafting.webdb.db.transaction(function(tx) {
+
+		// Check if there are enough items available
+		tx.executeSql("SELECT * FROM item WHERE dropGroup = ?", [dropClass], function (tx, results) {
+
+			console.log(results.rows.length);
+
+			var resultNumber = results.rows.length;
+
+			var random = Math.floor( Math.random() * resultNumber );
+
+			alert("You found 1 " + results.rows.item(random).name);
+
+			crafting.webdb.addToInventory(results.rows.item(random).ID, 1, true);
+
+		},crafting.webdb.onError);
+  });
+
 };
 
 
@@ -260,8 +294,6 @@ crafting.webdb.showRecipe = function (recipeItems, resultID, goal) {
 					tx.executeSql("SELECT * FROM item INNER JOIN inventory ON item.ID = inventory.itemID WHERE ID = ?", [recipeItems[i]], function (tx, results) {
 
 						goal.append(renderIngedient(results.rows.item(0)));
-
-						console.log("Added ingediemz");
 
 						if(results.rows.item(0).number > 0){ available++; }
 
