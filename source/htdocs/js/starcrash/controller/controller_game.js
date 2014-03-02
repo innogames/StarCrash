@@ -6,7 +6,8 @@ define([
 		"starcrash/controller/controller_input",
 		"starcrash/static/config",
 		"starcrash/objects/map_entity",
-		"starcrash/objects/player",
+		"starcrash/objects/creatures/player",
+		"starcrash/objects/creatures/enemy",
 		"starcrash/ui/map_view/controller_map_view",
 		"starcrash/debug/debug_tool",
 		"starcrash/resource_store"
@@ -19,6 +20,7 @@ define([
 		config,
 		Entity,
 		PlayerClass,
+		EnemyClass,
 		MapView,
 		debugTool,
 		resourceStore) {
@@ -49,7 +51,6 @@ define([
 		inputController.init();
 		debugTool.init(this._player, this._level, this._graphics.getMainCamera(), this._graphics.renderer.domElement);
 		this._graphics.addAnimation(debugTool);
-
 
 
 		bus.subscribe(bus.EVENT_INPUT_TURN_LEFT, function() {
@@ -114,6 +115,18 @@ define([
 			}
 
 		});
+
+		window.setInterval(this._logicLoop.bind(this), 10);
+	};
+
+
+	GameController.prototype._logicLoop = function() {
+		var enemyArray = this._level.getEnemies();
+
+		for (var i = 0; i < enemyArray.length; i++) {
+			enemyArray[i].act();
+		}
+
 	};
 
 	return GameController;

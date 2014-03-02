@@ -2,7 +2,6 @@ define([
 	"THREE",
 	"starcrash/event_bus",
 	"starcrash/static/config",
-	"starcrash/objects/player",
 	"starcrash/graphic/animations/animation_transformation",
 	"starcrash/graphic/animations/animation_walk"
 
@@ -10,18 +9,23 @@ define([
 	THREE,
 	bus,
 	config,
-	Player,
 	TransformationAnimation,
     WalkAnimation
 	) {
 
-	var Creature = function() {
-		THREE.Object3D.call( this );
+
+	/**
+	 * Creature is the base class for life-forms like the player or enemies.
+	 * Inherit from this class ant override the _createModel function to use a custom model.
+	 * @constructor
+	 */
+	var Creature = function(gridX, gridZ) {
+		THREE.Object3D.call(this);
 
 		this._model = this._createModel();
 		this._modelInitialPosition = this._model.position.clone();
 		this.add(this._model);
-		this._gridPosition = new THREE.Vector3(0, 0, 0);
+		this.setGridPosition(gridX, gridZ);
 		this._currentMoveAnimation = null;
 		this._currentTurnAtAnimation = null; // do not mix that up with a turning-animation.. it is not.
 		this.receiveShadow = true;
@@ -57,6 +61,9 @@ define([
 	 * @param gridZ The grid z coordinate.
 	 */
 	Creature.prototype.setGridPosition = function(gridX, gridZ) {
+		if (this._gridPosition == null) {
+			this._gridPosition = new THREE.Vector3(0, 0, 0);
+		}
 		this._gridPosition.x = gridX;
 		this._gridPosition.z = gridZ;
 		this.position.x = this._gridPosition.x * config.gridCellSize + (config.gridCellSize / 2);

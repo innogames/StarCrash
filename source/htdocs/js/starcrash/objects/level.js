@@ -1,9 +1,11 @@
 define([
 		"THREE",
-		"starcrash/objects/map_entity"
+		"starcrash/objects/map_entity",
+		"starcrash/objects/creatures/enemy"
 	], function(
 		THREE,
-		Entity
+		Entity,
+        Enemy
 	) {
 
 	/**
@@ -32,6 +34,10 @@ define([
 
 		this.receiveShadow = true;
 		this.castShadow = true;
+
+		this._enemies = [];
+
+
 	};
 
 	/**
@@ -55,6 +61,14 @@ define([
 			tmpEntityInstance = new Entity(tmpRawEntityInfo);
 			this.add(tmpEntityInstance);
 			this._addToLookupList(tmpEntityInstance);
+		}
+
+		// TODO: get the enemies from the level.
+		this._enemies.push(new Enemy(0, -5));
+		this._enemies.push(new Enemy(5, -1));
+
+		for (i = 0; i < this._enemies.length; i++) {
+			this.add(this._enemies[i]);
 		}
 	};
 
@@ -196,6 +210,10 @@ define([
 		if ( object === undefined ) object = new Level(this._level);
 		THREE.Object3D.prototype.clone.call( this, object );
 		return object;
+	};
+
+	Level.prototype.getEnemies = function() {
+		return this._enemies;
 	};
 
 

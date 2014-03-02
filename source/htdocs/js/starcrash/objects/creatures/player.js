@@ -4,7 +4,7 @@ define([
 		"starcrash/static/config",
 		"starcrash/graphic/animations/animation_transformation",
 		"starcrash/resource_store",
-		"starcrash/objects/creature",
+		"starcrash/objects/creatures/creature",
 		"starcrash/controller/controller_graphic"
 	], function(
 		THREE,
@@ -27,15 +27,14 @@ define([
 	 * @constructor Creates a new player.
 	 */
 	var Player = function(gridStartX, gridStartZ) {
-		Creature.call(this);
-		this.setGridPosition(gridStartX, gridStartZ);
+		Creature.call(this, gridStartX, gridStartZ);
 		this.name = "The Player";
 		this._animationCounter = 0;
 		this._camera = null;
 	};
 
 	/**
-	 * Inherits from THREE.Object3D
+	 * Inherits from Creature
 	 * @type {*}
 	 */
 	Player.prototype = Object.create( Creature.prototype );
