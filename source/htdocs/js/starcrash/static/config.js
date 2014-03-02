@@ -43,7 +43,7 @@ define([], function() {
 				spotLightTarget : {
 					x : 0,
 					y : 40,
-					z : -30
+					z : 200
 				},
 
 				weaponOffset : {

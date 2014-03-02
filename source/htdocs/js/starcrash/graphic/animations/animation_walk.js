@@ -23,7 +23,7 @@ define([
 	 */
 	WalkAnimation.prototype.applyAnimationProgress = function(animationProgress) {
 		TransformationAnimation.prototype.applyAnimationProgress.call(this, animationProgress);
-		this._object3D.position.y =  Math.sin(animationProgress * Math.PI) * 10;
+		this._object3D.position.y =  Math.sin(animationProgress * Math.PI) * 5;
 	};
 
 	return WalkAnimation;

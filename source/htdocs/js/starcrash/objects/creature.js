@@ -19,6 +19,7 @@ define([
 		THREE.Object3D.call( this );
 
 		this._model = this._createModel();
+		this._modelInitialPosition = this._model.position.clone();
 		this.add(this._model);
 		this._gridPosition = new THREE.Vector3(0, 0, 0);
 		this._currentMoveAnimation = null;
@@ -135,7 +136,7 @@ define([
 		var self = this;
 		var rotationOffset = new THREE.Vector3(0, Math.PI / 2, 0);
 		this._startMoveAnimation(null, rotationOffset, function() {
-			self.justifyPlayerModel();
+			self._model.position = self._modelInitialPosition;
 			bus.post(bus.EVENT_PLAYER_TURNED, this);
 		});
 	};
@@ -148,7 +149,7 @@ define([
 		var self = this;
 		var rotationOffset = new THREE.Vector3(0, - Math.PI / 2, 0);
 		this._startMoveAnimation(null, rotationOffset, function() {
-			self.justifyPlayerModel();
+			self._model.position = self._modelInitialPosition;
 			bus.post(bus.EVENT_PLAYER_TURNED, this);
 		});
 	};
@@ -169,7 +170,7 @@ define([
 
 		this._startMoveAnimation(movementOffset, null, function() {
 			self._gridPosition.add(facingDirection);
-			self.justifyPlayerModel();
+			self._model.position = self._modelInitialPosition;
 			bus.post(bus.EVENT_PLAYER_MOVED, self);
 		});
 	};
@@ -191,7 +192,7 @@ define([
 
 		this._startMoveAnimation(movementOffset, null, function() {
 			self._gridPosition.add(facingDirection);
-			self.justifyPlayerModel();
+			self._model.position = self._modelInitialPosition;
 			bus.post(bus.EVENT_PLAYER_MOVED, self);
 		});
 	};
