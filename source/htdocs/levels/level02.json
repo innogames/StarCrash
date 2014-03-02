@@ -7,68 +7,68 @@
 	"entities" : [
 
 
-		{ "type" : "hallway02",  "id" : "322", 	"gridPosition" : { "x" : 0, "z" : 0 } },
-		{ "type" : "roomcorner03", "id" : "3e2", 	"gridPosition" : { "x" : 0, "z" : 0 } },
+		{ "type" : "hallway02",  "id" : "322", 	"_gridPosition" : { "x" : 0, "z" : 0 } },
+		{ "type" : "roomcorner03", "id" : "3e2", 	"_gridPosition" : { "x" : 0, "z" : 0 } },
 
-		{ "type" : "hallway02",      "id" : "002", 	"gridPosition" : { "x" : 0, "z" : -1 } },
+		{ "type" : "hallway02",      "id" : "002", 	"_gridPosition" : { "x" : 0, "z" : -1 } },
 
-		{ "type" : "hallway02",      "id" : "003", 	"gridPosition" : { "x" : 0, "z" : -2 } },
-		{ "type" : "hallway02",      "id" : "004", 	"gridPosition" : { "x" : 0, "z" : -3 } },
-		{ "type" : "hallway03",      "id" : "005", 	"gridPosition" : { "x" : 0, "z" : -4 } },
-		{ "type" : "hallway01",      "id" : "006", 	"gridPosition" : { "x" : 1, "z" : -4 } },
-		{ "type" : "hallway02",      "id" : "007", "gridPosition" : { "x" : 0, "z" : -5 } },
-
-
-
-		{ "type" : "hallway03",      "id" : "008", 	"gridPosition" : { "x" : 0, "z" : -6 } },
-		{ "type" : "corner01",      "id" : "009", 	"gridPosition" : { "x" : 0, "z" : -7 } },
-
-		{ "type" : "corner03",      "id" : "010", 	"gridPosition" : { "x" : 1, "z" : -6 } },
-		{ "type" : "room02",      "id" : "010", 	"gridPosition" : { "x" : 1, "z" : -6 } },
+		{ "type" : "hallway02",      "id" : "003", 	"_gridPosition" : { "x" : 0, "z" : -2 } },
+		{ "type" : "hallway02",      "id" : "004", 	"_gridPosition" : { "x" : 0, "z" : -3 } },
+		{ "type" : "hallway03",      "id" : "005", 	"_gridPosition" : { "x" : 0, "z" : -4 } },
+		{ "type" : "hallway01",      "id" : "006", 	"_gridPosition" : { "x" : 1, "z" : -4 } },
+		{ "type" : "hallway02",      "id" : "007", "_gridPosition" : { "x" : 0, "z" : -5 } },
 
 
-		{ "type" : "hallway05",      "id" : "011", 	"gridPosition" : { "x" : 1, "z" : -7 } },
-		{ "type" : "hallway01",      "id" : "012", 	"gridPosition" : { "x" : 2, "z" : -4 } },
-		{ "type" : "hallway07",      "id" : "012", 	"gridPosition" : { "x" : 2, "z" : -4 } },
-		{ "type" : "hallway01",      "id" : "012", 	"gridPosition" : { "x" : 2, "z" : -7 } },
-		{ "type" : "hallway05",      "id" : "013", 	"gridPosition" : { "x" : 3, "z" : -7 } },
-		{ "type" : "hallway02",      "id" : "014", 	"gridPosition" : { "x" : 3, "z" : -6 } },
 
-		{ "type" : "hallway02",      "id" : "016", 	"gridPosition" : { "x" : 3, "z" : -5 } },
+		{ "type" : "hallway03",      "id" : "008", 	"_gridPosition" : { "x" : 0, "z" : -6 } },
+		{ "type" : "corner01",      "id" : "009", 	"_gridPosition" : { "x" : 0, "z" : -7 } },
+
+		{ "type" : "corner03",      "id" : "010", 	"_gridPosition" : { "x" : 1, "z" : -6 } },
+		{ "type" : "room02",      "id" : "010", 	"_gridPosition" : { "x" : 1, "z" : -6 } },
 
 
-		{ "type" : "hallway04",      "id" : "017", 	"gridPosition" : { "x" : 3, "z" : -4 } },
-		{ "type" : "hallway02",      "id" : "018", 	"gridPosition" : { "x" : 3, "z" : -3 } },
-		{ "type" : "hallway06",      "id" : "019", 	"gridPosition" : { "x" : 3, "z" : -2 } },
-		{ "type" : "corner01",      "id" : "020", 	"gridPosition" : { "x" : 2, "z" : -2 } },
-		{ "type" : "hallway02",      "id" : "021", 	"gridPosition" : { "x" : 2, "z" : -1 } },
-		{ "type" : "corner02",      "id" : "022", 	"gridPosition" : { "x" : 2, "z" : 0 } },
-		{ "type" : "corner03",      "id" : "023", 	"gridPosition" : { "x" : 3, "z" : 0 } },
-		{ "type" : "corner01",      "id" : "024", 	"gridPosition" : { "x" : 3, "z" : -1 } },
-		{ "type" : "hallway01",      "id" : "025", 	"gridPosition" : { "x" : 4, "z" : -1 } },
-		{ "type" : "hallway01",      "id" : "026", 	"gridPosition" : { "x" : 4, "z" : -2 } },
-		{ "type" : "corner03",      "id" : "027", 	"gridPosition" : { "x" : 5, "z" : -2 } },
-		{ "type" : "hallway02",      "id" : "028", 	"gridPosition" : { "x" : 5, "z" : -3 } },
-		{ "type" : "hallway02",      "id" : "029", 	"gridPosition" : { "x" : 5, "z" : -4 } },
-		{ "type" : "hallway02",      "id" : "030", 	"gridPosition" : { "x" : 5, "z" : -5 } },
-		{ "type" : "hallway01",      "id" : "032", 	"gridPosition" : { "x" : 4, "z" : -7 } },
-		{ "type" : "hallway05",      "id" : "033", 	"gridPosition" : { "x" : 5, "z" : -7 } },
-		{ "type" : "corner02",      "id" : "034", 	"gridPosition" : { "x" : 5, "z" : -6 } },
-		{ "type" : "hallway05",      "id" : "034", 	"gridPosition" : { "x" : 6, "z" : -7 } },
-		{ "type" : "corner04",      "id" : "035", 	"gridPosition" : { "x" : 7, "z" : -7 } },
-		{ "type" : "hallway06",      "id" : "036", 	"gridPosition" : { "x" : 6, "z" : -6 } },
-		{ "type" : "hallway04",      "id" : "037", 	"gridPosition" : { "x" : 7, "z" : -6 } },
-		{ "type" : "hallway02",      "id" : "038", 	"gridPosition" : { "x" : 7, "z" : -5 } },
-		{ "type" : "hallway02",      "id" : "039", 	"gridPosition" : { "x" : 7, "z" : -4 } },
-		{ "type" : "hallway02",      "id" : "039", 	"gridPosition" : { "x" : 7, "z" : -3 } },
-		{ "type" : "corner03",      "id" : "040", 	"gridPosition" : { "x" : 7, "z" : -2 } },
-		{ "type" : "corner01",      "id" : "041", 	"gridPosition" : { "x" : 6, "z" : -2 } },
-		{ "type" : "corner02",      "id" : "042", 	"gridPosition" : { "x" : 6, "z" : -1 } },
-		{ "type" : "corner04",      "id" : "042", 	"gridPosition" : { "x" : 7, "z" : -1 } },
-		{ "type" : "corner03",      "id" : "043", 	"gridPosition" : { "x" : 7, "z" : 0 } },
-		{ "type" : "hallway01",      "id" : "043", 	"gridPosition" : { "x" : 6, "z" : 0 } },
-		{ "type" : "corner02",      "id" : "044", 	"gridPosition" : { "x" : 5, "z" : 0 } } ,
-		{ "type" : "corner04",      "id" : "045", 	"gridPosition" : { "x" : 5, "z" : -1 } }
+		{ "type" : "hallway05",      "id" : "011", 	"_gridPosition" : { "x" : 1, "z" : -7 } },
+		{ "type" : "hallway01",      "id" : "012", 	"_gridPosition" : { "x" : 2, "z" : -4 } },
+		{ "type" : "hallway07",      "id" : "012", 	"_gridPosition" : { "x" : 2, "z" : -4 } },
+		{ "type" : "hallway01",      "id" : "012", 	"_gridPosition" : { "x" : 2, "z" : -7 } },
+		{ "type" : "hallway05",      "id" : "013", 	"_gridPosition" : { "x" : 3, "z" : -7 } },
+		{ "type" : "hallway02",      "id" : "014", 	"_gridPosition" : { "x" : 3, "z" : -6 } },
+
+		{ "type" : "hallway02",      "id" : "016", 	"_gridPosition" : { "x" : 3, "z" : -5 } },
+
+
+		{ "type" : "hallway04",      "id" : "017", 	"_gridPosition" : { "x" : 3, "z" : -4 } },
+		{ "type" : "hallway02",      "id" : "018", 	"_gridPosition" : { "x" : 3, "z" : -3 } },
+		{ "type" : "hallway06",      "id" : "019", 	"_gridPosition" : { "x" : 3, "z" : -2 } },
+		{ "type" : "corner01",      "id" : "020", 	"_gridPosition" : { "x" : 2, "z" : -2 } },
+		{ "type" : "hallway02",      "id" : "021", 	"_gridPosition" : { "x" : 2, "z" : -1 } },
+		{ "type" : "corner02",      "id" : "022", 	"_gridPosition" : { "x" : 2, "z" : 0 } },
+		{ "type" : "corner03",      "id" : "023", 	"_gridPosition" : { "x" : 3, "z" : 0 } },
+		{ "type" : "corner01",      "id" : "024", 	"_gridPosition" : { "x" : 3, "z" : -1 } },
+		{ "type" : "hallway01",      "id" : "025", 	"_gridPosition" : { "x" : 4, "z" : -1 } },
+		{ "type" : "hallway01",      "id" : "026", 	"_gridPosition" : { "x" : 4, "z" : -2 } },
+		{ "type" : "corner03",      "id" : "027", 	"_gridPosition" : { "x" : 5, "z" : -2 } },
+		{ "type" : "hallway02",      "id" : "028", 	"_gridPosition" : { "x" : 5, "z" : -3 } },
+		{ "type" : "hallway02",      "id" : "029", 	"_gridPosition" : { "x" : 5, "z" : -4 } },
+		{ "type" : "hallway02",      "id" : "030", 	"_gridPosition" : { "x" : 5, "z" : -5 } },
+		{ "type" : "hallway01",      "id" : "032", 	"_gridPosition" : { "x" : 4, "z" : -7 } },
+		{ "type" : "hallway05",      "id" : "033", 	"_gridPosition" : { "x" : 5, "z" : -7 } },
+		{ "type" : "corner02",      "id" : "034", 	"_gridPosition" : { "x" : 5, "z" : -6 } },
+		{ "type" : "hallway05",      "id" : "034", 	"_gridPosition" : { "x" : 6, "z" : -7 } },
+		{ "type" : "corner04",      "id" : "035", 	"_gridPosition" : { "x" : 7, "z" : -7 } },
+		{ "type" : "hallway06",      "id" : "036", 	"_gridPosition" : { "x" : 6, "z" : -6 } },
+		{ "type" : "hallway04",      "id" : "037", 	"_gridPosition" : { "x" : 7, "z" : -6 } },
+		{ "type" : "hallway02",      "id" : "038", 	"_gridPosition" : { "x" : 7, "z" : -5 } },
+		{ "type" : "hallway02",      "id" : "039", 	"_gridPosition" : { "x" : 7, "z" : -4 } },
+		{ "type" : "hallway02",      "id" : "039", 	"_gridPosition" : { "x" : 7, "z" : -3 } },
+		{ "type" : "corner03",      "id" : "040", 	"_gridPosition" : { "x" : 7, "z" : -2 } },
+		{ "type" : "corner01",      "id" : "041", 	"_gridPosition" : { "x" : 6, "z" : -2 } },
+		{ "type" : "corner02",      "id" : "042", 	"_gridPosition" : { "x" : 6, "z" : -1 } },
+		{ "type" : "corner04",      "id" : "042", 	"_gridPosition" : { "x" : 7, "z" : -1 } },
+		{ "type" : "corner03",      "id" : "043", 	"_gridPosition" : { "x" : 7, "z" : 0 } },
+		{ "type" : "hallway01",      "id" : "043", 	"_gridPosition" : { "x" : 6, "z" : 0 } },
+		{ "type" : "corner02",      "id" : "044", 	"_gridPosition" : { "x" : 5, "z" : 0 } } ,
+		{ "type" : "corner04",      "id" : "045", 	"_gridPosition" : { "x" : 5, "z" : -1 } }
 
 	]
 

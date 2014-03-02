@@ -8,7 +8,7 @@ define([], function(){
 		 { 'id' : "audio_laser", 	'type' : 'audio', 'url' : 'sounds/laser.mp3', 	'sizeKB' : null },
 
 
-		 { 'id' : "model_aim", 	'type' : '3dmodel', 'url' : 'models/corridors/standard/hallway07.js', 	'sizeKB' : null },
+		 { 'id' : "model_aim", 	'type' : '3dmodel', 'url' : 'models/aim.js', 	'sizeKB' : null },
 
 
 

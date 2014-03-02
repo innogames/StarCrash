@@ -28,8 +28,8 @@ define([
 
 		if (this._rawEntityInfo.id == null)                 console.error("Error constructing entity. Entity id is null.");
 		if (this._rawEntityInfo.type == null)               console.error("Error constructing entity. Entity type is null.");
-		if (this._rawEntityInfo.gridPosition.x == null ||
-			this._rawEntityInfo.gridPosition.z == null)     console.error("Error constructing entity. Grid position of entity with the id: "+ gameId +" is invalid.");
+		if (this._rawEntityInfo._gridPosition.x == null ||
+			this._rawEntityInfo._gridPosition.z == null)     console.error("Error constructing entity. Grid position of entity with the id: "+ gameId +" is invalid.");
 
 		this._definition = resourceStore.getEntityDefinition(this._rawEntityInfo.type);
 
@@ -59,8 +59,8 @@ define([
 			}
 
 			// add the grid position
-			this.position.x = this._rawEntityInfo.gridPosition.x * config.gridCellSize;
-			this.position.z = this._rawEntityInfo.gridPosition.z * config.gridCellSize;
+			this.position.x = this._rawEntityInfo._gridPosition.x * config.gridCellSize;
+			this.position.z = this._rawEntityInfo._gridPosition.z * config.gridCellSize;
 
 			tmpMesh.castShadow = true;
 			tmpMesh.receiveShadow = true;
@@ -92,8 +92,8 @@ define([
 			wallOffsetZ;
 
 		// calculate offset for wall-array
-		wallOffsetX = gridX - this._rawEntityInfo.gridPosition.x;
-		wallOffsetZ = this.getSize().z - ((gridZ - this._rawEntityInfo.gridPosition.z) *-1) -1; // invert walls-array access to make entity definition more human readable
+		wallOffsetX = gridX - this._rawEntityInfo._gridPosition.x;
+		wallOffsetZ = this.getSize().z - ((gridZ - this._rawEntityInfo._gridPosition.z) *-1) -1; // invert walls-array access to make entity definition more human readable
 
 		if (wallOffsetX < 0 || wallOffsetZ < 0) console.error("Error checking walls. The entity is not at the requested position x:" + gridX + " y:" + gridZ, this);
 
@@ -152,7 +152,7 @@ define([
 	 * @returns {Number} The grid x position.
 	 */
 	Entity.prototype.getGridX = function() {
-		return this._rawEntityInfo.gridPosition.x;
+		return this._rawEntityInfo._gridPosition.x;
 	};
 
 	/**
@@ -160,7 +160,7 @@ define([
 	 * @returns {Number} The grid z position.
 	 */
 	Entity.prototype.getGridZ = function() {
-		return this._rawEntityInfo.gridPosition.z;
+		return this._rawEntityInfo._gridPosition.z;
 	};
 
 	/**

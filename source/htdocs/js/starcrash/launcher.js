@@ -40,7 +40,7 @@ define([
 
 			UTILS.injectTemplate('js/starcrash/templates/loading_screen.html', self._gameContainerId, function() {
 				// loading-screen html-elements are added to dom
-				self._loadResources(levelPath, function(levelInstance) {
+				self.loadLevel(levelPath, function(levelInstance) {
 					// level-file and the needed assets are loaded
 					UTILS.injectTemplate('js/starcrash/templates/game_screen.html', self._gameContainerId, function() {
 						// game-screen html-elements are added to dom
@@ -64,7 +64,7 @@ define([
 		 * @param callback The callback on finish.
 		 * @private
 			 */
-		Launcher.prototype._loadResources = function(levelPath, callback) {
+		Launcher.prototype.loadLevel = function(levelPath, callback) {
 			var domElementLoadingProgressText = document.getElementById("loadingProgressText"),
 				tmpLoadedCount = 0,
 				levelInstance,
