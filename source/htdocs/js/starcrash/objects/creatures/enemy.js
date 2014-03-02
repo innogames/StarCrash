@@ -42,6 +42,23 @@ define([
 	Enemy.prototype = Object.create( Creature.prototype );
 
 
+	Enemy.prototype._createModel = function() {
+		var returnModel = new THREE.Object3D();
+
+		var enemyGeometry = resourceStore.getGeometry("model_enemy"),
+			enemyMaterial = resourceStore.getMaterial("model_enemy");
+
+		enemyGeometry.computeVertexNormals();
+		enemyGeometry.computeFaceNormals();
+
+		returnModel = new THREE.Mesh(enemyGeometry, new THREE.MeshLambertMaterial( { color: 0x050505} ));
+		returnModel.receiveShadow = true;
+		returnModel.position.y = 30;
+		returnModel.rotation.y = - Math.PI;
+
+		return returnModel;
+	};
+
 
 	Enemy.prototype.act = function() {
 

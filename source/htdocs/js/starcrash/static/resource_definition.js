@@ -11,6 +11,9 @@ define([], function(){
 		 { 'id' : "model_aim", 	'type' : '3dmodel', 'url' : 'models/aim.js', 	'sizeKB' : null },
 
 
+		 { 'id' : "model_enemy", 'type' : '3dmodel', 'url' : 'models/test_enemy.js', 	'sizeKB' : null },
+
+
 
 		 { 'id' : "model_hallway07", 	'type' : '3dmodel', 'url' : 'models/corridors/standard/hallway07.js', 		'sizeKB' : null },
 		 { 'id' : "model_hallway04", 	'type' : '3dmodel', 'url' : 'models/corridors/standard/hallway04.js', 		'sizeKB' : null },

@@ -15,7 +15,8 @@ define([], function() {
 
 		standardResources : [
 			"model_aim",
-			"audio_laser"
+			"audio_laser",
+			"model_enemy"
 		],
 
 		texturePath : "img/textures/",
