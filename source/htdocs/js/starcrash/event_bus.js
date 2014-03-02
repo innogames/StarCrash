@@ -21,6 +21,7 @@ define([], function() {
 
 
 		ATTEMPT_AI_ENEMY_MOVE : "attempt/at_enemy_move",
+		ATTEMPT_AI_ENEMY_TURN : "attempt/at_enemy_turn",
 
 
 		subscribe: function subscribe(eventName, callback) {

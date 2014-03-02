@@ -123,20 +123,34 @@ define([
 
 
 		bus.subscribe(bus.ATTEMPT_AI_ENEMY_MOVE, function(pEnemy) {
-			var facingDirection = pEnemy.getFacingDirection(false);
-			var nextX = pEnemy.getGridPosition().x + facingDirection.x;
-			var nextZ = pEnemy.getGridPosition().z + facingDirection.z;
-			var facingWall = self._level.isWallBetween(pEnemy.getGridPosition().x, pEnemy.getGridPosition().z, nextX, nextZ);
-			if(!facingWall) {
-				pEnemy.moveForwards();
-			} else {
-				if (Math.random() > 0.5) {
-					pEnemy.turnLeft();
-				} else {
-					pEnemy.turnRight();
+			if (!pEnemy.isMoving()) {
+				var facingDirection = pEnemy.getFacingDirection(false);
+				var nextX = pEnemy.getGridPosition().x + facingDirection.x;
+				var nextZ = pEnemy.getGridPosition().z + facingDirection.z;
+				var facingWall = self._level.isWallBetween(pEnemy.getGridPosition().x, pEnemy.getGridPosition().z, nextX, nextZ);
+				if(!facingWall) {
+					pEnemy.moveForwards();
 				}
 			}
 		});
+
+
+		bus.subscribe(bus.ATTEMPT_AI_ENEMY_TURN, function(pEnemy) {
+			if (!pEnemy.isMoving()) {
+				var facingDirection = pEnemy.getFacingDirection(false);
+				var nextX = pEnemy.getGridPosition().x + facingDirection.x;
+				var nextZ = pEnemy.getGridPosition().z + facingDirection.z;
+				var facingWall = self._level.isWallBetween(pEnemy.getGridPosition().x, pEnemy.getGridPosition().z, nextX, nextZ);
+				if(facingWall) {
+					if (Math.random() > 0.5) {
+						pEnemy.turnLeft();
+					} else {
+						pEnemy.turnRight();
+					}
+				}
+			}
+		});
+
 
 		window.setInterval(this._logicLoop.bind(this), 10);
 	};
