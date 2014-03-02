@@ -17,9 +17,10 @@ define([
 	) {
 
 
-	var Enemy = function(gridX, gridZ) {
-		Creature.call(this, gridX, gridZ);
+	var Enemy = function(pGridX, pGridZ, pGameId) {
+		Creature.call(this, pGridX, pGridZ);
 		this.name = "An Enemy";
+		this._gameId = pGameId;
 
 
 		this._AI_CONFIG = {
@@ -29,7 +30,7 @@ define([
 
 
 		this._AIStatus =  {
-			movement : 0
+			movementInitiativeCount : 0
 		};
 
 	};
@@ -44,15 +45,17 @@ define([
 
 	Enemy.prototype.act = function() {
 
-		this._AIStatus.movement++;
+		this._AIStatus.movementInitiativeCount++;
 
-
-		if (this._AIStatus.movement >= this._AI_CONFIG.MOVEMENT_INITIATIVE) {
+		if (this._AIStatus.movementInitiativeCount >= this._AI_CONFIG.MOVEMENT_INITIATIVE) {
 			if (Math.random() <= this._AI_CONFIG.MOVEMENT_CHANGE) {
-				var gridPosition = this.getGridPosition();
-				this.setGridPosition(gridPosition.x, gridPosition.z + 1);
+				//var gridPosition = this.getGridPosition();
+				//this.setGridPosition(gridPosition.x, gridPosition.z + 1);
+
+				bus.post(bus.ATTEMPT_AI_ENEMY_MOVE, this);
+
 			}
-			this._AIStatus.movement = 0;
+			this._AIStatus.movementInitiativeCount = 0;
 		}
 	};
 

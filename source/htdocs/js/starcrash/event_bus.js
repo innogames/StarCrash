@@ -20,6 +20,9 @@ define([], function() {
 		EVENT_INPUT_SHOOT : "input/shoot",
 
 
+		ATTEMPT_AI_ENEMY_MOVE : "attempt/at_enemy_move",
+
+
 		subscribe: function subscribe(eventName, callback) {
 
 			if (!self.eventToListenersMap[eventName]) {

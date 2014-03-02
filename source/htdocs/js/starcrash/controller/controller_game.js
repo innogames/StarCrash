@@ -48,6 +48,11 @@ define([
 		this._graphics.addAnimation(new MapView(this._player, this._level));
 		this._graphics.animationCallback();
 
+		var enemies = this._level.getEnemies();
+		for (var i = 0; i < enemies.length; i++) {
+			this._graphics.addAnimation(enemies[i]);
+		}
+
 		inputController.init();
 		debugTool.init(this._player, this._level, this._graphics.getMainCamera(), this._graphics.renderer.domElement);
 		this._graphics.addAnimation(debugTool);
@@ -114,6 +119,23 @@ define([
 				self._graphics.addAnimation(impactAnimation, true);
 			}
 
+		});
+
+
+		bus.subscribe(bus.ATTEMPT_AI_ENEMY_MOVE, function(pEnemy) {
+			var facingDirection = pEnemy.getFacingDirection(false);
+			var nextX = pEnemy.getGridPosition().x + facingDirection.x;
+			var nextZ = pEnemy.getGridPosition().z + facingDirection.z;
+			var facingWall = self._level.isWallBetween(pEnemy.getGridPosition().x, pEnemy.getGridPosition().z, nextX, nextZ);
+			if(!facingWall) {
+				pEnemy.moveForwards();
+			} else {
+				if (Math.random() > 0.5) {
+					pEnemy.turnLeft();
+				} else {
+					pEnemy.turnRight();
+				}
+			}
 		});
 
 		window.setInterval(this._logicLoop.bind(this), 10);
