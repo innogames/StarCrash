@@ -219,6 +219,14 @@ define([
 		}
 	};
 
+	// Static stuff
+	Creature.MOVEMENT = {
+		FORWARDS : "FORWARDS",
+		BACKWARDS : "BACKWARDS",
+		STRAFE_LEFT : "STRAFE_LEFT",
+		STRAFE_RIGHT : "STRAFE_RIGHT"
+	};
+
 	return Creature;
 
 });

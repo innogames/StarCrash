@@ -8,6 +8,7 @@ define([
 		"starcrash/objects/map_entity",
 		"starcrash/objects/creatures/player",
 		"starcrash/objects/creatures/enemy",
+		"starcrash/objects/creatures/creature",
 		"starcrash/ui/map_view/controller_map_view",
 		"starcrash/debug/debug_tool",
 		"starcrash/resource_store"
@@ -21,6 +22,7 @@ define([
 		Entity,
 		PlayerClass,
 		EnemyClass,
+		Creature,
 		MapView,
 		debugTool,
 		resourceStore) {
@@ -67,19 +69,15 @@ define([
 		});
 
 		bus.subscribe(bus.EVENT_INPUT_MOVE_FORWARDS, function() {
-			var facingDirection = self._player.getFacingDirection(false);
-			var nextX = self._player.getGridPosition().x + facingDirection.x;
-			var nextZ = self._player.getGridPosition().z + facingDirection.z;
-			var facingWall = self._level.isWallBetween(self._player.getGridPosition().x, self._player.getGridPosition().z, nextX, nextZ);
-			if(!facingWall) self._player.moveForwards();
+			if (!self._player.isMoving() && self.canCreatureMoveInDirection(self._player, Creature.MOVEMENT.FORWARDS)) {
+				self._player.moveForwards();
+			}
 		});
 
 		bus.subscribe(bus.EVENT_INPUT_MOVE_BACKWARDS, function() {
-			var backDirection = self._player.getFacingDirection(false).negate();
-			var nextX = self._player.getGridPosition().x + backDirection.x;
-			var nextZ = self._player.getGridPosition().z + backDirection.z;
-			var backWall = self._level.isWallBetween(self._player.getGridPosition().x, self._player.getGridPosition().z, nextX, nextZ);
-			if(!backWall) self._player.moveBackwards();
+			if (!self._player.isMoving() && self.canCreatureMoveInDirection(self._player, Creature.MOVEMENT.BACKWARDS)) {
+				self._player.moveBackwards();
+			}
 		});
 
 
@@ -125,34 +123,21 @@ define([
 
 
 		bus.subscribe(bus.ATTEMPT_AI_ENEMY_MOVE, function(pEnemy) {
-			if (!pEnemy.isMoving()) {
-				var facingDirection = pEnemy.getFacingDirection(false);
-				var nextX = pEnemy.getGridPosition().x + facingDirection.x;
-				var nextZ = pEnemy.getGridPosition().z + facingDirection.z;
-				var facingWall = self._level.isWallBetween(pEnemy.getGridPosition().x, pEnemy.getGridPosition().z, nextX, nextZ);
-				if(!facingWall) {
+			if (!pEnemy.isMoving() && self.canCreatureMoveInDirection(pEnemy, Creature.MOVEMENT.FORWARDS)) {
 					pEnemy.moveForwards();
-				}
 			}
 		});
 
 
 		bus.subscribe(bus.ATTEMPT_AI_ENEMY_TURN, function(pEnemy) {
-			if (!pEnemy.isMoving()) {
-				var facingDirection = pEnemy.getFacingDirection(false);
-				var nextX = pEnemy.getGridPosition().x + facingDirection.x;
-				var nextZ = pEnemy.getGridPosition().z + facingDirection.z;
-				var facingWall = self._level.isWallBetween(pEnemy.getGridPosition().x, pEnemy.getGridPosition().z, nextX, nextZ);
-				if(facingWall) {
-					if (Math.random() > 0.5) {
-						pEnemy.turnLeft();
-					} else {
-						pEnemy.turnRight();
-					}
+			if (!pEnemy.isMoving() && !self.canCreatureMoveInDirection(pEnemy, Creature.MOVEMENT.FORWARDS)) {
+				if (Math.random() > 0.5) {
+					pEnemy.turnLeft();
+				} else {
+					pEnemy.turnRight();
 				}
 			}
 		});
-
 
 		window.setInterval(this._logicLoop.bind(this), 10);
 	};
@@ -163,6 +148,41 @@ define([
 
 		for (var i = 0; i < enemyArray.length; i++) {
 			enemyArray[i].act();
+		}
+
+	};
+
+	/**
+	 * Checks if a creature can move in a direction.
+	 *
+	 * @param creature Creature The creature to check.
+	 * @param direction Creature.MOVEMENT The direction to check
+	 * @return Boolean True if the creature can move forward.
+	 */
+	GameController.prototype.canCreatureMoveInDirection = function(creature, direction) {
+		var facingDirection,
+			nextX,
+			nextZ;
+
+		if (direction == Creature.MOVEMENT.BACKWARDS) {
+			facingDirection = creature.getFacingDirection(false).negate();
+		}
+		if ((direction == Creature.MOVEMENT.FORWARDS)) {
+			facingDirection = creature.getFacingDirection(false);
+		}
+		if ((direction == Creature.MOVEMENT.STRAFE_LEFT)) {
+			// todo implementation
+		}
+		if ((direction == Creature.MOVEMENT.STRAFE_LEFT)) {
+			// todo implementation
+		}
+
+		if (facingDirection != null) {
+			nextX = creature.getGridPosition().x + facingDirection.x;
+			nextZ = creature.getGridPosition().z + facingDirection.z;
+			return !this._level.isWallBetween(creature.getGridPosition().x, creature.getGridPosition().z, nextX, nextZ);
+		} else {
+			return false;
 		}
 
 	};
