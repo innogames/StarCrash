@@ -13,6 +13,7 @@ body {
 	background-position: center;
 	background-size: contain;
     overflow: hidden;
+    margin: 0;
 }
 
 #fps {
