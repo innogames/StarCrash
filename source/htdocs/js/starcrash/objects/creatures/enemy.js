@@ -18,10 +18,8 @@ define([
 
 
 	var Enemy = function(pGridX, pGridZ, pGameId) {
-		Creature.call(this, pGridX, pGridZ);
+		Creature.call(this, pGridX, pGridZ, pGameId);
 		this.name = "An Enemy";
-		this._gameId = pGameId;
-
 
 		this._AI_CONFIG = {
 			MOVEMENT_INITIATIVE : 100,

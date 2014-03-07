@@ -89,27 +89,24 @@ define([
 
 			var laserStartPosition = self._player.getAbsoluteWeaponPosition();
 
-			console.log(laserStartPosition);
 			var shootDirection = self._player.getFacingDirection();
 			var shootRayCaster = new THREE.Raycaster(laserStartPosition, shootDirection, 0, weaponRange);
 			// TODO : do not check intersections for the whole scene.. only check objects that are in the direction.
 			var intersectObjects = shootRayCaster.intersectObjects(pGraphics.scene.children, true);
 			// TODO : check if the intersected object is shootable  (maybe also use a 'shootable' flag?)
 
-			var laserTargetPosition = null;
-			var laserBeamLength = 10000;
-			var targetEntity = null;
+			var hitTarget = self.getHitTarget(intersectObjects);
+			var laserTargetPosition = hitTarget.point;
+			var laserBeamLength = laserTargetPosition.clone().sub(laserStartPosition).length();
 
-			for (var i = 0; i < intersectObjects.length; i++) {
-				if (intersectObjects[i].object instanceof Entity || intersectObjects[i].object.parent instanceof Entity) {
-					laserTargetPosition = intersectObjects[i].point;
-					laserBeamLength = laserTargetPosition.clone().sub(laserStartPosition).length();
-					targetEntity = intersectObjects[i];
-					break;
-				}
+			if (hitTarget.object instanceof EnemyClass) {
+				self._level.removeEnemy(hitTarget.object.getGameId());
+				console.log("shoot at enemy");
 			}
 
-			resourceStore.getAudio("audio_laser").play();
+			if (resourceStore.getAudio("audio_laser") != null) {
+				resourceStore.getAudio("audio_laser").play();
+			}
 
 			var beamAnimation = new LaserBeamAnimation(laserStartPosition.clone(), self._player.rotation, laserBeamLength, weaponLaserBeamColor, self._graphics, null);
 			self._graphics.addAnimation(beamAnimation, true);
@@ -185,6 +182,24 @@ define([
 			return false;
 		}
 
+	};
+
+	/**
+	 * Returns the target object that has been hit.
+	 * @param intersectObjects Objects returned by a ray caster.
+	 * @returns {*} The object that was hit.
+	 */
+	GameController.prototype.getHitTarget = function(intersectObjects) {
+		for (var i = 0; i < intersectObjects.length; i++) {
+			var currentObject = intersectObjects[i].object;
+			while (currentObject != null) {
+				if (currentObject instanceof Entity || currentObject instanceof Creature) {
+					return { object : currentObject, point :  intersectObjects[i].point };
+				}
+				currentObject = currentObject.parent;
+			}
+		}
+		return null;
 	};
 
 	return GameController;

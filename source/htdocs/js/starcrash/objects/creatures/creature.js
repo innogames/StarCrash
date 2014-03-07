@@ -19,8 +19,9 @@ define([
 	 * Inherit from this class ant override the _createModel function to use a custom model.
 	 * @constructor
 	 */
-	var Creature = function(gridX, gridZ) {
+	var Creature = function(gridX, gridZ, pGameId) {
 		THREE.Object3D.call(this);
+		this._gameId = pGameId;
 
 		this._model = this._createModel();
 		this._modelInitialPosition = this._model.position.clone();
@@ -218,6 +219,11 @@ define([
 			this._currentTurnAtAnimation.animate();
 		}
 	};
+
+	Creature.prototype.getGameId = function() {
+		return this._gameId;
+	};
+
 
 	// Static stuff
 	Creature.MOVEMENT = {

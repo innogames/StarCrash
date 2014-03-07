@@ -64,8 +64,10 @@ define([
 		}
 
 		// TODO: get the enemies from the level.
-		this._enemies.push(new Enemy(0, -5));
-		this._enemies.push(new Enemy(5, -1));
+		this._enemies.push(new Enemy(0, -5, "myEnemyId1"));
+		this._enemies.push(new Enemy(5, -1, "myEnemyId2"));
+		this._enemies.push(new Enemy(0, -3, "myEnemyId3"));
+
 
 		for (i = 0; i < this._enemies.length; i++) {
 			this.add(this._enemies[i]);
@@ -214,6 +216,17 @@ define([
 
 	Level.prototype.getEnemies = function() {
 		return this._enemies;
+	};
+
+
+	Level.prototype.removeEnemy = function(gameId) {
+		for (var i = 0; i < this._enemies.length; i++) {
+			if (this._enemies[i].getGameId() == gameId) {
+				this.remove(this._enemies[i]);
+				this._enemies.splice(i, 1);
+				return;
+			}
+		}
 	};
 
 
