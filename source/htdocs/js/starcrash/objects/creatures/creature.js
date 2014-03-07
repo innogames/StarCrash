@@ -30,14 +30,13 @@ define([
 		this._currentMoveAnimation = null;
 		this._currentTurnAtAnimation = null; // do not mix that up with a turning-animation.. it is not.
 
+		this._equipedWeapon = null;
+
 		this.receiveShadow = true;
 
-		this._ATTRRIBUTE_CONFIG = {
-			maxHealth : 100
-		};
-
 		this._attributes = {
-			health : 100
+			health : 100,
+			maxHealth : 100
 		};
 
 	};
@@ -55,6 +54,15 @@ define([
 	 */
 	Creature.prototype._createModel = function() {
 		return new THREE.Mesh(new THREE.CubeGeometry(30, 160, 30, 1, 1, 1), new THREE.MeshBasicMaterial());
+	};
+
+
+	Creature.prototype.setEquipedWeapon = function(weapon) {
+		this._equipedWeapon = weapon;
+	};
+
+	Creature.prototype.getEquipedWeapon = function() {
+		return this._equipedWeapon;
 	};
 
 	/**

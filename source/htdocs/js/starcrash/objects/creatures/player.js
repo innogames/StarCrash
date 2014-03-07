@@ -5,7 +5,8 @@ define([
 		"starcrash/graphic/animations/animation_transformation",
 		"starcrash/resource_store",
 		"starcrash/objects/creatures/creature",
-		"starcrash/controller/controller_graphic"
+		"starcrash/controller/controller_graphic",
+		"starcrash/objects/weapons/weapon"
 	], function(
 		THREE,
 		bus,
@@ -13,7 +14,8 @@ define([
 		TransformationAnimation,
 		resourceStore,
 		Creature,
-        graphics
+		graphics,
+		Weapon
 	) {
 
 	/**
@@ -31,6 +33,7 @@ define([
 		this.name = "The Player";
 		this._animationCounter = 0;
 		this._camera = null;
+		this.setEquipedWeapon(new Weapon());
 	};
 
 	/**

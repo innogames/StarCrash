@@ -5,7 +5,8 @@ define([
 	"starcrash/graphic/animations/animation_transformation",
 	"starcrash/resource_store",
 	"starcrash/objects/creatures/creature",
-	"starcrash/controller/controller_graphic"
+	"starcrash/controller/controller_graphic",
+	"starcrash/objects/weapons/weapon"
 ], function(
 	THREE,
 	bus,
@@ -13,7 +14,8 @@ define([
 	TransformationAnimation,
 	resourceStore,
 	Creature,
-	graphics
+	graphics,
+	Weapon
 	) {
 
 
@@ -23,9 +25,12 @@ define([
 
 		this._aggroTarget = null;
 
+		this.setEquipedWeapon(new Weapon());
+
 		this._AI_CONFIG = {
 			MOVEMENT_INITIATIVE : 100,
 			MOVEMENT_CHANGE : 0.90,
+
 			TURN_INITIATIVE : 10,
 			TURN_CHANGE : 0.60
 		};
@@ -84,6 +89,16 @@ define([
 				bus.post(bus.ATTEMPT_AI_ENEMY_TURN, this);
 			}
 			this._AIStatus.turnInitiativeCount = 0;
+		}
+
+		if (this._aggroTarget != null) {
+			var weapon = this.getEquipedWeapon();
+			if (weapon != null) {
+				var didTrigger = weapon.tryTrigger();
+				if (didTrigger == true) {
+					console.log("enemy " + this.getGameId() + " tries to trigger its weapon");
+				}
+			}
 		}
 	};
 

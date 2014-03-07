@@ -82,41 +82,45 @@ define([
 
 
 		bus.subscribe(bus.EVENT_INPUT_SHOOT, function() {
-			// TODO : Use equipped weapon for weapon properties
-			var weaponRange = 10000;
-			var weaponLaserBeamColor = 0xFFAA22;
-			var weaponDamage = 40;
-			//var weaponLaserBeamColor = 0x22AAFF;
+			var weapon = self._player.getEquipedWeapon();
+			var didTrigger = weapon.tryTrigger();
 
-			var laserStartPosition = self._player.getAbsoluteWeaponPosition();
+			if (didTrigger == true){
 
-			var shootDirection = self._player.getFacingDirection();
-			var shootRayCaster = new THREE.Raycaster(laserStartPosition, shootDirection, 0, weaponRange);
-			// TODO : do not check intersections for the whole scene.. only check objects that are in the direction.
-			var intersectObjects = shootRayCaster.intersectObjects(pGraphics.scene.children, true);
+				var weaponRange = 10000;
+				var weaponLaserBeamColor = 0xFFAA22;
+				//var weaponLaserBeamColor = 0x22AAFF;
+
+				var laserStartPosition = self._player.getAbsoluteWeaponPosition();
 
 
-			var hitTarget = self.getHitTarget(intersectObjects);
-			var laserTargetPosition = hitTarget.point;
-			var laserBeamLength = laserTargetPosition.clone().sub(laserStartPosition).length();
+				var shootDirection = self._player.getFacingDirection();
+				var shootRayCaster = new THREE.Raycaster(laserStartPosition, shootDirection, 0, weaponRange);
+				// TODO : do not check intersections for the whole scene.. only check objects that are in the direction.
+				var intersectObjects = shootRayCaster.intersectObjects(pGraphics.scene.children, true);
 
-			if (hitTarget.object instanceof EnemyClass) {
-				hitTarget.object.dealDamage(weaponDamage);
-				hitTarget.object.setAggroTarget(self._player);
-			}
 
-			if (resourceStore.getAudio("audio_laser") != null) {
-				resourceStore.getAudio("audio_laser").play();
-			}
+				var hitTarget = self.getHitTarget(intersectObjects);
+				var laserTargetPosition = hitTarget.point;
+				var laserBeamLength = laserTargetPosition.clone().sub(laserStartPosition).length();
 
-			var beamAnimation = new LaserBeamAnimation(laserStartPosition.clone(), self._player.rotation, laserBeamLength, weaponLaserBeamColor, self._graphics, null);
-			self._graphics.addAnimation(beamAnimation, true);
+				if (hitTarget.object instanceof EnemyClass) {
+					hitTarget.object.dealDamage(weapon.getDamage());
+					hitTarget.object.setAggroTarget(self._player);
+				}
 
-			if (laserTargetPosition != null) {
-				var impactAnimation = new LaserImpactAnimation(laserTargetPosition.clone(), shootDirection, self._graphics, null)
-				self._graphics.addAnimation(impactAnimation, true);
-			}
+				if (resourceStore.getAudio("audio_laser") != null) {
+					resourceStore.getAudio("audio_laser").play();
+				}
 
+				var beamAnimation = new LaserBeamAnimation(laserStartPosition.clone(), self._player.rotation, laserBeamLength, weaponLaserBeamColor, self._graphics, null);
+				self._graphics.addAnimation(beamAnimation, true);
+
+				if (laserTargetPosition != null) {
+					var impactAnimation = new LaserImpactAnimation(laserTargetPosition.clone(), shootDirection, self._graphics, null)
+					self._graphics.addAnimation(impactAnimation, true);
+				}
+    		}
 		});
 
 
