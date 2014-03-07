@@ -21,15 +21,14 @@ define([
 		Creature.call(this, pGridX, pGridZ, pGameId);
 		this.name = "An Enemy";
 
+		this._aggroTarget = null;
+
 		this._AI_CONFIG = {
 			MOVEMENT_INITIATIVE : 100,
 			MOVEMENT_CHANGE : 0.90,
-
-
 			TURN_INITIATIVE : 10,
 			TURN_CHANGE : 0.60
 		};
-
 
 		this._AIStatus =  {
 			movementInitiativeCount : 0,
@@ -60,6 +59,10 @@ define([
 		returnModel.rotation.y = - Math.PI;
 
 		return returnModel;
+	};
+
+	Enemy.prototype.setAggroTarget = function(target) {
+		this._aggroTarget = target;
 	};
 
 

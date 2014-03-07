@@ -29,7 +29,17 @@ define([
 		this.setGridPosition(gridX, gridZ);
 		this._currentMoveAnimation = null;
 		this._currentTurnAtAnimation = null; // do not mix that up with a turning-animation.. it is not.
+
 		this.receiveShadow = true;
+
+		this._ATTRRIBUTE_CONFIG = {
+			maxHealth : 100
+		};
+
+		this._attributes = {
+			health : 100
+		};
+
 	};
 
 	/**
@@ -138,27 +148,27 @@ define([
 
 	/**
 	 * Starts a turning left animation.
-	 * Posts the EVENT_PLAYER_TURNED
+	 * Posts the EVENT_CREATURE_TURNED
 	 */
 	Creature.prototype.turnLeft = function() {
 		var self = this;
 		var rotationOffset = new THREE.Vector3(0, Math.PI / 2, 0);
 		this._startMoveAnimation(null, rotationOffset, function() {
 			self._model.position = self._modelInitialPosition;
-			bus.post(bus.EVENT_PLAYER_TURNED, this);
+			bus.post(bus.EVENT_CREATURE_TURNED, this);
 		});
 	};
 
 	/**
 	 * Starts a turning right animation.
-	 * Posts the EVENT_PLAYER_TURNED
+	 * Posts the EVENT_CREATURE_TURNED
 	 */
 	Creature.prototype.turnRight = function() {
 		var self = this;
 		var rotationOffset = new THREE.Vector3(0, - Math.PI / 2, 0);
 		this._startMoveAnimation(null, rotationOffset, function() {
 			self._model.position = self._modelInitialPosition;
-			bus.post(bus.EVENT_PLAYER_TURNED, this);
+			bus.post(bus.EVENT_CREATURE_TURNED, this);
 		});
 	};
 
@@ -166,7 +176,7 @@ define([
 	/**
 	 * Starts a forward moving animation.
 	 * Sets the grid position after animation.
-	 * Posts the EVENT_PLAYER_MOVED
+	 * Posts the EVENT_CREATURE_MOVED
 	 */
 	Creature.prototype.moveForwards = function() {
 		var facingDirection = this.getFacingDirection(),
@@ -179,14 +189,14 @@ define([
 		this._startMoveAnimation(movementOffset, null, function() {
 			self._gridPosition.add(facingDirection);
 			self._model.position = self._modelInitialPosition;
-			bus.post(bus.EVENT_PLAYER_MOVED, self);
+			bus.post(bus.EVENT_CREATURE_MOVED, self);
 		});
 	};
 
 	/**
 	 * Starts a backward moving animation.
 	 * Sets the grid position after animation.
-	 * Posts the EVENT_PLAYER_MOVED
+	 * Posts the EVENT_CREATURE_MOVED
 	 */
 	Creature.prototype.moveBackwards = function() {
 		var facingDirection = this.getFacingDirection(),
@@ -201,7 +211,7 @@ define([
 		this._startMoveAnimation(movementOffset, null, function() {
 			self._gridPosition.add(facingDirection);
 			self._model.position = self._modelInitialPosition;
-			bus.post(bus.EVENT_PLAYER_MOVED, self);
+			bus.post(bus.EVENT_CREATURE_MOVED, self);
 		});
 	};
 
@@ -220,9 +230,30 @@ define([
 		}
 	};
 
+	/**
+	 * Gets the id of this creature.
+	 * @returns {*}
+	 */
 	Creature.prototype.getGameId = function() {
 		return this._gameId;
 	};
+
+
+	/**
+	 * Deals damage to this creature. Returns true and
+	 * posts an EVENT_CREATURE_DIED if the health is lower than 0.
+	 * @param damage The damage deal to the health.
+	 * @returns {boolean} True if the creature died.
+	 */
+	Creature.prototype.dealDamage = function(demage) {
+		this._attributes.health -= demage;
+		if (this._attributes.health < 0) {
+			bus.post(bus.EVENT_CREATURE_DIED, this);
+			return true;
+		}
+		return false;
+	};
+
 
 
 	// Static stuff

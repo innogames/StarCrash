@@ -85,6 +85,7 @@ define([
 			// TODO : Use equipped weapon for weapon properties
 			var weaponRange = 10000;
 			var weaponLaserBeamColor = 0xFFAA22;
+			var weaponDamage = 40;
 			//var weaponLaserBeamColor = 0x22AAFF;
 
 			var laserStartPosition = self._player.getAbsoluteWeaponPosition();
@@ -93,15 +94,15 @@ define([
 			var shootRayCaster = new THREE.Raycaster(laserStartPosition, shootDirection, 0, weaponRange);
 			// TODO : do not check intersections for the whole scene.. only check objects that are in the direction.
 			var intersectObjects = shootRayCaster.intersectObjects(pGraphics.scene.children, true);
-			// TODO : check if the intersected object is shootable  (maybe also use a 'shootable' flag?)
+
 
 			var hitTarget = self.getHitTarget(intersectObjects);
 			var laserTargetPosition = hitTarget.point;
 			var laserBeamLength = laserTargetPosition.clone().sub(laserStartPosition).length();
 
 			if (hitTarget.object instanceof EnemyClass) {
-				self._level.removeEnemy(hitTarget.object.getGameId());
-				console.log("shoot at enemy");
+				hitTarget.object.dealDamage(weaponDamage);
+				hitTarget.object.setAggroTarget(self._player);
 			}
 
 			if (resourceStore.getAudio("audio_laser") != null) {
@@ -134,6 +135,11 @@ define([
 					pEnemy.turnRight();
 				}
 			}
+		});
+
+
+		bus.subscribe(bus.EVENT_CREATURE_DIED, function(creature) {
+			self._level.removeEnemy(creature.getGameId());
 		});
 
 		window.setInterval(this._logicLoop.bind(this), 10);

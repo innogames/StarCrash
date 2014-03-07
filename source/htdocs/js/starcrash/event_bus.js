@@ -6,9 +6,6 @@ define([], function() {
 	return {
 
 		// Events ===================
-		EVENT_PLAYER_MOVED : "player/moved", // @param { x: 0, y: 0 }
-		EVENT_PLAYER_TURNED : "player/turned", // @param { x: 0, y: 0 }
-
 		EVENT_INPUT_TURN_LEFT : "input/turn_left",
 		EVENT_INPUT_TURN_RIGHT : "input/turn_right",
 		EVENT_INPUT_MOVE_BACKWARDS : "input/move_backwards",
@@ -19,6 +16,10 @@ define([], function() {
 
 		EVENT_INPUT_SHOOT : "input/shoot",
 
+
+		EVENT_CREATURE_DIED : "creature/died", // @param Creature
+		EVENT_CREATURE_MOVED : "creature/moved", // @param Creature
+		EVENT_CREATURE_TURNED : "creature/turned", // @param Creature
 
 		ATTEMPT_AI_ENEMY_MOVE : "attempt/at_enemy_move",
 		ATTEMPT_AI_ENEMY_TURN : "attempt/at_enemy_turn",
