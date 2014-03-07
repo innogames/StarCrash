@@ -32,13 +32,6 @@ define([
 
 		this._beamLength = pLaserBeamLength;
 
-
-		this._beamStartPosition = new THREE.Vector3(
-			config.player.graphics.weaponOffset.x,
-			config.player.graphics.weaponOffset.y,
-			config.player.graphics.weaponOffset.z
-		);
-
 		var cylinderGeometry = new THREE.CylinderGeometry(0.2, 0.2, this._beamLength, 20, 2, false);
 		cylinderGeometry.applyMatrix( new THREE.Matrix4().makeRotationX( Math.PI / 2 ) );
 		cylinderGeometry.applyMatrix( new THREE.Matrix4().makeTranslation(0, 0, -(this._beamLength / 2)));
@@ -50,9 +43,9 @@ define([
 		this._torusMaterial = new THREE.MeshBasicMaterial({ transparent: true, color: pLeaserBeamColor	});
 
 		this._laserBeam = new THREE.Mesh(cylinderGeometry, this._laserMaterial);
-		this._laserBeam.position = this._beamStartPosition;
+
 		this._laserShock = new THREE.Mesh(sphereGeometry, this._laserMaterial);
-		this._laserShock.position = this._beamStartPosition.clone();
+
 
 		this.position.set(
 			pPlayerPosition.x,
@@ -64,11 +57,7 @@ define([
 		var torusGeometry = new THREE.TorusGeometry(0.2, 0.05, 2, 20);
 		for (var i = 0; i < 100; i++) {
 			var torusMesh = new THREE.Mesh(torusGeometry, this._torusMaterial);
-			torusMesh.position.set(
-				this._beamStartPosition.x,
-				this._beamStartPosition.y,
-				this._beamStartPosition.z + (i * -1)
-			);
+			torusMesh.position.set(0, 0, (i * -1));
 			torusMesh.fadeToX = (Math.random() - 0.5) * 0.1;
 			torusMesh.fadeToY = (Math.random() - 0.5) * 0.1;
 
@@ -79,13 +68,7 @@ define([
 
 		this._lightTarget = new THREE.Object3D();
 
-		this._particleSystem = this.createParticles(this._beamStartPosition);
-
-		this._lightTarget.position.set(
-			this._beamStartPosition.x,
-			this._beamStartPosition.y,
-			this._beamStartPosition.z
-		);
+		this._particleSystem = this.createParticles(new THREE.Vector3(0, 0, 0));
 
 		this.add(this._laserBeam);
 		this.add(this._laserShock);
@@ -124,7 +107,7 @@ define([
 		}
 
 		// getting the absolute position of the beam for the light. (because the light can not be added to this object3)
-		this._lightTarget.position.z = this._beamStartPosition.z +  animationProgress * -1000;
+		this._lightTarget.position.z = animationProgress * -1000;
 		this.updateMatrixWorld();
 		var absolutePosition = new THREE.Vector3();
 		absolutePosition.getPositionFromMatrix( self._lightTarget.matrixWorld);

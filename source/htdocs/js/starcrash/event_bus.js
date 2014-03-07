@@ -32,7 +32,7 @@ define([], function() {
 
 			self.eventToListenersMap[eventName].push(callback);
 
-			console.log("[BUS] Subscribed: " + eventName, self.eventToListenersMap);
+			//console.log("[BUS] Subscribed: " + eventName, self.eventToListenersMap);
 		},
 
 
@@ -46,10 +46,10 @@ define([], function() {
 					for(i = 0; i < listeners.length; i++) {
 						listeners[i](parameter);
 					}
-					console.log("[BUS] " + eventName + " posted to " + listeners.length + " listeners.");
+					//console.log("[BUS] " + eventName + " posted to " + listeners.length + " listeners.");
 				}
 			} else {
-				console.log("[BUS] Nobody Subscribed to: " + eventName);
+				//console.log("[BUS] Nobody Subscribed to: " + eventName);
 			}
 		}
 	}

@@ -90,6 +90,8 @@ define([
 			//var weaponLaserBeamColor = 0x22AAFF;
 
 			var laserStartPosition = self._player.getAbsoluteWeaponPosition();
+
+			console.log(laserStartPosition);
 			var shootDirection = self._player.getFacingDirection();
 			var shootRayCaster = new THREE.Raycaster(laserStartPosition, shootDirection, 0, weaponRange);
 			// TODO : do not check intersections for the whole scene.. only check objects that are in the direction.
@@ -111,11 +113,11 @@ define([
 
 			resourceStore.getAudio("audio_laser").play();
 
-			var beamAnimation = new LaserBeamAnimation(self._player.position, self._player.rotation, laserBeamLength, weaponLaserBeamColor, self._graphics, null);
+			var beamAnimation = new LaserBeamAnimation(laserStartPosition.clone(), self._player.rotation, laserBeamLength, weaponLaserBeamColor, self._graphics, null);
 			self._graphics.addAnimation(beamAnimation, true);
 
 			if (laserTargetPosition != null) {
-				var impactAnimation = new LaserImpactAnimation(laserTargetPosition, shootDirection, self._graphics, null)
+				var impactAnimation = new LaserImpactAnimation(laserTargetPosition.clone(), shootDirection, self._graphics, null)
 				self._graphics.addAnimation(impactAnimation, true);
 			}
 

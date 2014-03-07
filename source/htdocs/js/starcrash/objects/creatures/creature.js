@@ -142,9 +142,7 @@ define([
 	Creature.prototype.turnLeft = function() {
 		var self = this;
 		var rotationOffset = new THREE.Vector3(0, Math.PI / 2, 0);
-		console.log("turn left");
 		this._startMoveAnimation(null, rotationOffset, function() {
-			console.log("done");
 			self._model.position = self._modelInitialPosition;
 			bus.post(bus.EVENT_PLAYER_TURNED, this);
 		});

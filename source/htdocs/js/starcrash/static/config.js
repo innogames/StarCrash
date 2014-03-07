@@ -51,9 +51,9 @@ define([], function() {
 				},
 
 				weaponOffset : {
-					x : 1.5,
-					y : 60,
-					z : -25
+					x : -1.5,
+					y : 75,
+					z : 25
 				}
 
 

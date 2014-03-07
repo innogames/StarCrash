@@ -185,14 +185,14 @@ define([
 		if (removeOnEnd) {
 			this._animationGroup.add(animatable);
 		}
-		if (config.debug) console.log("[GraphicController] Added animation: ",  animatable);
+		//if (config.debug) console.log("[GraphicController] Added animation: ",  animatable);
 	};
 
 	GraphicController.prototype.removeAnimation = function(animatable) {
 		var index = this._animationList.indexOf(animatable);
 		if (index > -1) { this._animationList.splice(index, 1); }
 		this._animationGroup.remove(animatable);
-		if (config.debug) console.log("[GraphicController] Removed animation: ", animatable);
+		//if (config.debug) console.log("[GraphicController] Removed animation: ", animatable);
 	};
 
 	singletonInstance = new GraphicController();
