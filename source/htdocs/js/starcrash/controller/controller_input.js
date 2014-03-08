@@ -27,6 +27,8 @@ define([
 
 				if (e.keyCode == 32) { bus.post(bus.EVENT_INPUT_SHOOT); return; }
 
+				if (e.keyCode == 27) { bus.post(bus.EVENT_CLOSE_SCREEN_ALL); return; }
+
 			});
 
 			// MOUSE-Controls ======================================================================

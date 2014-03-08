@@ -4,7 +4,8 @@ define([
 		"starcrash/objects/level",
 		"starcrash/controller/controller_game",
 		"starcrash/static/config",
-		"starcrash/resource_store"
+		"starcrash/resource_store",
+		"starcrash/controller/controller_ui"
 	],
 	function(
 		UTILS,
@@ -12,7 +13,8 @@ define([
 		LevelClass,
 		GameController,
 		config,
-		resourceStore
+		resourceStore,
+		UIController
 	) {
 
 		/**
@@ -33,6 +35,7 @@ define([
 		 */
 		Launcher.prototype.continueGame = function() {
 			var levelPath = "levels/level02.json",
+				uiController = new UIController(),
 				self = this;
 
 			// TODO : get the levelPath depending on save point (web storage).
@@ -42,7 +45,7 @@ define([
 				// loading-screen html-elements are added to dom
 				self.loadLevel(levelPath, function(levelInstance) {
 					// level-file and the needed assets are loaded
-					UTILS.injectTemplate('js/starcrash/templates/game_screen.html', self._gameContainerId, function() {
+					uiController.injectUI(self._gameContainerId, function() {
 						// game-screen html-elements are added to dom
 						new GameController(levelInstance, graphics);
 					});
