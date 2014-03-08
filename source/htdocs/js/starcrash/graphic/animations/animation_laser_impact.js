@@ -54,7 +54,6 @@ define([
 		this._impactLight.intensity = 100;
 
 
-		this.add(this._particleSystem);
 		this.add(this._glowImpact);
 
 	};

@@ -3,6 +3,7 @@ define([
 		"starcrash/event_bus",
 		"starcrash/graphic/animations/animation_laser_beam",
 		"starcrash/graphic/animations/animation_laser_impact",
+		"starcrash/graphic/animations/animation_enemy_laser_impact",
 		"starcrash/controller/controller_input",
 		"starcrash/static/config",
 		"starcrash/objects/map_entity",
@@ -17,6 +18,7 @@ define([
 		bus,
 		LaserBeamAnimation,
 		LaserImpactAnimation,
+		EnemyLaserImpactAnimation,
 		inputController,
 		config,
 		Entity,
@@ -130,8 +132,13 @@ define([
 				self._graphics.addAnimation(beamAnimation, true);
 
 				if (laserTargetPosition != null) {
-					var impactAnimation = new LaserImpactAnimation(laserTargetPosition.clone(), shootDirection, self._graphics, null)
-					self._graphics.addAnimation(impactAnimation, true);
+					if (hitTarget.object instanceof EnemyClass) {
+						var impactAnimation = new EnemyLaserImpactAnimation(laserTargetPosition, shootDirection, self._graphics, null);
+						self._graphics.addAnimation(impactAnimation, true);
+					} else {
+						var impactAnimation = new LaserImpactAnimation(laserTargetPosition.clone(), shootDirection, self._graphics, null);
+						self._graphics.addAnimation(impactAnimation, true);
+					}
 				}
     		}
 		});
