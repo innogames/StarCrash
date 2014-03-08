@@ -13,7 +13,7 @@ define([
 	var Weapon = function() {
 
 		this._attributes = {
-			coolDownMillis : 1000,
+			coolDownMillis : 500,
 			lastShootTime : 0,
 			maxAmmo : 100,
 			ammo : 100,

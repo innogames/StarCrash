@@ -223,6 +223,15 @@ define([
 		});
 	};
 
+
+	Creature.prototype.strafeLeft = function() {
+
+	};
+
+	Creature.prototype.strafeRight = function() {
+
+	};
+
 	/**
 	 * Call every render loop to animate the player.
 	 */

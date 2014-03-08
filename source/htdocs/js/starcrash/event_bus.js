@@ -10,6 +10,8 @@ define([], function() {
 		EVENT_INPUT_TURN_RIGHT : "input/turn_right",
 		EVENT_INPUT_MOVE_BACKWARDS : "input/move_backwards",
 		EVENT_INPUT_MOVE_FORWARDS : "input/move_forwards",
+		EVENT_INPUT_STRAFE_LEFT : "input/strafe_left",
+		EVENT_INPUT_STRAFE_RIGHT : "input/strafe_right",
 
 		EVENT_INPUT_ZOOM_IN_MAP : "input/zoom_in_map",
 		EVENT_INPUT_ZOOM_OUT_MAP : "input/zoom_out_map",
