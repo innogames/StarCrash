@@ -13,15 +13,19 @@ define([
 		init : function() {
 			// KEYBOARD-Controls ===================================================================
 			document.addEventListener("keydown", function(e) {
-				if (e.keyCode == 37) bus.post(bus.EVENT_INPUT_TURN_LEFT);
-				if (e.keyCode == 38) bus.post(bus.EVENT_INPUT_MOVE_FORWARDS);
-				if (e.keyCode == 39) bus.post(bus.EVENT_INPUT_TURN_RIGHT);
-				if (e.keyCode == 40) bus.post(bus.EVENT_INPUT_MOVE_BACKWARDS);
 
-				if (e.keyCode == 107) bus.post(bus.EVENT_INPUT_ZOOM_IN_MAP);
-				if (e.keyCode == 109) bus.post(bus.EVENT_INPUT_ZOOM_OUT_MAP);
+				if (e.keyCode == 37 && e.ctrlKey) { bus.post(bus.EVENT_INPUT_STRAFE_LEFT); return; }
+				if (e.keyCode == 39 && e.ctrlKey) { bus.post(bus.EVENT_INPUT_STRAFE_RIGHT); return; }
 
-				if (e.keyCode == 32) bus.post(bus.EVENT_INPUT_SHOOT);
+				if (e.keyCode == 37) { bus.post(bus.EVENT_INPUT_TURN_LEFT); return; }
+				if (e.keyCode == 38) { bus.post(bus.EVENT_INPUT_MOVE_FORWARDS); return; }
+				if (e.keyCode == 39) { bus.post(bus.EVENT_INPUT_TURN_RIGHT); return; }
+				if (e.keyCode == 40) { bus.post(bus.EVENT_INPUT_MOVE_BACKWARDS); return; }
+
+				if (e.keyCode == 107) { bus.post(bus.EVENT_INPUT_ZOOM_IN_MAP); return; }
+				if (e.keyCode == 109) { bus.post(bus.EVENT_INPUT_ZOOM_OUT_MAP); return; }
+
+				if (e.keyCode == 32) { bus.post(bus.EVENT_INPUT_SHOOT); return; }
 
 			});
 

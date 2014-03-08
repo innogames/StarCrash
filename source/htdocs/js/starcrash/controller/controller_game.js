@@ -70,13 +70,25 @@ define([
 
 		bus.subscribe(bus.EVENT_INPUT_MOVE_FORWARDS, function() {
 			if (!self._player.isMoving() && self.canCreatureMoveInDirection(self._player, Creature.MOVEMENT.FORWARDS)) {
-				self._player.moveForwards();
+				self._player.move(Creature.MOVEMENT.FORWARDS);
 			}
 		});
 
 		bus.subscribe(bus.EVENT_INPUT_MOVE_BACKWARDS, function() {
 			if (!self._player.isMoving() && self.canCreatureMoveInDirection(self._player, Creature.MOVEMENT.BACKWARDS)) {
-				self._player.moveBackwards();
+				self._player.move(Creature.MOVEMENT.BACKWARDS);
+			}
+		});
+
+		bus.subscribe(bus.EVENT_INPUT_STRAFE_LEFT, function() {
+			if (!self._player.isMoving() && self.canCreatureMoveInDirection(self._player, Creature.MOVEMENT.STRAFE_LEFT)) {
+				self._player.move(Creature.MOVEMENT.STRAFE_LEFT);
+			}
+		});
+
+		bus.subscribe(bus.EVENT_INPUT_STRAFE_RIGHT, function() {
+			if (!self._player.isMoving() && self.canCreatureMoveInDirection(self._player, Creature.MOVEMENT.STRAFE_RIGHT)) {
+				self._player.move(Creature.MOVEMENT.STRAFE_RIGHT);
 			}
 		});
 
@@ -126,7 +138,7 @@ define([
 
 		bus.subscribe(bus.ATTEMPT_AI_ENEMY_MOVE, function(pEnemy) {
 			if (!pEnemy.isMoving() && self.canCreatureMoveInDirection(pEnemy, Creature.MOVEMENT.FORWARDS)) {
-					pEnemy.moveForwards();
+					pEnemy.move(Creature.MOVEMENT.FORWARDS);
 			}
 		});
 

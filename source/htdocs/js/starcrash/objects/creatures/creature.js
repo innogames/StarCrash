@@ -131,9 +131,9 @@ define([
 	Creature.prototype.getOffsetToMove = function(creatureMovement) {
 
 		var modulatedRotation = this.rotation.y;
-		if (creatureMovement == Creature.MOVEMENT.STRAFE_LEFT) {
+		if (creatureMovement == Creature.MOVEMENT.STRAFE_RIGHT) {
 			modulatedRotation -= Math.PI / 2;
-		} else if (creatureMovement == Creature.MOVEMENT.STRAFE_RIGHT) {
+		} else if (creatureMovement == Creature.MOVEMENT.STRAFE_LEFT) {
 			modulatedRotation += Math.PI / 2;
 		} else if (creatureMovement == Creature.MOVEMENT.BACKWARDS) {
 			modulatedRotation += Math.PI;
@@ -194,33 +194,8 @@ define([
 	};
 
 
-	/**
-	 * Starts a forward moving animation.
-	 * Sets the grid position after animation.
-	 * Posts the EVENT_CREATURE_MOVED
-	 */
-	Creature.prototype.moveForwards = function() {
-		var facingDirection = this.getOffsetToMove(Creature.MOVEMENT.FORWARDS),
-			movementOffset,
-			self = this;
-
-		movementOffset = facingDirection.clone();
-		movementOffset.setLength(config.gridCellSize);
-
-		this._startMoveAnimation(movementOffset, null, function() {
-			self._gridPosition.add(facingDirection);
-			self._model.position = self._modelInitialPosition;
-			bus.post(bus.EVENT_CREATURE_MOVED, self);
-		});
-	};
-
-	/**
-	 * Starts a backward moving animation.
-	 * Sets the grid position after animation.
-	 * Posts the EVENT_CREATURE_MOVED
-	 */
-	Creature.prototype.moveBackwards = function() {
-		var facingDirection = this.getOffsetToMove(Creature.MOVEMENT.BACKWARDS),
+	Creature.prototype.move = function(movementDirection) {
+		var facingDirection = this.getOffsetToMove(movementDirection),
 			movementOffset,
 			self = this;
 
@@ -231,17 +206,8 @@ define([
 		this._startMoveAnimation(movementOffset, null, function() {
 			self._gridPosition.add(facingDirection);
 			self._model.position = self._modelInitialPosition;
-			bus.post(bus.EVENT_CREATURE_MOVED, self);
+			bus.post(bus.EVENT_CREATURE_MOVED, self, movementDirection);
 		});
-	};
-
-
-	Creature.prototype.strafeLeft = function() {
-
-	};
-
-	Creature.prototype.strafeRight = function() {
-
 	};
 
 	/**
