@@ -12,12 +12,10 @@
 
 <div id="UIMap" style="position: absolute; right: 10px; top: 10px "></div>
 
-<div id="settingsOpenButton" style="position: absolute; left: 10px; top: 10px;
-									background-color: #657B83; border:#001221 solid;
-									padding: 3px; cursor: pointer">Settings</div>
+<div id="settingsOpenButton" class="button" style="position: absolute; left: 10px; top: 10px;">Settings</div>
 
-<div id="settingsScreen" style="visibility: hidden; position: absolute; left: 10px; top: 20px; background-color: #657B83; border: #001221 solid; padding: 3px; cursor: pointer ">
-	<div id="settingsCloseButton" class="debugButton">X</div>
+<div id="settingsScreen" class="screen" style="visibility: hidden; z-index: 100;">
+	<div id="settingsCloseButton" class="button">X</div>
 	<h2>Movement:</h2>
 	<table>
 		<tr><td>turn right</td><td>[RIGHT]</td></tr>
@@ -32,7 +30,7 @@
 </div>
 
 
-<div id="playerAttributes" style="position: absolute; left: 10px; top:80px">
+<div id="playerAttributes" style="position: absolute; left: 10px; top:120px; z-index: 10">
 
 	<div>Health<div id="playerHealth"></div></div>
 	<br>
@@ -43,11 +41,11 @@
 
 <!-- ============ DEBUG INFORMATION ============ -->
 
-<div id="debugShow" class="debugButton" style="position: absolute; left: 10px; bottom: 10px; visibility: visible" >i</div>
+<div id="debugShow" class="button" style="position: absolute; left: 100px; top: 10px; visibility: visible" >Debug</div>
 
-<div id="debugInfo" class="debugInfo" style="position: absolute; left: 10px; bottom: 10px; visibility: hidden ">
+<div id="debugInfo" class="screen" style="visibility: hidden ">
 
-    <div id="debugHide" class="debugButton">X</div>
+    <div id="debugHide" class="button">X</div>
 
     <div style="margin: 5px">
         PLAYER

@@ -65,12 +65,15 @@ body {
 	background: rgba(10, 10, 10, 0.8);
 }
 
-.debugInfo {
+.screen {
     background: rgba(10, 10, 10, 0.5);
     font-size: 10px;
     color: white;
     font-family: monospace;
     font-style: normal;
+	border: #ffffff solid;
+	position: absolute; left: 100px; top: 80px;
+	padding: 5px;
 }
 
 .debugLeftPadding {
@@ -78,10 +81,9 @@ body {
     color: lightgray;
 }
 
-.debugButton {
+.button {
+	padding: 3px;
     background: rgba(100, 100, 100, 1);
-    width: 15px;
-    height: 15px;
     font-family: monospace;
     font-weight: lighter;
     text-align: center;
