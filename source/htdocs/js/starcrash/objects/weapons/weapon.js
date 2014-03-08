@@ -15,8 +15,8 @@ define([
 		this._attributes = {
 			coolDownMillis : 500,
 			lastShootTime : 0,
-			maxAmmo : 100,
-			ammo : 100,
+			maxAmmo : 30,
+			ammo : 10,
 			damage : 40
 		}
 
@@ -41,6 +41,10 @@ define([
 
 	Weapon.prototype.getDamage = function() {
 		return this._attributes.damage;
+	};
+
+	Weapon.prototype.getAttributes = function() {
+		return this._attributes;
 	};
 
 

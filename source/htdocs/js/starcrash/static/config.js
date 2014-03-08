@@ -1,7 +1,7 @@
 define([], function() {
 	return {
 
-		logicLoopIntervalMillis : 10,
+		logicLoopIntervalMillis : 100,
 
 		gridCellSize : 100.0,
 		movementDurationMillis : 300,

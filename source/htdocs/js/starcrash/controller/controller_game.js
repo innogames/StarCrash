@@ -36,10 +36,11 @@ define([
 	 * @constructor
 	 * @author LucaHofmann@gmx.net
 	 */
-	var GameController = function(pLevel, pGraphics) {
+	var GameController = function(pLevel, pGraphics, pUIController) {
 		var self = this;
 		this._level = pLevel;
 		this._graphics = pGraphics;
+		this._uiController = pUIController;
 
 		this._graphics.init();
 		this._level.initEntities();
@@ -158,7 +159,7 @@ define([
 			self._level.removeEnemy(creature.getGameId());
 		});
 
-		window.setInterval(this._logicLoop.bind(this), 10);
+		window.setInterval(this._logicLoop.bind(this), config.logicLoopIntervalMillis);
 	};
 
 
@@ -168,6 +169,8 @@ define([
 		for (var i = 0; i < enemyArray.length; i++) {
 			enemyArray[i].act();
 		}
+
+		this._uiController.update(this._player);
 
 	};
 

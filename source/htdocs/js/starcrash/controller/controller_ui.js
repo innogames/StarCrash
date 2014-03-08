@@ -9,7 +9,12 @@ define([
 	) {
 
 
-	var UIController = function() {};
+	var UIController = function() {
+
+		this._domElementPlayerHealth = null;
+		this._domElementPlayerWeaponAmmo = null;
+
+	};
 
 	UIController.UI_TEMPLATE_PATH = 'js/starcrash/templates/game_screen.html';
 
@@ -32,6 +37,9 @@ define([
 	 */
 	UIController.prototype._initialize = function() {
 		var self = this;
+
+		this._domElementPlayerHealth = document.getElementById("playerHealth");
+		this._domElementPlayerWeaponAmmo = document.getElementById("playerWeaponAmmo");
 
 
 		bus.subscribe(bus.EVENT_OPEN_SCREEN, function(screenName) {
@@ -80,6 +88,23 @@ define([
 		var screenOpenButton = document.getElementById(screenName + "OpenButton");
 		screenElement.style.visibility='hidden';
 		screenOpenButton.style.visibility='visible';
+	};
+
+
+	UIController.prototype.update = function(pPlayer) {
+		if (pPlayer != null) {
+			if (this._domElementPlayerHealth != null) {
+				this._domElementPlayerHealth.innerHTML = pPlayer.getHealth();
+			}
+			if (this._domElementPlayerWeaponAmmo != null) {
+				var weapon = pPlayer.getEquipedWeapon();
+				if (weapon != null) {
+					this._domElementPlayerWeaponAmmo.innerHTML = weapon.getAttributes().ammo + " / " + weapon.getAttributes().maxAmmo;
+				}
+			}
+		}
+
+
 	};
 
 

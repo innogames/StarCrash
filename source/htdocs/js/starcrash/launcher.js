@@ -47,7 +47,7 @@ define([
 					// level-file and the needed assets are loaded
 					uiController.injectUI(self._gameContainerId, function() {
 						// game-screen html-elements are added to dom
-						new GameController(levelInstance, graphics);
+						new GameController(levelInstance, graphics, uiController);
 					});
 				});
 			});

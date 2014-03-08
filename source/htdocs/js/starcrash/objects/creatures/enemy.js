@@ -28,10 +28,10 @@ define([
 		this.setEquipedWeapon(new Weapon());
 
 		this._AI_CONFIG = {
-			MOVEMENT_INITIATIVE : 100,
+			MOVEMENT_INITIATIVE : 10,
 			MOVEMENT_CHANGE : 0.90,
 
-			TURN_INITIATIVE : 10,
+			TURN_INITIATIVE : 1,
 			TURN_CHANGE : 0.60
 		};
 

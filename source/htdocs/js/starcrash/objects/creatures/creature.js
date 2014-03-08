@@ -250,6 +250,11 @@ define([
 	};
 
 
+	Creature.prototype.getHealth = function() {
+		return this._attributes.health;
+	}
+
+
 
 	// Static stuff
 	Creature.MOVEMENT = {
