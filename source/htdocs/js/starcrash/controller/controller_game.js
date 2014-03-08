@@ -94,7 +94,7 @@ define([
 				var laserStartPosition = self._player.getAbsoluteWeaponPosition();
 
 
-				var shootDirection = self._player.getFacingDirection();
+				var shootDirection = self._player.getOffsetToMove(Creature.MOVEMENT.FORWARDS);
 				var shootRayCaster = new THREE.Raycaster(laserStartPosition, shootDirection, 0, weaponRange);
 				// TODO : do not check intersections for the whole scene.. only check objects that are in the direction.
 				var intersectObjects = shootRayCaster.intersectObjects(pGraphics.scene.children, true);
@@ -171,18 +171,7 @@ define([
 			nextX,
 			nextZ;
 
-		if (direction == Creature.MOVEMENT.BACKWARDS) {
-			facingDirection = creature.getFacingDirection(false).negate();
-		}
-		if ((direction == Creature.MOVEMENT.FORWARDS)) {
-			facingDirection = creature.getFacingDirection(false);
-		}
-		if ((direction == Creature.MOVEMENT.STRAFE_LEFT)) {
-			// todo implementation
-		}
-		if ((direction == Creature.MOVEMENT.STRAFE_LEFT)) {
-			// todo implementation
-		}
+		facingDirection = creature.getOffsetToMove(direction);
 
 		if (facingDirection != null) {
 			nextX = creature.getGridPosition().x + facingDirection.x;

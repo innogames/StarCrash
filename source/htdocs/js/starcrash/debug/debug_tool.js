@@ -1,11 +1,13 @@
 define([
 		"THREE",
 		"starcrash/debug/fly_controls",
-		"starcrash/static/config"
+		"starcrash/static/config",
+		"starcrash/objects/creatures/creature"
 	], function(
 		THREE,
 		FlyControls,
-		config
+		config,
+		Creature
 	) {
 
 	return {
@@ -71,7 +73,7 @@ define([
 			this.flyControls.update(delta);
 			this.domPlayerPosition.innerHTML = "position x:" + this.player.position.x + " y:" + this.player.position.y + " z:" + this.player.position.z;
 
-			var direction = this.player.getFacingDirection(false);
+			var direction = this.player.getOffsetToMove(Creature.MOVEMENT.FORWARDS);
 			if (direction != null) {
 				this.domPlayerDirection.innerHTML = "facing x:" + direction.x + " y:" + direction.y + " z:" + direction.z;
 			} else {

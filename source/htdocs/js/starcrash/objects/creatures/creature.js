@@ -125,13 +125,27 @@ define([
 
 
 	/**
-	 * Gets a normal vector of the direction the player is facing.
+	 * Gets a grid offset to move in the assigned direction.
 	 * @returns THREE.Vector3 A normal vector of the direction the player is facing.
 	 */
-	Creature.prototype.getFacingDirection = function(showErrorMessage) {
+	Creature.prototype.getOffsetToMove = function(creatureMovement) {
 
-		// calculate rotation to fit to the values 0, 1.57, 3.14 or 4.71
-		var modulatedRotation = this.rotation.y % (Math.PI * 2);
+		var modulatedRotation = this.rotation.y;
+		if (creatureMovement == Creature.MOVEMENT.STRAFE_LEFT) {
+			modulatedRotation -= Math.PI / 2;
+		} else if (creatureMovement == Creature.MOVEMENT.STRAFE_RIGHT) {
+			modulatedRotation += Math.PI / 2;
+		} else if (creatureMovement == Creature.MOVEMENT.BACKWARDS) {
+			modulatedRotation += Math.PI;
+		} else if (creatureMovement == Creature.MOVEMENT.FORWARDS){
+			modulatedRotation += 0;
+		} else {
+			console.log("[Creature] Can not calculate 'offset to move' from parameter: " + creatureMovement);
+			return null;
+		}
+
+		// calculate the current rotation to fit to the values 0, 1.57, 3.14 or 4.71
+		modulatedRotation = modulatedRotation % (Math.PI * 2);
 		modulatedRotation = Math.round((modulatedRotation) * 100) / 100;
 		if (modulatedRotation < 0) {
 			modulatedRotation =  Math.round((6.28 + modulatedRotation) * 100) / 100;
@@ -146,8 +160,7 @@ define([
 		} else if (modulatedRotation == 4.71) { // Math.PI + (Math.PI / 2)
 			return new THREE.Vector3(1, 0, 0);
 		} else {
-
-			if (showErrorMessage) console.error("Creature got undefined facing direction: " + modulatedRotation);
+			console.log("[Creature] Can not calculate 'offset to move' from rotation: " + modulatedRotation);
 			return null;
 		}
 	};
@@ -187,7 +200,7 @@ define([
 	 * Posts the EVENT_CREATURE_MOVED
 	 */
 	Creature.prototype.moveForwards = function() {
-		var facingDirection = this.getFacingDirection(),
+		var facingDirection = this.getOffsetToMove(Creature.MOVEMENT.FORWARDS),
 			movementOffset,
 			self = this;
 
@@ -207,12 +220,11 @@ define([
 	 * Posts the EVENT_CREATURE_MOVED
 	 */
 	Creature.prototype.moveBackwards = function() {
-		var facingDirection = this.getFacingDirection(),
+		var facingDirection = this.getOffsetToMove(Creature.MOVEMENT.BACKWARDS),
 			movementOffset,
 			self = this;
 
 		// invert facing direction to move backwards
-		facingDirection.negate();
 		movementOffset = facingDirection.clone();
 		movementOffset.setLength(config.gridCellSize);
 
