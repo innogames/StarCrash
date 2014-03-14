@@ -74,6 +74,12 @@ define([
 		return this._aggroTarget;
 	};
 
+	Enemy.prototype.resetActionPoints = function() {
+		this._AIStatus.movementInitiativeCount = 0;
+		this._AIStatus.turnInitiativeCount = 0;
+
+	};
+
 
 	Enemy.prototype.act = function() {
 		var self = this;

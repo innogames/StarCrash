@@ -164,7 +164,8 @@ define([
 				laserPosition.y = 50;
 				var beamAnimation = new LaserBeamAnimation(laserPosition, pEnemy.rotation, 10000, 0x0000FF, self._graphics, null);
 				self._graphics.addAnimation(beamAnimation, true);
-				pEnemy.getAggroTarget().dealDamage(30);
+				pEnemy.resetActionPoints();
+				bus.post(bus.EVENT_CREATURE_WAS_ATTACKED, pEnemy.getAggroTarget(), pEnemy);
 			}
 		});
 
