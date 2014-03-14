@@ -120,8 +120,7 @@ define([
 				var laserBeamLength = laserTargetPosition.clone().sub(laserStartPosition).length();
 
 				if (hitTarget.object instanceof EnemyClass) {
-					hitTarget.object.dealDamage(weapon.getDamage());
-					hitTarget.object.setAggroTarget(self._player);
+					bus.post(bus.EVENT_CREATURE_WAS_ATTACKED, hitTarget.object, self._player);
 				}
 
 				if (resourceStore.getAudio("audio_laser") != null) {
@@ -143,14 +142,29 @@ define([
     		}
 		});
 
+		bus.subscribe(bus.EVENT_CREATURE_WAS_ATTACKED, function(victim, attacker) {
+			victim.dealDamage(attacker.getEquipedWeapon().getAttributes().damage);
+
+			if (victim instanceof EnemyClass) {
+				victim.setAggroTarget(attacker);
+			}
+
+		});
+
 
 		bus.subscribe(bus.ATTEMPT_AI_ENEMY_MOVE, function(pEnemy) {
 			if (!pEnemy.isMoving() && self.canCreatureMoveInDirection(pEnemy, Creature.MOVEMENT.FORWARDS)) {
 					pEnemy.move(Creature.MOVEMENT.FORWARDS);
+			}
+		});
 
-					if(self.canCreatureAttackCreature(pEnemy, self._player)) {
-						console.log("Creature attacks", pEnemy);
-					}
+		bus.subscribe(bus.ATTEMPT_AI_ENEMY_ATTACK, function(pEnemy) {
+			if(self.canCreatureAttackCreature(pEnemy, pEnemy.getAggroTarget())) {
+				var laserPosition = pEnemy.position.clone();
+				laserPosition.y = 50;
+				var beamAnimation = new LaserBeamAnimation(laserPosition, pEnemy.rotation, 10000, 0x0000FF, self._graphics, null);
+				self._graphics.addAnimation(beamAnimation, true);
+				pEnemy.getAggroTarget().dealDamage(30);
 			}
 		});
 

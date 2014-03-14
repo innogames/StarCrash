@@ -66,7 +66,9 @@ define([
 		// TODO: get the enemies from the level.
 		this._enemies.push(new Enemy(0, -5, "myEnemyId1"));
 		this._enemies.push(new Enemy(5, -1, "myEnemyId2"));
-		this._enemies.push(new Enemy(0, -3, "myEnemyId3"));
+
+		var enemyDirection = new THREE.Vector3(0, 0, 1);
+		this._enemies.push(new Enemy(0, -3, "myEnemyId3", enemyDirection));
 
 
 		for (i = 0; i < this._enemies.length; i++) {

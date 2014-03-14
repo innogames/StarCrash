@@ -19,8 +19,8 @@ define([
 	) {
 
 
-	var Enemy = function(pGridX, pGridZ, pGameId) {
-		Creature.call(this, pGridX, pGridZ, pGameId);
+	var Enemy = function(pGridX, pGridZ, pGameId, pDirection) {
+		Creature.call(this, pGridX, pGridZ, pGameId, pDirection);
 		this.name = "An Enemy";
 
 		this._aggroTarget = null;
@@ -70,8 +70,13 @@ define([
 		this._aggroTarget = target;
 	};
 
+	Enemy.prototype.getAggroTarget = function() {
+		return this._aggroTarget;
+	};
+
 
 	Enemy.prototype.act = function() {
+		var self = this;
 
 		this._AIStatus.movementInitiativeCount++;
 		this._AIStatus.turnInitiativeCount++;
@@ -96,7 +101,7 @@ define([
 			if (weapon != null) {
 				var didTrigger = weapon.tryTrigger();
 				if (didTrigger == true) {
-					console.log("enemy " + this.getGameId() + " tries to trigger its weapon");
+					bus.post(bus.ATTEMPT_AI_ENEMY_ATTACK, self);
 				}
 			}
 		}

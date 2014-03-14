@@ -27,8 +27,11 @@ define([], function() {
 		EVENT_CREATURE_MOVED : "creature/moved", // @param Creature
 		EVENT_CREATURE_TURNED : "creature/turned", // @param Creature
 
-		ATTEMPT_AI_ENEMY_MOVE : "attempt/at_enemy_move",
-		ATTEMPT_AI_ENEMY_TURN : "attempt/at_enemy_turn",
+		EVENT_CREATURE_WAS_ATTACKED : "creature/was_attacked", // @param [Creature, Creature (attacker)]
+
+		ATTEMPT_AI_ENEMY_MOVE : "attempt/ai_enemy_move",
+		ATTEMPT_AI_ENEMY_TURN : "attempt/ai_enemy_turn",
+		ATTEMPT_AI_ENEMY_ATTACK : "attempt/ai_enemy_attack", // @param Creature
 
 
 		subscribe: function subscribe(eventName, callback) {
@@ -45,13 +48,25 @@ define([], function() {
 
 		post: function(eventName, parameter) {
 			var listeners,
+				param1 = null,
+				param2 = null,
 				i;
+
+			if (arguments.length > 2) {
+				param1 = arguments[1];
+				param2 = arguments[2];
+			}
 
 			if (self.eventToListenersMap[eventName]) {
 				listeners = self.eventToListenersMap[eventName];
 				if (listeners) {
 					for(i = 0; i < listeners.length; i++) {
-						listeners[i](parameter);
+						if (param1 != null && param2 != null) {
+							listeners[i](param1, param2);
+						} else {
+							listeners[i](parameter);
+						}
+
 					}
 					//console.log("[BUS] " + eventName + " posted to " + listeners.length + " listeners.");
 				}

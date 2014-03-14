@@ -28,8 +28,8 @@ define([
 	 *
 	 * @constructor Creates a new player.
 	 */
-	var Player = function(gridStartX, gridStartZ, pGameId) {
-		Creature.call(this, gridStartX, gridStartZ, pGameId);
+	var Player = function(gridStartX, gridStartZ, pGameId, pDirection) {
+		Creature.call(this, gridStartX, gridStartZ, pGameId, pDirection);
 		this.name = "The Player";
 		this._animationCounter = 0;
 		this._camera = null;

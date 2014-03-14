@@ -19,7 +19,7 @@ define([
 	 * Inherit from this class ant override the _createModel function to use a custom model.
 	 * @constructor
 	 */
-	var Creature = function(gridX, gridZ, pGameId) {
+	var Creature = function(gridX, gridZ, pGameId, pDirection) {
 		THREE.Object3D.call(this);
 		this._gameId = pGameId;
 
@@ -49,6 +49,8 @@ define([
 			maxViewRangeCells : 10
 		};
 
+
+		this.setFacingDirection(pDirection);
 	};
 
 	/**
@@ -267,6 +269,27 @@ define([
 	 */
 	Creature.prototype.getAttributes = function() {
 		return this._attributes;
+	};
+
+	/**
+	 * Sets the facing direction.
+	 * @param facingDirection A normal vector that points in a direction.
+	 */
+	Creature.prototype.setFacingDirection = function(facingDirection) {
+		if (facingDirection != null) {
+			if (facingDirection.z == -1) {
+				this.rotation.y = 0;
+			}
+			if (facingDirection.x == -1) {
+				this.rotation.y = Math.PI / 2;
+			}
+			if (facingDirection.z == 1) {
+				this.rotation.y = Math.PI;
+			}
+			if (facingDirection.x == 1) {
+				this.rotation.y = Math.PI + (Math.PI / 2);
+			}
+		}
 	};
 
 
