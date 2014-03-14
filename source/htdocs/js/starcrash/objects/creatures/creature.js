@@ -28,7 +28,6 @@ define([
 		this.add(this._model);
 		this.setGridPosition(gridX, gridZ);
 		this._currentMoveAnimation = null;
-		this._currentTurnAtAnimation = null; // do not mix that up with a turning-animation.. it is not.
 
 		this._equipedWeapon = null;
 
@@ -36,7 +35,10 @@ define([
 
 		this._attributes = {
 			health : 100,
-			maxHealth : 100
+			maxHealth : 100,
+
+			movementSpeedMillis : 300,
+			turnSpeedMillis : 150
 		};
 
 	};
@@ -109,13 +111,13 @@ define([
 		if (!this.isMoving()) {
 			if (rotationOffset == null) {
 				// walk
-				this._currentMoveAnimation = new WalkAnimation(this, positionOffset, config.movementDurationMillis, function() {
+				this._currentMoveAnimation = new WalkAnimation(this, positionOffset, self._attributes.movementSpeedMillis, function() {
 					self._currentMoveAnimation = null;
 					if (callback != null) callback();
 				});
 			} else {
 				// turn
-				this._currentMoveAnimation = new TransformationAnimation(this, positionOffset, rotationOffset, config.movementDurationMillis, function() {
+				this._currentMoveAnimation = new TransformationAnimation(this, positionOffset, rotationOffset, self._attributes.turnSpeedMillis, function() {
 					self._currentMoveAnimation = null;
 					if (callback != null) callback();
 				});
@@ -218,10 +220,6 @@ define([
 			this._animationCounter = (this._animationCounter + 1) % (Math.PI * 2);
 			this._currentMoveAnimation.animate();
 
-		}
-
-		if (this._currentTurnAtAnimation != null) {
-			this._currentTurnAtAnimation.animate();
 		}
 	};
 
