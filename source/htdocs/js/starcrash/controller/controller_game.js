@@ -133,7 +133,7 @@ define([
 
 				if (laserTargetPosition != null) {
 					if (hitTarget.object instanceof EnemyClass) {
-						var impactAnimation = new EnemyLaserImpactAnimation(laserTargetPosition, shootDirection, self._graphics, null);
+						var impactAnimation = new EnemyLaserImpactAnimation(laserTargetPosition.clone(), shootDirection, self._graphics, null);
 						self._graphics.addAnimation(impactAnimation, true);
 					} else {
 						var impactAnimation = new LaserImpactAnimation(laserTargetPosition.clone(), shootDirection, self._graphics, null);

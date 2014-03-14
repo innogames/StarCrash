@@ -186,7 +186,7 @@ define(["THREE"], function(THREE) {
 		};
 
 		this.update = function( delta ) {
-
+			delta = 0.03;
 			var moveMult = delta * this.movementSpeed;
 			var rotMult = delta * this.rollSpeed;
 
