@@ -147,6 +147,10 @@ define([
 		bus.subscribe(bus.ATTEMPT_AI_ENEMY_MOVE, function(pEnemy) {
 			if (!pEnemy.isMoving() && self.canCreatureMoveInDirection(pEnemy, Creature.MOVEMENT.FORWARDS)) {
 					pEnemy.move(Creature.MOVEMENT.FORWARDS);
+
+					if(self.canCreatureAttackCreature(pEnemy, self._player)) {
+						console.log("Creature attacks", pEnemy);
+					}
 			}
 		});
 
@@ -179,6 +183,10 @@ define([
 		});
 
 		window.setInterval(this._logicLoop.bind(this), config.logicLoopIntervalMillis);
+
+
+		window.check = this.getCreatureViewCellPositions.bind(this);
+		window.player = this._player;
 	};
 
 
@@ -233,6 +241,60 @@ define([
 			}
 		}
 		return null;
+	};
+
+
+	/**
+	 * Returns true if a creature can attack another.
+	 * Takes care of the equipped weapon range, the view range and level walls.
+	 * @param attackCreature The creature to check if it can attack.
+	 * @param victimCreature The creature to attack.
+	 */
+	GameController.prototype.canCreatureAttackCreature = function(attackCreature, victimCreature) {
+		if (attackCreature instanceof Creature && victimCreature instanceof Creature) {
+			var cellPositionsInSight = this.getCreatureViewCellPositions(attackCreature);
+			if (cellPositionsInSight != null) {
+				for (var i = 0; i < cellPositionsInSight.length; i++) {
+					var tmpCellPosition = cellPositionsInSight[i];
+					if (tmpCellPosition.equals(victimCreature.getGridPosition())) {
+						return true;
+					}
+				}
+			}
+		} else {
+			console.log("[GameController] The arguments have to be instance of Creature.", attackCreature, victimCreature);
+		}
+		return false;
+	};
+
+
+	/**
+	 * Returns an array of cell positions that a creature can see.
+	 * Takes care of view range and facing direction.
+	 * @param creature The creature to get the view for.
+	 */
+	GameController.prototype.getCreatureViewCellPositions = function(creature) {
+		var self = this;
+		if (creature instanceof Creature) {
+			var returnValue = [];
+			var facingOffset = creature.getOffsetToMove(Creature.MOVEMENT.FORWARDS);
+			var viewRange = creature.getAttributes().viewRangeCells;
+
+			var tmpPosition1 = creature.getGridPosition().clone();
+			var tmpPosition2 = creature.getGridPosition().clone().add(facingOffset);
+
+			for (var i = 0; i < viewRange; i++) {
+				if (!self._level.isWallBetween(tmpPosition1.x, tmpPosition1.z, tmpPosition2.x, tmpPosition2.z)) {
+					returnValue.push(tmpPosition2.clone());
+				} else {
+					return returnValue;
+				}
+				tmpPosition1 = tmpPosition2.clone();
+				tmpPosition2.add(facingOffset);
+			}
+		} else {
+			console.log("[GameController] The argument have to be an instance of Creature.", creature);
+		}
 	};
 
 	return GameController;

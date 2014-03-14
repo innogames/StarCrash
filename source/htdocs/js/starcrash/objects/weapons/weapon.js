@@ -17,7 +17,9 @@ define([
 			lastShootTime : 0,
 			maxAmmo : 30,
 			ammo : 10,
-			damage : 40
+			damage : 40,
+
+			rangeCells : 10
 		}
 
 	};

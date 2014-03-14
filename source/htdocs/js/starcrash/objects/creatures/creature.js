@@ -37,8 +37,16 @@ define([
 			health : 100,
 			maxHealth : 100,
 
+
 			movementSpeedMillis : 300,
-			turnSpeedMillis : 150
+			maxMovementSpeedMillis : 300,
+
+
+			turnSpeedMillis : 150,
+			maxTurnSpeedMillis : 150,
+
+			viewRangeCells : 10,
+			maxViewRangeCells : 10
 		};
 
 	};
@@ -250,8 +258,16 @@ define([
 
 	Creature.prototype.getHealth = function() {
 		return this._attributes.health;
-	}
+	};
 
+
+	/**
+	 * Gets the creatures attributes.
+	 * @returns {*}
+	 */
+	Creature.prototype.getAttributes = function() {
+		return this._attributes;
+	};
 
 
 	// Static stuff
