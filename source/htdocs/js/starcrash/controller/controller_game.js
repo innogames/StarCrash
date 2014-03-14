@@ -153,11 +153,23 @@ define([
 
 		bus.subscribe(bus.ATTEMPT_AI_ENEMY_TURN, function(pEnemy) {
 			if (!pEnemy.isMoving() && !self.canCreatureMoveInDirection(pEnemy, Creature.MOVEMENT.FORWARDS)) {
-				if (Math.random() > 0.5) {
-					pEnemy.turnLeft();
+
+				var canMoveLeft = self.canCreatureMoveInDirection(pEnemy, Creature.MOVEMENT.STRAFE_LEFT);
+				var canMoveRight = self.canCreatureMoveInDirection(pEnemy, Creature.MOVEMENT.STRAFE_RIGHT);
+
+				if ((canMoveLeft && canMoveRight) || (!canMoveLeft && ! canMoveRight)) {
+					if (Math.random() > 0.5) pEnemy.turnLeft();
+					else pEnemy.turnRight();
 				} else {
-					pEnemy.turnRight();
+					if (canMoveLeft) {
+						pEnemy.turnLeft();
+					}
+					if (canMoveRight) {
+						pEnemy.turnRight();
+					}
 				}
+
+
 			}
 		});
 
