@@ -1,13 +1,6 @@
 function init() {
 
 	// Init buttons
-//	$("#test").click(function(){
-//		crafting.webdb.addToInventory(11, 1, true);
-//	});
-//	$("#test1").click(function(){
-//		crafting.webdb.removeFromInventory(11, 1, true);
-//	});
-
 	$("#randomA").click(function(){
 		crafting.webdb.addRandomItem('A');
 	});
@@ -32,6 +25,14 @@ function init() {
 	crafting.webdb.getAllItems();
 	crafting.webdb.getMyItems();
 	crafting.webdb.getRecipes();
+
+	$('#body').droppable({
+                       drop: function( event, ui ) {
+						   var item = $(ui.draggable);
+						   $(this).html(item);
+                           }
+                       });
+
 }
 
 
@@ -85,7 +86,7 @@ crafting.webdb.deleteDB = function(id) {
 
     tx.executeSql("DROP TABLE item",		[], crafting.webdb.onSuccess, crafting.webdb.onError);
 	tx.executeSql("DROP TABLE inventory",	[], crafting.webdb.onSuccess, crafting.webdb.onError);
-	tx.executeSql("DROP TABLE recipes",	[], crafting.webdb.onSuccess, crafting.webdb.onError);
+	tx.executeSql("DROP TABLE recipes",		[], crafting.webdb.onSuccess, crafting.webdb.onError);
 
   });
 };
@@ -285,6 +286,9 @@ crafting.webdb.showInventoryItem = function (itemID, goal) {
 			for(var i=0; i < results.rows.length; i++) {
 				goal.innerHTML += renderInventory(results.rows.item(i));
 			}
+
+			$( ".equipable" ).draggable({revert: true, containment: "main", helper: "clone"});
+
 		},crafting.webdb.onError);
 	});
 };
@@ -335,14 +339,17 @@ function renderItem(row) {
 
 function renderInventory(row) {
 	var special="";
+	var special2="";
 	if(row.number === 0){
 		return "";
 	}
 	else{
 		if(row.special === "consumable"){
 			special='<a href="#" onclick="crafting.webdb.consumeItem('+row.itemID + ', \'' +row.name + '\', '+ row.value+')">use</a>';
+		}else if(row.special === "equipable"){
+			special2='class="equipable"';
 		}
-		return '<li><i class="item ' + row.class + ' "><span class="num">' + row.number + '</span><span class="name">' + row.name + ' ' + special + '</span></i></li>';
+		return '<li ' + special2 + '><i class="item ' + row.class + ' "><span class="num">' + row.number + '</span><span class="name">' + row.name + ' ' + special + '</span></i></li>';
 	}
 }
 

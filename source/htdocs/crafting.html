@@ -2,6 +2,7 @@
 <head>
     <title>StarCrash - Crafting</title>
     <script type="text/javascript" src="js/libs/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/libs/jquery-ui-1.10.4.custom.min.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/crafting.css" media="screen, projection" />
 	<link type="text/css" rel="stylesheet" href="css/items.css" media="screen, projection" />
 	<link href='http://fonts.googleapis.com/css?family=Orbitron:400,500,700' rel='stylesheet' type='text/css'>
@@ -9,25 +10,43 @@
 	<script type="text/javascript" src="js/_crafting/_crafting.js"></script>
 </head>
 <body onload="init();">
-	<h1>Crafting</h1>
+	<header>
+		<h1>Crafting</h1>
+	</header>
 
-	<div id="recipesBox" class='box'>
-		<h2>Recipes</h2>
-		<div id="recipes" class='inner_box'></div>
-	</div>
+	<main>
+		<div>
 
-	<div id="inventoryBox" class='box'>
-		<h2>My Items</h2>
-		<ul id="inventory" class='inner_box'></ul>
-		<button id="randomA">Add Item DropGroup A</button>
-		<button id="randomB">Add Item DropGroup B</button>
-		<button id="randomC">Add Item DropGroup C</button>
-	</div>
+			<div id="recipesBox" class='box'>
+				<h2>Recipes</h2>
+				<div id="recipes" class='inner_box'></div>
+			</div>
 
-	<div id="allItems" class="box">
-		<h2>All Items</h2>
-		<ul id="itemlist" class='inner_box'></ul>
-	</div>
+			<div id="inventoryBox" class='box'>
+				<h2>My Items</h2>
+				<ul id="inventory" class='inner_box'></ul>
+				<button id="randomA">Add Item DropGroup A</button>
+				<button id="randomB">Add Item DropGroup B</button>
+				<button id="randomC">Add Item DropGroup C</button>
+			</div>
+
+			<div id="equip" class="box">
+				<h2>Equipment</h2>
+				<div id="equipSlots">
+					<div id="head">Head</div>
+					<div id="body">Body</div>
+					<div id="left_hand">Hand, left</div>
+					<div id="right_hand">Hand, right</div>
+					<div id="feet">Feet</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="allItems" class="box">
+			<h2>Item Library</h2>
+			<ul id="itemlist" class='inner_box'></ul>
+		</div>
+	</main>
 
 	<footer>
 		<p>Icons made by <a href="http://www.flaticon.com/authors/freepik">Feepik from Flaticon.com</a></p>

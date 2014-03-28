@@ -4,12 +4,29 @@ body{
 	padding: 10px;
 }
 
-.available{
-	color: #50A350;
+*{
+	box-sizing: border-box;
 }
-.notAvailable{
-	color: #D46D6D;
+
+main > div{
+	display: flex;
+	flex-wrap: wrap;
 }
+
+#recipesBox{
+	flex: 1 1 400px;
+}
+
+#inventoryBox{
+	flex: 1 1 250px;
+}
+
+#equip{
+	flex: 1 1 250px;
+}
+
+.available		{ color: #50A350; }
+.notAvailable	{ color: #D46D6D; }
 
 li i[class^="icon-"],
 li i[class*=" icon-"],
@@ -25,7 +42,7 @@ li .item{
 	position: relative;
 	margin-bottom: 36px;
 	background-size: 90%;
-background-position: center center;
+	background-position: center center;
 }
 
 li i.icon-arrow-right{
@@ -48,9 +65,9 @@ li .name{
 	position: absolute;
 	font-size: 12px;
 	font-family: monospace;
-	top: 62px;
+	top: 50px;
 	left: 0;
-	width: 62px;
+	width: 50px;
 }
 
 li i .num{
@@ -71,7 +88,6 @@ ul, h2{
 }
 
 ul{
-	overflow: auto;
 	margin-bottom: 20px;
 }
 
@@ -85,18 +101,11 @@ button{
 }
 
 .box{
-	float: left;
-	margin-right: 20px;
+	margin: 10px;
 	border: solid 2px #808080;
 	border-radius: 5px;
 	padding: 10px 20px;
-	width: 520px;
 	background: #CBD6DB;
-	overflow: auto;
-}
-
-.inner_box{
-	width: 500px;
 }
 
 .iteminfo{
@@ -133,6 +142,51 @@ li:hover .iteminfo{
 .iteminfo dd {
 	display: inline-block;
 	width: 35px;
+}
+
+#equipSlots{
+	position: relative;
+	min-height: 240px;
+}
+
+#equipSlots div{
+	border: solid 1px grey;
+	width: 50px;
+	height: 50px;
+	position: absolute;
+}
+
+#equipSlots #head{
+	top: 0;
+	left: 50%;
+	margin-left: -25px;
+}
+
+#equipSlots #body{
+	top: 60px;
+	left: 50%;
+	margin-left: -50px;
+	width: 100px;
+	height: 110px;
+}
+
+#equipSlots #left_hand{
+	top: 75px;
+	left: 50%;
+	margin-left: -105px;
+}
+
+#equipSlots #right_hand{
+	top: 75px;
+	left: 50%;
+	margin-left: 58px;
+}
+
+#equipSlots #feet{
+	top: 180px;
+	left: 50%;
+	margin-left: -40px;
+	width: 80px;
 }
 
 footer{
