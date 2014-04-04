@@ -87,17 +87,24 @@ ul, h2{
 	padding: 0;
 }
 
+h2{
+	margin: 0 0 10px 0;
+	width: 100%;
+}
+
 ul{
 	margin-bottom: 20px;
 }
 
 button{
 	font-family: 'Orbitron', sans-serif;
-	width: 80px;
+	width: 100px;
 	padding: 2px;
+	margin: 2px;
 	height: 60px;
 	font-weight: 700;
 	font-size: 12px;
+	border-radius: 5px;
 }
 
 .box{
@@ -106,6 +113,13 @@ button{
 	border-radius: 5px;
 	padding: 10px 20px;
 	background: #CBD6DB;
+}
+
+.box ul{
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+	user-select: none;
 }
 
 .iteminfo{
@@ -126,6 +140,12 @@ button{
 
 li:hover .iteminfo{
 	display:block;
+}
+
+li.equipable,
+li.armor{
+	cursor: -webkit-grab;
+	cursor: -moz-grab;
 }
 
 .iteminfo h3{
@@ -151,15 +171,22 @@ li:hover .iteminfo{
 
 #equipSlots div{
 	border: solid 1px grey;
-	width: 50px;
-	height: 50px;
+	width: 60px;
+	height: 60px;
 	position: absolute;
+	border-radius: 5px;
+	font-family: monospace;
+	text-align: center;
+}
+
+#equipSlots  div.hover{
+	border: solid 1px #000;
 }
 
 #equipSlots #head{
-	top: 0;
+	top: -10px;
 	left: 50%;
-	margin-left: -25px;
+	margin-left: -30px;
 }
 
 #equipSlots #body{
@@ -173,7 +200,7 @@ li:hover .iteminfo{
 #equipSlots #left_hand{
 	top: 75px;
 	left: 50%;
-	margin-left: -105px;
+	margin-left: -118px;
 }
 
 #equipSlots #right_hand{

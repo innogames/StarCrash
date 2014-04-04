@@ -26,10 +26,23 @@ function init() {
 	crafting.webdb.getMyItems();
 	crafting.webdb.getRecipes();
 
-	$('#body').droppable({
-                       drop: function( event, ui ) {
-						   var item = $(ui.draggable);
-						   $(this).html(item);
+	$('#left_hand, #right_hand').droppable({
+						accept: ".equipable",
+						hoverClass: "hover",
+						drop: function( event, ui ) {
+							var item = $(ui.draggable).clone();
+							item.find(".num").remove();
+							$(this).html(item);
+							}
+						});
+
+	$('#body, #head, #feet').droppable({
+					  accept: ".armor",
+					  hoverClass: "hover",
+                      drop: function( event, ui ) {
+							var item = $(ui.draggable).clone();
+							item.find(".num").remove();
+							$(this).html(item);
                            }
                        });
 
@@ -288,6 +301,7 @@ crafting.webdb.showInventoryItem = function (itemID, goal) {
 			}
 
 			$( ".equipable" ).draggable({revert: true, containment: "main", helper: "clone"});
+			$( ".armor" ).draggable({revert: true, containment: "main", helper: "clone"});
 
 		},crafting.webdb.onError);
 	});
@@ -348,6 +362,8 @@ function renderInventory(row) {
 			special='<a href="#" onclick="crafting.webdb.consumeItem('+row.itemID + ', \'' +row.name + '\', '+ row.value+')">use</a>';
 		}else if(row.special === "equipable"){
 			special2='class="equipable"';
+		}else if(row.special === "armor"){
+			special2='class="armor"';
 		}
 		return '<li ' + special2 + '><i class="item ' + row.class + ' "><span class="num">' + row.number + '</span><span class="name">' + row.name + ' ' + special + '</span></i></li>';
 	}

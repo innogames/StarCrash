@@ -2,10 +2,10 @@
 
 
 /* List Items here:
-			| ID	| Name		   | css class	   | damage min  | damage max | drop  | special | value */
+			| ID	| Name		   | css class	   | damage min  | damage max | drop  | special     | value */
 
 var items = [[	1,	'Pipe',			'pipe',			2,				10,			"A",	"equipable",	0 ],
-			 [	2,	'Cloth',		'cloth',		1,				2,			"A",	"equipable",	0 ],
+			 [	2,	'Cloth',		'cloth',		1,				2,			"A",	"armor",		1 ],
 			 [	3,	'Stone',		'stone',		2,				6,			"A",	"equipable",	0 ],
 			 [	4,	'Barbed Wire',	'wire',			2,				4,			"A",	"equipable",	0 ],
 			 [	8,	'Cord',			'cord',			1,				1,			"B",	"equipable",	0 ],
@@ -15,7 +15,7 @@ var items = [[	1,	'Pipe',			'pipe',			2,				10,			"A",	"equipable",	0 ],
 			 [	13,	'Flashlight',	'flashlight',	2,				5,			"B",	"equipable",	0 ],
 			 [	14,	'Nail',			'nail',			2,				4,			"A",	"equipable",	0 ],
 			 [	16,	'Backpack',		'backpack',		1,				3,			"A",	"armor",		5 ],
-			 [	18,	'Syringe',		'syringe',		1,				5,			"C",	"equipable",	 ],
+			 [	18,	'Syringe',		'syringe',		1,				5,			"C",	"equipable",	0 ],
 			 [	19,	'Flexible Tube','tube',			1,				1,			"C",	"equipable",	0 ],
 			 [	21,	'First Aid Kit','firstAid',		2,				4,			"C",	"consumable", 100 ],
 			 [	22,	'Drugs',		'drugs',		1,				3,			"C",	"consumable",  25 ],
