@@ -77,7 +77,7 @@ define([
 			config.player.graphics.headOffset.z);
 		this.add(this._camera);
 
-		var spotLight = new THREE.SpotLight(0xFFFFFF, 2);
+		var spotLight = new THREE.SpotLight(0xCCAA40, 2);
 
 		spotLight.position.set(
 			config.player.graphics.spotLightOffset.x,
@@ -99,7 +99,7 @@ define([
 		returnModel.add(target);
 		spotLight.target = target;
 
-		var pointLight = new THREE.PointLight(0xFFFFFF, 0.5);
+		var pointLight = new THREE.PointLight(0xCCAA40, 0.5);
 
 		pointLight.position.set(
 			config.player.graphics.headOffset.x,
