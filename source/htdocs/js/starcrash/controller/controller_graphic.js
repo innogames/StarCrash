@@ -232,7 +232,7 @@ define([
 		renderer.setScissor( left, bottom, width, height );
 		renderer.enableScissorTest(true);
 		//renderer.setClearColor(camera.viewportSettings.backgroundColor, 0.1);
-		renderer.setClearColor( 0xffffff, 1);
+		renderer.setClearColor( 0x000000, 0.1);
 
 		camera.aspect = width / height;
 	};
