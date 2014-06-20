@@ -14,8 +14,8 @@ define([
 			// KEYBOARD-Controls ===================================================================
 			document.addEventListener("keydown", function(e) {
 
-				if (e.keyCode == 37 && e.ctrlKey) { bus.post(bus.EVENT_INPUT_STRAFE_LEFT); return; }
-				if (e.keyCode == 39 && e.ctrlKey) { bus.post(bus.EVENT_INPUT_STRAFE_RIGHT); return; }
+				if (e.keyCode == 37 && (e.ctrlKey || e.shiftKey)) { bus.post(bus.EVENT_INPUT_STRAFE_LEFT); return; }
+				if (e.keyCode == 39 && (e.ctrlKey || e.shiftKey)) { bus.post(bus.EVENT_INPUT_STRAFE_RIGHT); return; }
 
 				if (e.keyCode == 37) { bus.post(bus.EVENT_INPUT_TURN_LEFT); return; }
 				if (e.keyCode == 38) { bus.post(bus.EVENT_INPUT_MOVE_FORWARDS); return; }
