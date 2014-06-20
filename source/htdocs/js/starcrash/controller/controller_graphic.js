@@ -32,7 +32,7 @@ define([
 
 		this.viewPortContainer = document.getElementById(config.viewPortContainerId);
 
-		this.mainCamera = new THREE.PerspectiveCamera(60, config.renderSize.width / config.renderSize.height, 1, 10000);
+		this.mainCamera = new THREE.PerspectiveCamera(60, config.renderSize.width / config.renderSize.height, 1, config.farSight);
 		this.mainCamera.position.set(0, 0, 0);
 		this.mainCamera.up.set(0, 1 ,0);
 		this.mainCamera.rotation.set(0, 0, 0);
@@ -46,7 +46,7 @@ define([
 		this.mainCamera.receiveShadow = true;
 
 
-		this.mapCamera = new THREE.OrthographicCamera( config.renderSize.width / - 2, config.renderSize.width / 2, config.renderSize.height / 2, config.renderSize.height / - 2, 0, 10000 );
+		this.mapCamera = new THREE.OrthographicCamera( config.renderSize.width / - 2, config.renderSize.width / 2, config.renderSize.height / 2, config.renderSize.height / - 2, 1, config.farSight );
 		//this.mapCamera = new THREE.PerspectiveCamera(60, this.renderSize.width / this.renderSize.height, 1, 10000);
 		this.mapCamera.position.set(0, config.mapViewElementsY + 1, 0);
 		this.mapCamera.up.set(0, 1 , 0);
@@ -104,8 +104,65 @@ define([
 			window.engine = this;
 		}
 
-		this.scene.fog = new THREE.FogExp2( 0x333333, config.fogDensity );
+		//this.scene.fog = new THREE.FogExp2( 0x333333, config.fogDensity );
+		this._initSkyBox();
 	};
+
+	GraphicController.prototype._initSkyBox = function() {
+		var urls = [
+			'img/textures/skybox/skybox_universe_pos_x.jpg',
+			'img/textures/skybox/skybox_universe_neg_x.jpg',
+			'img/textures/skybox/skybox_universe_pos_y.jpg',
+			'img/textures/skybox/skybox_universe_neg_y.jpg',
+			'img/textures/skybox/skybox_universe_pos_z.jpg',
+			'img/textures/skybox/skybox_universe_neg_z.jpg'
+		];
+
+
+		urls = [
+			'img/textures/skybox/posx.png',
+			'img/textures/skybox/negx.png',
+			'img/textures/skybox/posy.png',
+			'img/textures/skybox/negy.png',
+			'img/textures/skybox/posz.png',
+			'img/textures/skybox/negz.png'
+		];
+
+		var cubemap = THREE.ImageUtils.loadTextureCube(urls);
+		cubemap.format = THREE.RGBFormat;
+
+		var shader = THREE.ShaderLib['cube'];
+
+		shader.uniforms['tCube'].value = cubemap;
+
+		var skyBoxMaterial = new THREE.ShaderMaterial( {
+			fragmentShader: shader.fragmentShader,
+			vertexShader: shader.vertexShader,
+			uniforms: shader.uniforms,
+			depthWrite: false,
+			side: THREE.BackSide,
+			receiveShadow: false
+		});
+
+		var skybox = new THREE.Mesh(
+			new THREE.CubeGeometry(config.farSight - 10, config.farSight - 10, config.farSight - 10),
+			skyBoxMaterial
+		);
+
+
+		var geometry = new THREE.PlaneGeometry( config.farSight, config.farSight);
+
+
+		var texture = THREE.ImageUtils.loadTexture("img/textures/skybox/skybox_universe_neg_y.jpg");
+		var material = new THREE.MeshLambertMaterial({map: texture});
+		var floor = new THREE.Mesh( geometry, material );
+		floor.rotation.x = -Math.PI / 2;
+
+		this.scene.add(skybox);
+		this.scene.add(floor);
+
+	};
+
 
 	GraphicController.prototype.animationCallback = function() {
 		var animationsToRemoveList = [],
@@ -117,7 +174,7 @@ define([
 			// use debug camera
 			camera = debugTool.debugCamera;
 			singletonInstance._debugAxisHelper.visible = true;
-			singletonInstance._debugGridHelper.visible = true;
+			singletonInstance._debugGridHelper.visible = config.debug_draw_grid;
 			if (singletonInstance.scene.fog != null) {
 				singletonInstance.scene.fog.density = 0;
 			}
@@ -174,7 +231,8 @@ define([
 		renderer.setViewport(left, bottom, width, height );
 		renderer.setScissor( left, bottom, width, height );
 		renderer.enableScissorTest(true);
-		renderer.setClearColor(camera.viewportSettings.backgroundColor, 0.1);
+		//renderer.setClearColor(camera.viewportSettings.backgroundColor, 0.1);
+		renderer.setClearColor( 0xffffff, 1);
 
 		camera.aspect = width / height;
 	};

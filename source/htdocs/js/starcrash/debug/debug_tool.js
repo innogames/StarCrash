@@ -29,7 +29,7 @@ define([
 
 			this.player = pPlayer;
 			this.level = pLevel;
-			this.debugCamera = new THREE.PerspectiveCamera(60, config.renderSize.width / config.renderSize.height, 1, 4096);
+			this.debugCamera = new THREE.PerspectiveCamera(60, config.renderSize.width / config.renderSize.height, 1, config.farSight);
 			this.debugCamera.viewportSettings = pCamera.viewportSettings;
 			this.debugCamera.position = pCamera.position.clone();
 			this.debugCamera.up.set(0, 1 ,0);

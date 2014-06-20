@@ -5,13 +5,21 @@ define([], function() {
 
 		gridCellSize : 100.0,
 		movementDurationMillis : 300,
+
 		debug: true,
+		debug_draw_grid: false,
+
+
 		mapViewElementsY: 100,
 
 		renderSize : { "width" : window.innerWidth, "height" : window.innerHeight},
 		viewPortContainerId : "canvasContainer",
 
 		fogDensity : 0.002,
+
+		farSight : 1000000,
+
+
 
 		standardResources : [
 			"model_aim",
