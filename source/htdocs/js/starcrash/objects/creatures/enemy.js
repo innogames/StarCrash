@@ -25,7 +25,7 @@ define([
 
 		this._aggroTarget = null;
 
-		this.setEquipedWeapon(new Weapon());
+		this.setEquipedWeapon(new Weapon(3));
 
 		this._AI_CONFIG = {
 			MOVEMENT_INITIATIVE : 10,

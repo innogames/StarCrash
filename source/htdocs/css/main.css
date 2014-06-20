@@ -6,7 +6,7 @@ body {
     height:100%;
     position:absolute; top:0; bottom:0; right:0; left:0;
 	background-color: #001221;
-	font-family: arial;
+	font-family: 'Orbitron', sans-serif;
 	color: white;
 	background-image: url("../img/background.jpg");
 	background-repeat: no-repeat;

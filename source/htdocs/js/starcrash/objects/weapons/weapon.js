@@ -10,14 +10,17 @@ define([
 	config
 	) {
 
-	var Weapon = function() {
+	var Weapon = function(pDamage) {
+
+		pDamage = pDamage ? pDamage : 40;
+
 
 		this._attributes = {
 			coolDownMillis : 500,
 			lastShootTime : 0,
-			maxAmmo : 30,
-			ammo : 10,
-			damage : 40,
+			maxAmmo : 100,
+			ammo : 90,
+			damage : pDamage,
 
 			rangeCells : 10
 		}
