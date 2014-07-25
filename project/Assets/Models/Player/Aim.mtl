@@ -1,0 +1,13 @@
+# Blender MTL File: 'Aim.blend'
+# Material Count: 1
+newmtl Haut_Tex_Kopf.png
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.347640 0.240297
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd D:/Kreativ/Grafik/3D/Blender/Chars/Ari/Body/Tex_Kopf.png
+
+
