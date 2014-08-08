@@ -1,8 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlayerBehaviour.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/InputBehaviour.cs">
     <Files>
-      <File FileName="Assets/PlayerBehaviour.cs" Line="27" Column="6" />
+      <File FileName="Assets/PlayerBehaviour.cs" Line="42" Column="4" />
+      <File FileName="Assets/ElectroEffectBehaviour.cs" Line="18" Column="2" />
+      <File FileName="Assets/InputBehaviour.cs" Line="44" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
