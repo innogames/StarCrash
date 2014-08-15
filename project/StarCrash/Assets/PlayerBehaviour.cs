@@ -7,7 +7,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
 
 	public float rotationSpeed = 2f;
-	public float movementSpeed = 200f;
+	public float movementSpeed = 120f;
 
 	private Vector3 stepEffectOffset = new Vector3();
 	private float stepProgress = 0f;
@@ -24,25 +24,27 @@ public class PlayerBehaviour : MonoBehaviour
 
 	void Update () {
 
-		if (Input.GetKey ("up")) {
+		if (Input.GetKey ("w")) {
 			transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed);
 			stepProgress += stepSpeed;
 			ApplySteppEffect(stepProgress);
 		}
 
-		if (Input.GetKey ("down")) {
+		if (Input.GetKey ("s")) {
 			transform.Translate(Vector3.back * Time.deltaTime * movementSpeed);
 			stepProgress -= stepSpeed;
 			ApplySteppEffect(stepProgress);
 		}
 
 
-		if (Input.GetKey ("left")) {
-			transform.RotateAround(transform.position, Vector3.up, - rotationSpeed);
+		if (Input.GetKey ("a")) {
+			transform.Translate(Vector3.left * Time.deltaTime * movementSpeed);
+			//transform.RotateAround(transform.position, Vector3.up, - rotationSpeed);
 		}
 
-		if (Input.GetKey ("right")) {
-			transform.RotateAround(transform.position, Vector3.up, rotationSpeed);
+		if (Input.GetKey ("d")) {
+			transform.Translate(Vector3.right * Time.deltaTime * movementSpeed);
+			//transform.RotateAround(transform.position, Vector3.up, rotationSpeed);
 		}
 
 	}

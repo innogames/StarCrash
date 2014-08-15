@@ -50,6 +50,7 @@
      <Compile Include="Assets\InputBehaviour.cs" />
      <Compile Include="Assets\LevelBehaviour.cs" />
      <Compile Include="Assets\PlayerBehaviour.cs" />
+     <Compile Include="Assets\SimpleSmoothMouseLook.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
