@@ -42,9 +42,9 @@ public class InputBehaviour : MonoBehaviour {
 
 
 
-		Debug.DrawLine(muzzlePosition, laserTargetPosition, Color.blue, 1, true);
+		Debug.DrawLine(muzzlePosition, laserTargetPosition, Color.blue, 0.1f, true);
 
 	}
-
-
 }
+
+
