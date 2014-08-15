@@ -5,6 +5,8 @@ public class LevelBehaviour : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+
+		// Adding mesh collider for every level object.
 		Transform[] allChildren = GetComponentsInChildren<Transform>();
 		foreach (Transform child in allChildren) {
 			MeshCollider mc = child.gameObject.AddComponent(typeof(MeshCollider)) as MeshCollider;
