@@ -51,6 +51,13 @@
      <Compile Include="Assets\LevelBehaviour.cs" />
      <Compile Include="Assets\PlayerBehaviour.cs" />
      <Compile Include="Assets\SimpleSmoothMouseLook.cs" />
+ <Reference Include="Assembly-UnityScript-firstpass">
+ <HintPath>/Users/lucahofmann/innoday/StarCrash/project/StarCrash/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
+      <Project>{D56FBB15-7547-724E-D640-28B617BAB027}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
