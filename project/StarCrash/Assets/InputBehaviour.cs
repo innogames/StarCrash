@@ -3,9 +3,12 @@ using System.Collections;
 
 public class InputBehaviour : MonoBehaviour {
 
+	AudioSource laserAudio;
+
+
 	// Use this for initialization
-	void Start () {
-	
+	void Start () {	
+		laserAudio = GameObject.Find ("WeaponAudio").GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -20,8 +23,9 @@ public class InputBehaviour : MonoBehaviour {
 			}
 			Debug.Log(ray.direction);
 			Debug.DrawLine(ray.origin, ray.origin + ray.direction * 100, Color.green, 100, false);*/
-			Debug.Log("Fire");
 			Fire();
+
+			//laserAudio.Pla
 		}
 	}
 
@@ -56,7 +60,10 @@ public class InputBehaviour : MonoBehaviour {
 		detonator.direction = laserTargetPosition;
 		detonator.Explode ();
 
-
+		int ammo = GameObject.Find ("Weapon").GetComponent<WeaponBehaviour> ().ammo;
+		ammo = ammo - 1;
+		GameObject.Find ("Weapon").GetComponent<WeaponBehaviour> ().ammo = ammo;
+		laserAudio.Play();
 
 	}
 }
